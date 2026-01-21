@@ -6,5 +6,5 @@ module com.test.frontend {
     requires com.google.gson;
     requires atlantafx.base;
 
-    exports com.testing.frontend;
+    opens com.testing.frontend to javafx.fxml;
 }

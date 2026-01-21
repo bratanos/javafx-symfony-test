@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.testing.frontend.MainController"
+      spacing="20" alignment="CENTER">
+
+    <Label text="JavaFX + Symfony (Clean Setup)"/>
+</VBox>
