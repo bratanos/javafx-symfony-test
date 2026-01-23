@@ -21,4 +21,17 @@ class ProfileController extends AbstractController
             'roles' => $user->getRoles(),
         ]);
     }
+    
+    #[Route('/api/me', name: 'api_me', methods: ['GET'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function me(): JsonResponse
+    {
+        $user = $this->getUser();
+
+        return $this->json([
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'roles' => $user->getRoles(),
+        ]);
+    }
 }
