@@ -57,20 +57,19 @@ class AuthController extends AbstractController
         ], 201);
     }
 
-    #[Route('/login', name: 'api_login', methods: ['POST'])]
+    /* #[Route('/login', name: 'api_login', methods: ['POST'])]
     public function login(): void
     {
         // This will NEVER be executed
         // Symfony Security intercepts the request before this
         throw new \LogicException('This should never be reached.');
-        dd($this->getUser()->getRoles());
-    }
+        dd($this->getUser()->getRoles()); 
+    } */ //disabled for now will put back on later
     #[Route('/admin/test', methods: ['GET'])]
-public function adminTest(): JsonResponse
-{
-    return $this->json([
-        'message' => 'Hello admin 👑'
-    ]);
-}
-
+        public function adminTest(): JsonResponse
+            {
+                return $this->json([
+                'message' => 'Hello admin 👑'
+                    ]);
+            }
 }

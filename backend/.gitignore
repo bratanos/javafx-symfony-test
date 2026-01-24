@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -24,3 +23,21 @@
 ###< lexik/jwt-authentication-bundle ###
 # Cache & logs
 .phpunit.result.cache
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Tailwind / build artifacts
+public/build/
+dist/
+.cache/
+.parcel-cache/
+# IDEs
+.vscode/
+.idea/
+*.iml
+# OS files
+.DS_Store
+Thumbs.db

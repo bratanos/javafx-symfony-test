@@ -1,0 +1,58 @@
+{# templates/macros/ui.html.twig #}
+
+{% macro button(text, type = 'primary', href = null, extra = '') %}
+    {% set classes = [
+        'inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors',
+        type == 'primary' ? 'bg-primary text-white hover:bg-primary/90' : '',
+        type == 'secondary' ? 'bg-secondary text-white hover:bg-secondary/90' : '',
+        type == 'outline' ? 'border border-border bg-transparent text-foreground hover:bg-muted' : '',
+        type == 'danger' ? 'bg-destructive text-white hover:bg-destructive/90' : '',
+        type == 'ghost' ? 'bg-transparent text-foreground hover:bg-muted' : ''
+    ] | join(' ') %}
+
+    {% if href %}
+        <a href="{{ href }}" class="{{ classes }} {{ extra }}">
+            {{ text }}
+        </a>
+    {% else %}
+        <button class="{{ classes }} {{ extra }}">
+            {{ text }}
+        </button>
+    {% endif %}
+{% endmacro %}
+
+{% macro alert(type, message) %}
+    {% set classes = [
+        'rounded-lg px-4 py-3 text-sm font-medium',
+        type == 'success' ? 'bg-accent text-white' : '',
+        type == 'error' ? 'bg-destructive text-white' : '',
+        type == 'info' ? 'bg-secondary text-white' : '',
+    ] | join(' ') %}
+
+    <div class="{{ classes }}">
+        {{ message }}
+    </div>
+{% endmacro %}
+
+{% macro navbar(active = 'home') %}
+    <nav class="bg-white shadow">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-xl font-bold text-gray-800">
+                InnerTrack
+            </a>
+
+            <div class="space-x-4">
+                <a href="/" class="{{ active == 'home' ? 'text-primary font-semibold' : 'text-gray-600 hover:text-gray-900' }}">Home</a>
+                <a href="/login" class="{{ active == 'login' ? 'text-primary font-semibold' : 'text-gray-600 hover:text-gray-900' }}">Login</a>
+            </div>
+        </div>
+    </nav>
+{% endmacro %}
+
+{% macro footer() %}
+    <footer class="bg-white border-t mt-6">
+        <div class="container mx-auto px-4 py-4 text-center text-gray-500 text-sm">
+            © {{ "now"|date("Y") }} InnerTrack — All rights reserved
+        </div>
+    </footer>
+{% endmacro %}

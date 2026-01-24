@@ -1,17 +1,44 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    <title>{% block title %}InnerTrack{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {# Tailwind CSS (CLI build) #}
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    {% import 'macros/ui.html.twig' as ui %}
+
+    {# Alpine.js #}
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    {% block head %}{% endblock %}
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    {{ ui.navbar(active = 'home') }}
+
+    {# Flash messages #}
+    <div class="container mx-auto px-4 mt-4">
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                {{ ui.alert(type, message) }}
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <main class="flex-1 flex justify-center">
+        <div class="w-full max-w-[1050px] mx-auto px-8 py-6">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </main>
+
+    {{ ui.footer() }}
+
+</body>
 </html>
