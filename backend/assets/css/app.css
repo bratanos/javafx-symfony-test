@@ -1,0 +1,70 @@
+﻿
+/* backend/assets/css/app.css */
+
+/* 1) Import theme tokens FIRST */
+@import "../styles/themes.css";
+
+/* 2) Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3) Base resets that rely on Tailwind utilities */
+@layer base {
+  * {
+    /* Use no alpha to avoid color/alpha issues with CSS vars in v3 */
+    @apply border-border outline-ring;
+  }
+
+ body {
+  background: linear-gradient(135deg, #e8fbfa, #dfeef0) !important;
+}
+
+  /* Default typography scales (override with utilities as needed) */
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+
+}

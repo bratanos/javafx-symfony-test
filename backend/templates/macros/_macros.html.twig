@@ -1,0 +1,158 @@
+{# templates/components/_macros.html.twig #}
+
+{# STYLISED BUTTON #}
+{% macro button(text, variant='primary', size='default', type='button', class='', attrs='') %}
+<button
+    type="{{ type }}"
+    {{ attrs|raw }}
+    class="
+        inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors
+        focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2
+        disabled:opacity-50 disabled:pointer-events-none
+
+        {% if variant == 'primary' %}
+            bg-cyan-500 text-white hover:bg-cyan-600
+        {% elseif variant == 'secondary' %}
+            bg-purple-500 text-white hover:bg-purple-600
+        {% elseif variant == 'accent' %}
+            bg-emerald-500 text-white hover:bg-emerald-600
+        {% elseif variant == 'destructive' %}
+            bg-red-500 text-white hover:bg-red-600
+        {% elseif variant == 'outline' %}
+            border border-gray-200 bg-white hover:bg-gray-50
+        {% elseif variant == 'ghost' %}
+            bg-transparent hover:bg-gray-100
+        {% endif %}
+
+        {% if size == 'sm' %}
+            h-8 px-3 text-xs
+        {% elseif size == 'lg' %}
+            h-10 px-6 text-base
+        {% else %}
+            h-9 px-4
+        {% endif %}
+
+        {{ class }}
+    "
+>
+    {{ text }}
+</button>
+{% endmacro %}
+{# CARD COMPONENT #}
+{% macro card(title='', class='') %}
+<div class="rounded-xl border border-gray-100 bg-white shadow-sm {{ class }}">
+    {% if title %}
+        <div class="px-6 py-4 border-b border-gray-100 font-semibold text-gray-800">
+            {{ title }}
+        </div>
+    {% endif %}
+    <div class="p-6">
+        {{ caller() }}
+    </div>
+</div>
+{% endmacro %}
+
+{#BADGE COMPONENT #}
+{% macro badge(text, variant='default', class='') %}
+<span class="
+    inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium
+    {% if variant == 'primary' %}bg-cyan-100 text-cyan-800
+    {% elseif variant == 'secondary' %}bg-purple-100 text-purple-800
+    {% elseif variant == 'accent' %}bg-emerald-100 text-emerald-800
+    {% elseif variant == 'destructive' %}bg-red-100 text-red-800
+    {% else %}bg-gray-100 text-gray-800
+    {% endif %}
+    {{ class }}
+">
+    {{ text }}
+</span>
+{% endmacro %}
+
+{# FORM INPUT COMPONENTS #}
+{% macro input(name, label='', type='text', value='', error='', placeholder='', class='', attrs='') %}
+<div class="flex flex-col gap-1">
+    {% if label %}
+        <label for="{{ name }}" class="text-sm font-medium text-gray-700">
+            {{ label }}
+        </label>
+    {% endif %}
+
+    <input
+        id="{{ name }}"
+        name="{{ name }}"
+        type="{{ type }}"
+        value="{{ value }}"
+        placeholder="{{ placeholder }}"
+        {{ attrs|raw }}
+        class="
+            w-full rounded-md border px-3 py-2 text-sm
+            focus:outline-none focus:ring-2 focus:ring-cyan-500
+            {% if error %}border-red-500{% else %}border-gray-200{% endif %}
+            {{ class }}
+        "
+    />
+
+    {% if error %}
+        <span class="text-xs text-red-600">{{ error }}</span>
+    {% endif %}
+</div>
+{% endmacro %}
+{# TEXTAREA COMPONENT #}
+{% macro textarea(name, label='', value='', error='', placeholder='', class='', attrs='') %}
+<div class="flex flex-col gap-1">
+    {% if label %}
+        <label for="{{ name }}" class="text-sm font-medium text-gray-700">
+            {{ label }}
+        </label>
+    {% endif %}
+
+    <textarea
+        id="{{ name }}"
+        name="{{ name }}"
+        placeholder="{{ placeholder }}"
+        {{ attrs|raw }}
+        class="
+            w-full rounded-md border px-3 py-2 text-sm resize-none
+            focus:outline-none focus:ring-2 focus:ring-cyan-500
+            {% if error %}border-red-500{% else %}border-gray-200{% endif %}
+            {{ class }}
+        "
+    >{{ value }}</textarea>
+
+    {% if error %}
+        <span class="text-xs text-red-600">{{ error }}</span>
+    {% endif %}
+</div>
+
+{% endmacro %}
+
+{# ALERT COMPONENT #}
+{% macro alert(text, variant='info') %}
+<div class="
+    rounded-md border p-4 text-sm
+    {% if variant == 'success' %}
+        bg-emerald-50 border-emerald-200 text-emerald-800
+    {% elseif variant == 'error' %}
+        bg-red-50 border-red-200 text-red-800
+    {% elseif variant == 'warning' %}
+        bg-yellow-50 border-yellow-200 text-yellow-800
+    {% else %}
+        bg-blue-50 border-blue-200 text-blue-800
+    {% endif %}
+">
+    {{ text }}
+</div>
+{% endmacro %}
+
+{# AVATAR COMPONENT #}
+{% macro avatar(initials, size='md') %}
+<div class="
+    rounded-full bg-cyan-500 text-white font-semibold flex items-center justify-center
+    {% if size == 'sm' %}w-8 h-8 text-xs
+    {% elseif size == 'lg' %}w-12 h-12 text-lg
+    {% else %}w-10 h-10 text-sm{% endif %}
+">
+    {{ initials }}
+</div>
+{% endmacro %}
+
