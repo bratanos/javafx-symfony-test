@@ -19,4 +19,10 @@ public function login(): Response
 {
     return $this->render('pages/login.html.twig');
 }
+
+#[Route('/register', name:'register')]
+public function register(): Response
+{
+    return $this->render('pages/signup.html.twig');
+}
 }
