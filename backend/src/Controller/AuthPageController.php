@@ -25,4 +25,9 @@ public function register(): Response
 {
     return $this->render('pages/signup.html.twig');
 }
+#[Route('/forgot-password', name:'forgot_password')]
+public function forgotPassword(): Response
+{
+    return $this->render('pages/forgotPassword.html.twig');
+}
 }
