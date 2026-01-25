@@ -1,0 +1,71 @@
+{% extends 'layouts/auth.html.twig' %}
+
+{% block title %}Vérifiez votre email{% endblock %}
+
+{% block body %}
+<!-- Floating Question Mark (Bottom Right) - Mimicking the screenshot -->
+<div class="fixed bottom-4 right-4 z-50">
+    <button class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-white shadow-lg hover:bg-gray-700 transition">
+        <span class="text-sm font-bold">?</span>
+    </button>
+</div>
+
+<div class="w-full max-w-lg bg-white rounded-[2rem] shadow-2xl px-10 py-12 mx-auto mt-10 relative overflow-hidden">
+    
+    <!-- Top Icon -->
+    <div class="mx-auto w-20 h-20 bg-violet-100 rounded-3xl flex items-center justify-center mb-6 text-violet-500">
+        <!-- Using Heroicons Envelope via source() -->
+        <div class="w-10 h-10">
+            {{ source('@icons/solid/envelope.svg') }}
+        </div>
+    </div>
+
+    <!-- Title -->
+    <h2 class="text-center text-2xl font-bold text-gray-800 mb-4">
+        Vérifiez votre email
+    </h2>
+
+    <!-- Subtitle -->
+    <p class="text-center text-gray-500 mb-8 px-4 leading-relaxed">
+        Nous avons envoyé un code de vérification à <br>
+        <span class="font-medium text-gray-900">ahmed@gmail.com</span>
+    </p>
+
+    <!-- Form -->
+    <form method="POST" class="space-y-6">
+        
+        <div class="space-y-2">
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                Code de vérification
+            </label>
+            <input
+                type="text"
+                name="verification_code"
+                value="123456"
+                class="w-full h-14 bg-gray-50 rounded-xl border-none text-center text-gray-800 font-semibold text-xl tracking-[0.5em] focus:ring-2 focus:ring-violet-200 focus:bg-white transition-all"
+                placeholder="123456"
+            />
+            <p class="text-center text-xs text-gray-400 mt-2">
+                Entrez le code à 6 chiffres (Hint: 123456)
+            </p>
+        </div>
+
+        <!-- Button -->
+        <button
+            type="submit"
+            class="w-full h-12 bg-violet-500 hover:bg-violet-600 text-white font-medium rounded-xl transition-colors shadow-violet-200 shadow-lg mt-4"
+        >
+            Vérifier mon email
+        </button>
+
+    </form>
+
+    <!-- Resend Link -->
+    <div class="mt-8 text-center">
+        <a href="#" class="text-sm font-medium text-cyan-500 hover:text-cyan-600 transition-colors">
+            Renvoyer le code
+        </a>
+    </div>
+
+</div>
+{% endblock %}

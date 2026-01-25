@@ -30,4 +30,9 @@ public function forgotPassword(): Response
 {
     return $this->render('pages/forgotPassword.html.twig');
 }
+#[Route('/verify-email', name:'verify-email')]
+public function verifyEmail(): Response
+{
+    return $this->render('pages/verifyEmail.html.twig');
 }
+}   
