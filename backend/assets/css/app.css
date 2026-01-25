@@ -11,60 +11,33 @@
 
 /* 3) Base resets that rely on Tailwind utilities */
 @layer base {
+  html, body {
+    min-height: 100vh;
+  }
+
+  body {
+    background: linear-gradient(
+      135deg,
+      #ecfeff 0%,   /* cyan-50 */
+      #faf5ff 50%, /* purple-50 */
+      #ecfdf5 100% /* emerald-50 */
+    );
+    color: #374151; /* gray-700 (softer text) */
+  }
+
   * {
-    /* Use no alpha to avoid color/alpha issues with CSS vars in v3 */
     @apply border-border outline-ring;
   }
 
- body {
-  background: linear-gradient(135deg, #e8fbfa, #dfeef0) !important;
-}
-
-  /* Default typography scales (override with utilities as needed) */
   html {
     font-size: var(--font-size);
   }
 
-  h1 {
-    font-size: var(--text-2xl);
+  h1, h2, h3, h4, label, button {
     font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  h2 {
-    font-size: var(--text-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  h3 {
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  h4 {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  label {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  button {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
   }
 
   input {
-    font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
-    line-height: 1.5;
   }
-
 }
