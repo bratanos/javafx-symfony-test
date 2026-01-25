@@ -1,61 +1,88 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/auth.html.twig' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-  <div class="min-h-screen bg-gradient-to-br from-cyan-50 via-purple-50 to-emerald-50 flex items-center justify-center p-4">
-    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-6">
+<div class="w-full max-w-md bg-white rounded-3xl shadow-xl px-8 py-10">
 
-      <!-- LOGO -->
-      <div class="mx-auto w-16 h-16 bg-cyan-500 rounded-2xl flex items-center justify-center mb-4">
-        <!-- replace with your svg if needed -->
-        <img src="/images/inntertracklogo1.png" alt="InnerTrack Logo" class="w-10 h-10 object-contain" />
-      </div>
-
-      <h2 class="text-center text-3xl font-bold mb-2">Bienvenue sur InnerTrack</h2>
-      <p class="text-center text-sm text-gray-500 mb-6">
-        Connectez-vous pour accéder à votre espace bien-être
-      </p>
-
-      <!-- FORM -->
-      <form method="POST" class="space-y-5">
-        <div class="space-y-2">
-          <label class="block text-sm font-medium">Email</label>
-          <input type="email" name="email" required
-                 class="w-full h-11 rounded-md border border-gray-200 px-3 focus:outline-none focus:ring-2 focus:ring-cyan-400" />
-        </div>
-
-        <div class="space-y-2">
-          <label class="block text-sm font-medium">Mot de passe</label>
-          <input type="password" name="password" required
-                 class="w-full h-11 rounded-md border border-gray-200 px-3 focus:outline-none focus:ring-2 focus:ring-cyan-400" />
-        </div>
-
-        <button type="submit"
-                class="w-full h-11 bg-cyan-500 hover:bg-cyan-600 text-white rounded-md">
-          Se connecter
-        </button>
-
-        <div class="text-center">
-          <a href="#" class="text-sm text-cyan-500 hover:underline">Mot de passe oublié ?</a>
-        </div>
-
-        <div class="relative">
-          <div class="absolute inset-0 flex items-center">
-            <span class="w-full border-t"></span>
-          </div>
-          <div class="relative flex justify-center text-xs uppercase">
-            <span class="bg-white px-2 text-gray-500">
-              Nouveau sur InnerTrack ?
-            </span>
-          </div>
-        </div>
-
-        <button type="button"
-                class="w-full h-11 border border-gray-200 rounded-md">
-          Créer un compte
-        </button>
-      </form>
-    </div>
+  <!-- LOGO -->
+  <div class="mx-auto w-20 h-20 rounded-2xl  flex items-center justify-center mb-6">
+   <img src="{{ asset('images/innertracklogo1.png') }}" alt="InnerTrack Logo" class="w-16 h-16"/>
   </div>
+
+  <h2 class="text-center text-2xl font-semibold text-gray-800 mb-2">
+    Bienvenue sur InnerTrack
+  </h2>
+
+  <p class="text-center text-sm text-gray-500 mb-8">
+    Connectez-vous pour accéder à votre espace bien-être
+  </p>
+
+  <form method="POST" class="space-y-6">
+
+    <div class="space-y-2">
+      <label class="text-sm text-gray-600">Email</label>
+      <input
+        type="email"
+        name="email"
+        required
+        class="w-full h-11 rounded-xl border border-gray-200 px-4 bg-gray-50
+               focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      />
+    </div>
+
+    <div class="space-y-2">
+      <label class="text-sm text-gray-600">Mot de passe</label>
+      <input
+        type="password"
+        name="password"
+        required
+        class="w-full h-11 rounded-xl border border-gray-200 px-4 bg-gray-50
+               focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="w-full h-11 rounded-xl bg-cyan-600 hover:bg-cyan-700 transition-colors
+             text-white font-medium"
+    >
+      Se connecter
+    </button>
+
+    <div class="text-center">
+      <a href="#" class="text-sm text-cyan-500 hover:text-cyan-600 transition">
+        Mot de passe oublié ?
+      </a>
+    </div>
+
+<div class="relative py-6 pointer-events-none">
+  <div class="absolute inset-0 flex items-center">
+    <span class="w-full border-t border-gray-200"></span>
+  </div>
+  <div class="relative flex justify-center text-xs uppercase">
+    <span class="bg-white px-3 text-gray-400">
+      Nouveau sur InnerTrack ?
+    </span>
+  </div>
+</div>
+
+<button
+  type="button"
+  class="relative z-10 w-full h-11 rounded-xl
+         border border-emerald-200
+         text-emerald-600
+         bg-white
+         hover:bg-emerald-100
+         hover:scale-[1.02]
+         hover:border-emerald-300
+         hover:text-emerald-700
+         transition-all duration-200"
+>
+  Créer un compte
+</button>
+
+
+  </form>
+</div>
 {% endblock %}
