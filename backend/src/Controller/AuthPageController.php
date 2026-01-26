@@ -33,6 +33,8 @@ public function forgotPassword(): Response
 #[Route('/verify-email', name:'verify-email')]
 public function verifyEmail(): Response
 {
-    return $this->render('pages/verifyEmail.html.twig');
+    return $this->render('pages/verifyEmail.html.twig', [
+        'email' => 'user@example.com' // Placeholder until integrated with previous window
+    ]);
 }
 }   

@@ -3,57 +3,109 @@
 {% block title %}Vérifiez votre email{% endblock %}
 
 {% block body %}
-<!-- Floating Question Mark (Bottom Right) - Mimicking the screenshot -->
-<div class="fixed bottom-4 right-4 z-50">
-    <button class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center text-white shadow-lg hover:bg-gray-700 transition">
-        <span class="text-sm font-bold">?</span>
-    </button>
-</div>
-
-<div class="w-full max-w-lg bg-white rounded-[2rem] shadow-2xl px-10 py-12 mx-auto mt-10 relative overflow-hidden">
+<div class="w-full max-w-md bg-white rounded-3xl shadow-xl px-8 py-10 mx-auto mt-20">
     
-    <!-- Top Icon -->
-    <div class="mx-auto w-20 h-20 bg-violet-100 rounded-3xl flex items-center justify-center mb-6 text-violet-500">
-        <!-- Using Heroicons Envelope via source() -->
-        <div class="w-10 h-10">
-            {{ source('@icons/solid/envelope.svg') }}
-        </div>
+    <!-- LOGO -->
+    <div class="mx-auto w-20 h-20 rounded-2xl flex items-center justify-center mb-6">
+        <img src="{{ asset('images/innertracklogo1.png') }}" alt="InnerTrack Logo" class="w-16 h-16"/>
     </div>
 
     <!-- Title -->
-    <h2 class="text-center text-2xl font-bold text-gray-800 mb-4">
+    <h2 class="text-center text-2xl font-semibold text-gray-800 mb-2">
         Vérifiez votre email
     </h2>
 
     <!-- Subtitle -->
-    <p class="text-center text-gray-500 mb-8 px-4 leading-relaxed">
+    <p class="text-center text-sm text-gray-500 mb-8 px-4">
         Nous avons envoyé un code de vérification à <br>
-        <span class="font-medium text-gray-900">ahmed@gmail.com</span>
+        <span class="font-medium text-gray-900">{{ email|default('votre adresse email') }}</span>
     </p>
 
     <!-- Form -->
     <form method="POST" class="space-y-6">
         
-        <div class="space-y-2">
-            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                Code de vérification
-            </label>
-            <input
-                type="text"
-                name="verification_code"
-                value="123456"
-                class="w-full h-14 bg-gray-50 rounded-xl border-none text-center text-gray-800 font-semibold text-xl tracking-[0.5em] focus:ring-2 focus:ring-violet-200 focus:bg-white transition-all"
-                placeholder="123456"
-            />
-            <p class="text-center text-xs text-gray-400 mt-2">
-                Entrez le code à 6 chiffres (Hint: 123456)
+        <div class="space-y-4">
+            <label class="text-sm text-gray-600 block text-center mb-2">Code de vérification</label>
+            
+            <!-- OTP Inputs Container -->
+            <div class="flex justify-center gap-2" id="otp-container">
+                {% for i in 1..6 %}
+                <input
+                    type="text"
+                    maxlength="1"
+                    class="otp-input w-12 h-14 rounded-xl border border-emerald-200 bg-emerald-50 text-center text-gray-800 font-bold text-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition-all"
+                    autocomplete="off"
+                />
+                {% endfor %}
+            </div>
+
+            <!-- Hidden input for form submission -->
+            <input type="hidden" name="verification_code" id="verification_code">
+
+             <p class="text-center text-xs text-gray-400 mt-2">
+                Entrez le code à 6 chiffres
             </p>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const container = document.getElementById('otp-container');
+                const inputs = container.querySelectorAll('.otp-input');
+                const hiddenInput = document.getElementById('verification_code');
+
+                const updateHiddenInput = () => {
+                    let code = '';
+                    inputs.forEach(input => code += input.value);
+                    hiddenInput.value = code;
+                };
+
+                inputs.forEach((input, index) => {
+                    // Handle input
+                    input.addEventListener('input', (e) => {
+                        // Allow only numbers
+                        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+                        if (e.target.value.length === 1) {
+                            // Move to next input if available
+                            if (index < inputs.length - 1) {
+                                inputs[index + 1].focus();
+                            }
+                        }
+                        updateHiddenInput();
+                    });
+
+                    // Handle backspace
+                    input.addEventListener('keydown', (e) => {
+                        if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                            inputs[index - 1].focus();
+                        }
+                    });
+
+                    // Handle paste
+                    input.addEventListener('paste', (e) => {
+                        e.preventDefault();
+                        const pasteData = e.clipboardData.getData('text').replace(/[^0-9]/g, '').slice(0, 6);
+                        
+                        pasteData.split('').forEach((char, i) => {
+                            if (inputs[i]) {
+                                inputs[i].value = char;
+                            }
+                        });
+                        
+                        // Focus the next empty input or the last one
+                        const nextEmptyIndex = pasteData.length < 6 ? pasteData.length : 5;
+                        inputs[nextEmptyIndex].focus();
+                        
+                        updateHiddenInput();
+                    });
+                });
+            });
+        </script>
 
         <!-- Button -->
         <button
             type="submit"
-            class="w-full h-12 bg-violet-500 hover:bg-violet-600 text-white font-medium rounded-xl transition-colors shadow-violet-200 shadow-lg mt-4"
+            class="w-full h-11 bg-cyan-500 text-white rounded-xl hover:bg-cyan-600 transition-colors font-medium mt-4"
         >
             Vérifier mon email
         </button>
@@ -61,8 +113,9 @@
     </form>
 
     <!-- Resend Link -->
-    <div class="mt-8 text-center">
-        <a href="#" class="text-sm font-medium text-cyan-500 hover:text-cyan-600 transition-colors">
+    <div class="mt-6 text-center">
+        <div class="text-sm text-gray-500 mb-1">Vous n'avez pas reçu le code ?</div>
+        <a href="#" class="text-sm text-cyan-500 hover:underline inline-block">
             Renvoyer le code
         </a>
     </div>
