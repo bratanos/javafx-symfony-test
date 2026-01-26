@@ -20,6 +20,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password;
 
+    #[ORM\Column(length: 20)]
+private string $status = 'PENDING';
+
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
@@ -55,6 +58,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+        return $this;
+    }
+    public function getStatus(): string
+    {
+    return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
         return $this;
     }
 
