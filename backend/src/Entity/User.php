@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -21,13 +23,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $password;
 
     #[ORM\Column(length: 20)]
-private string $status = 'PENDING';
+    private string $status = 'PENDING';
 
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
     #[ORM\Column]
     private bool $isVerified = false;
+
+    /**
+     * @var Collection<int, EmailVerificationCode>
+     */
+    #[ORM\OneToMany(targetEntity: EmailVerificationCode::class, mappedBy: 'user')]
+    private Collection $code;
+
+    public function __construct()
+    {
+        $this->code = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -62,7 +75,7 @@ private string $status = 'PENDING';
     }
     public function getStatus(): string
     {
-    return $this->status;
+        return $this->status;
     }
 
     public function setStatus(string $status): self
@@ -82,7 +95,9 @@ private string $status = 'PENDING';
         return $this;
     }
 
-    public function eraseCredentials() {}
+    public function eraseCredentials()
+    {
+    }
 
     public function isVerified(): bool
     {
@@ -92,6 +107,36 @@ private string $status = 'PENDING';
     public function setIsVerified(bool $verified): self
     {
         $this->isVerified = $verified;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EmailVerificationCode>
+     */
+    public function getCode(): Collection
+    {
+        return $this->code;
+    }
+
+    public function addCode(EmailVerificationCode $code): static
+    {
+        if (!$this->code->contains($code)) {
+            $this->code->add($code);
+            $code->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCode(EmailVerificationCode $code): static
+    {
+        if ($this->code->removeElement($code)) {
+            // set the owning side to null (unless already changed)
+            if ($code->getUser() === $this) {
+                $code->setUser(null);
+            }
+        }
+
         return $this;
     }
 }

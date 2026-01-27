@@ -14,7 +14,7 @@ class AuthPageController extends AbstractController
     public function index(): Response
     {
         return $this->render('pages/home.html.twig');
-        
+
     }
     #[Route('/login', name: 'login')]
     public function login(): Response
@@ -22,23 +22,23 @@ class AuthPageController extends AbstractController
         return $this->render('pages/login.html.twig');
     }
 
-    #[Route('/register', name:'register')]
+    #[Route('/register', name: 'register')]
     public function register(): Response
     {
         return $this->render('pages/signup.html.twig');
     }
-    #[Route('/forgot-password', name:'forgot_password', methods: ['GET', 'POST'])]
+    #[Route('/forgot-password', name: 'forgot_password', methods: ['GET', 'POST'])]
     public function forgotPassword(Request $request): Response
     {
         if ($request->isMethod('POST')) {
             // TODO: Process email sending logic here
-            
+
             return $this->redirectToRoute('check_email');
         }
 
         return $this->render('pages/forgotPassword.html.twig');
     }
-    #[Route('/verify-email', name:'verify-email')]
+    #[Route('/verify-email', name: 'verify-email')]
     public function verifyEmail(): Response
     {
         return $this->render('pages/verifyEmail.html.twig', [
@@ -51,4 +51,4 @@ class AuthPageController extends AbstractController
     {
         return $this->render('pages/checkEmail.html.twig');
     }
-}   
+}
