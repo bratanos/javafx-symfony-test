@@ -2,7 +2,7 @@
 /* backend/assets/css/app.css */
 
 /* 1) Import theme tokens FIRST */
-@import "../styles/themes.css";
+@import "./themes.css";
 
 /* 2) Tailwind layers */
 @tailwind base;

@@ -232,8 +232,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:css": "tailwindcss -i ./assets/css/app.css -o ./public/build/app.css --watch",
-    "build:css": "tailwindcss -i ./assets/css/app.css -o ./public/build/app.css --minify",
+    "dev:css": "tailwindcss -i ./assets/styles/app.css -o ./public/build/app.css --watch",
+    "build:css": "tailwindcss -i ./assets/styles/app.css -o ./public/build/app.css --minify",
     "browserslist:update": "npx update-browserslist-db@latest"
   },
   "keywords": [],
