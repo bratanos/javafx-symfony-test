@@ -13,7 +13,7 @@ class EmailVerificationCode
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'emailVerificationCodes')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'code')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
