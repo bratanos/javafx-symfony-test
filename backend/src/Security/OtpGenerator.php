@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Security;
-
 class OtpGenerator
 {
     public function generate(): string
