@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\EmailSender;
+use App\Service\AuthService;
+use App\Service\EmailVerificationService;
 use App\Entity\EmailVerificationCode;
 
 
@@ -50,5 +52,75 @@ class AuthController extends AbstractController
         ], 201);
 
 
+    }
+
+    #[Route('/verify-email', name: 'api_verify_email', methods: ['POST'])]
+public function verifyEmail(
+    Request $request,
+    EntityManagerInterface $em
+): JsonResponse {
+    $data = json_decode($request->getContent(), true);
+
+    if (!isset($data['email'], $data['code'])) {
+        return new JsonResponse(['error' => 'Email and code required'], 400);
+    }
+
+    $user = $em->getRepository(User::class)
+        ->findOneBy(['email' => $data['email']]);
+
+    if (!$user) {
+        return new JsonResponse(['error' => 'User not found'], 404);
+    }
+
+    $verification = $em->getRepository(EmailVerificationCode::class)
+        ->findOneBy(['user' => $user]);
+
+    if (!$verification) {
+        return new JsonResponse(['error' => 'No verification code found'], 400);
+    }
+
+    if ($verification->getExpiresAt() < new \DateTimeImmutable()) {
+        return new JsonResponse(['error' => 'Code expired'], 400);
+    }
+
+    if (!hash_equals($verification->getCode(), $data['code'])) {
+        return new JsonResponse(['error' => 'Invalid code'], 400);
+    }
+
+
+    $user->setIsVerified(true);
+    $user->setStatus('ACTIVE');
+
+
+    $verification->setUsedAt(new \DateTimeImmutable());
+    $em->persist($verification);
+    $em->flush();
+
+    return new JsonResponse([
+        'message' => 'Email verified successfully'
+    ]);
+    }
+
+    #[Route('/login', name: 'api_login', methods: ['POST'])]
+    public function login(): JsonResponse
+    {
+        // This code is intercepted by the login firewall
+        // but the route definition is required.
+        return new JsonResponse(['message' => 'Login successful'], 200);
+    }
+
+    #[Route('/me', name: 'api_me', methods: ['GET'])]
+    public function me(): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return new JsonResponse([
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'roles' => $user->getRoles(),
+            'isVerified' => $user->isVerified(),
+            'status' => $user->getStatus(),
+        ]);
     }
 }

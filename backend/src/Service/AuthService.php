@@ -3,14 +3,14 @@
 namespace App\Service;
 
 use App\Entity\User;
-use App\Security\PasswordHasher;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class AuthService
 {
     public function __construct(
         private EntityManagerInterface $em,
-        private PasswordHasher $passwordHasher
+        private UserPasswordHasherInterface $passwordHasher
     ){}
 
     public function createUser(string $email, string $plainPassword): User
