@@ -1,30 +1,34 @@
 <?php
-
 namespace App\Service;
 
 use App\Entity\EmailVerificationCode;
 use App\Entity\User;
-use App\Security\OtpGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 
 class EmailVerificationService
 {
     public function __construct(
         private EntityManagerInterface $em,
-        private OtpGenerator $otpGenerator,
         private EmailSender $emailSender
-    ){}
+    ) {}
 
     public function sendVerification(User $user): void
     {
-        $otp = $this->otpGenerator->generate();
-        $entity->setUser($user);
-        $entity->setCode(password_hash($otp, PASSWORD_DEFAULT));
-        $entity->setExpiresAt(new \DateTimeImmutable('+10 minutes'));
+        $otp = random_int(100000, 999999);
 
-        $this->em->persist($entity);
+        $verification = new EmailVerificationCode();
+        $verification->setUser($user);
+        $verification->setCode((string)$otp);
+        $verification->setExpiresAt(
+            new \DateTimeImmutable('+10 minutes')
+        );
+
+        $this->em->persist($verification);
         $this->em->flush();
 
-        $this->emailSender->sendVerificationEmail($user->getEmail(), $otp);
+        $this->emailSender->sendVerificationEmail(
+            $user->getEmail(),
+            (string)$otp
+        );
     }
 }
