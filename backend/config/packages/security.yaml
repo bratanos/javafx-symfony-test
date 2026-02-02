@@ -12,6 +12,7 @@ security:
 
     firewalls:
         login:
+            user_checker: App\Security\UserChecker
             pattern: ^/api/login
             stateless: true
             json_login:
@@ -31,5 +32,6 @@ security:
         - { path: ^/api/admin, roles: ROLE_ADMIN }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/register, roles: PUBLIC_ACCESS }
+        - { path: ^/api/verify-email, roles: PUBLIC_ACCESS }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/me, roles: IS_AUTHENTICATED_FULLY }
