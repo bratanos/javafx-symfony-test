@@ -14,12 +14,13 @@ class EmailSender
         $email = (new Email())
             ->from('no-reply@innertrack.tn')
             ->to($to)
-            ->subject('Veuillez vérifier votre adresse e-mail')
-            ->html(" 
-                <p>Votre code de vérification est : </p>
+            ->subject('Vérifiez votre email - InnerTrack')
+            ->html("
+                <p>Votre code de vérification :</p>
                 <h2>$otp</h2>
-                <p>Ce code est valable pendant 10 minutes.</p>
-                ");
+                <p>Ce code expire dans 10 minutes.</p>
+            ");
+
         $this->mailer->send($email);
     }
 }
