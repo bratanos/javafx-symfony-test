@@ -26,6 +26,15 @@ class EmailVerificationCode
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $usedAt = null;
 
+    #[ORM\Column(type: 'integer')]
+    private int $resendAttempts = 0;
+
+    #[ORM\Column(type: 'integer')]
+    private int $verifyAttempts = 0;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private ?\DateTimeImmutable $lastSentAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +84,41 @@ class EmailVerificationCode
     public function setUsedAt(?\DateTimeImmutable $usedAt): static
     {
         $this->usedAt = $usedAt;
+
+        return $this;
+    }
+    public function getLastSentAt(): ?\DateTimeImmutable
+    {
+        return $this->lastSentAt;
+    }
+
+    public function setLastSentAt(?\DateTimeImmutable $lastSentAt): static
+    {
+        $this->lastSentAt = $lastSentAt;
+
+        return $this;
+    }
+
+    public function getResendAttempts(): int
+    {
+        return $this->resendAttempts;
+    }
+
+    public function setResendAttempts(int $resendAttempts): static
+    {
+        $this->resendAttempts = $resendAttempts;
+
+        return $this;
+    }
+
+    public function getVerifyAttempts(): int
+    {
+        return $this->verifyAttempts;
+    }
+
+    public function setVerifyAttempts(int $verifyAttempts): static
+    {
+        $this->verifyAttempts = $verifyAttempts;
 
         return $this;
     }

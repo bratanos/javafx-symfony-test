@@ -18,7 +18,7 @@ use App\Entity\EmailVerificationCode;
 #[Route('/api')]
 class AuthController extends AbstractController
 {
-     #[Route('/register', name: 'api_register', methods: ['POST'])]
+    #[Route('/register', name: 'api_register', methods: ['POST'])]
     public function register(
         Request $request,
         EntityManagerInterface $em,
@@ -55,50 +55,61 @@ class AuthController extends AbstractController
     }
 
     #[Route('/verify-email', name: 'api_verify_email', methods: ['POST'])]
-public function verifyEmail(
-    Request $request,
-    EntityManagerInterface $em
-): JsonResponse {
-    $data = json_decode($request->getContent(), true);
+    public function verifyEmail(
+        Request $request,
+        EntityManagerInterface $em
+    ): JsonResponse {
+        $data = json_decode($request->getContent(), true);
 
-    if (!isset($data['email'], $data['code'])) {
-        return new JsonResponse(['error' => 'Email and code required'], 400);
-    }
+        if (!isset($data['email'], $data['code'])) {
+            return new JsonResponse(['error' => 'Email and code required'], 400);
+        }
 
-    $user = $em->getRepository(User::class)
-        ->findOneBy(['email' => $data['email']]);
+        $user = $em->getRepository(User::class)
+            ->findOneBy(['email' => $data['email']]);
 
-    if (!$user) {
-        return new JsonResponse(['error' => 'User not found'], 404);
-    }
+        if (!$user) {
+            return new JsonResponse(['error' => 'User not found'], 404);
+        }
 
-    $verification = $em->getRepository(EmailVerificationCode::class)
-        ->findOneBy(['user' => $user]);
+        $verification = $em->getRepository(EmailVerificationCode::class)
+            ->findOneBy(['user' => $user]);
 
-    if (!$verification) {
-        return new JsonResponse(['error' => 'No verification code found'], 400);
-    }
+        if (!$verification) {
+            return new JsonResponse(['error' => 'No verification code found'], 400);
+        }
 
-    if ($verification->getExpiresAt() < new \DateTimeImmutable()) {
-        return new JsonResponse(['error' => 'Code expired'], 400);
-    }
+        if ($verification->getExpiresAt() < new \DateTimeImmutable()) {
+            return new JsonResponse(['error' => 'Code expired'], 400);
+        }
 
-    if (!hash_equals($verification->getCode(), $data['code'])) {
-        return new JsonResponse(['error' => 'Invalid code'], 400);
-    }
+        // Increment attempts before validation
+        $verification->setVerifyAttempts($verification->getVerifyAttempts() + 1);
+        $em->flush();
 
+        if ($verification->getVerifyAttempts() > 5) {
+            return new JsonResponse([
+                'error' => 'Too many failed attempts. Request new code.'
+            ], 429);
+        }
 
-    $user->setIsVerified(true);
-    $user->setStatus('ACTIVE');
+        if (!hash_equals($verification->getCode(), $data['code'])) {
+            return new JsonResponse(['error' => 'Invalid code'], 400);
+        }
 
+        $user->setIsVerified(true);
+        $user->setStatus('ACTIVE');
 
-    $verification->setUsedAt(new \DateTimeImmutable());
-    $em->persist($verification);
-    $em->flush();
+        // Reset attempts or set usedAt
+        $verification->setUsedAt(new \DateTimeImmutable());
+        $verification->setVerifyAttempts(0);
 
-    return new JsonResponse([
-        'message' => 'Email verified successfully'
-    ]);
+        $em->persist($verification);
+        $em->flush();
+
+        return new JsonResponse([
+            'message' => 'Email verified successfully'
+        ]);
     }
 
     #[Route('/login', name: 'api_login', methods: ['POST'])]
@@ -107,6 +118,81 @@ public function verifyEmail(
         // This code is intercepted by the login firewall
         // but the route definition is required.
         return new JsonResponse(['message' => 'Login successful'], 200);
+    }
+
+    #[Route('/resend-verification', name: 'api_resend_verification', methods: ['POST'])]
+    public function resendVerification(
+        Request $request,
+        EntityManagerInterface $em,
+        EmailSender $emailSender
+    ): JsonResponse {
+        $data = json_decode($request->getContent(), true);
+
+        if (!isset($data['email'])) {
+            return new JsonResponse(['error' => 'Email required'], 400);
+        }
+
+        $user = $em->getRepository(User::class)
+            ->findOneBy(['email' => $data['email']]);
+
+        if (!$user) {
+            return new JsonResponse(['error' => 'User not found'], 404);
+        }
+
+        if ($user->isVerified()) {
+            return new JsonResponse(['error' => 'User already verified'], 400);
+        }
+
+        $verification = $em->getRepository(EmailVerificationCode::class)
+            ->findOneBy(['user' => $user]);
+
+        if (!$verification) {
+            $verification = new EmailVerificationCode();
+            $verification->setUser($user);
+        }
+
+        // ⏳ Cooldown: 60 seconds
+        if (
+            $verification->getLastSentAt() &&
+            $verification->getLastSentAt() > new \DateTimeImmutable('-60 seconds')
+        ) {
+            return new JsonResponse([
+                'error' => 'Wait before requesting another code'
+            ], 429);
+        }
+
+        // 🚫 Max resend attempts: 3 per hour
+        if ($verification->getLastSentAt() && $verification->getLastSentAt() < new \DateTimeImmutable('-1 hour')) {
+            $verification->setResendAttempts(0);
+        }
+
+        if (
+            $verification->getResendAttempts() >= 3 &&
+            $verification->getLastSentAt() > new \DateTimeImmutable('-1 hour')
+        ) {
+            return new JsonResponse([
+                'error' => 'Too many requests. Try later.'
+            ], 429);
+        }
+
+        // ✅ Generate new OTP
+        $otp = random_int(100000, 999999);
+
+        $verification->setCode((string) $otp);
+        $verification->setExpiresAt(new \DateTimeImmutable('+10 minutes'));
+        $verification->setLastSentAt(new \DateTimeImmutable());
+        $verification->setResendAttempts($verification->getResendAttempts() + 1);
+        $verification->setVerifyAttempts(0); // Reset failed guesses for the new code
+
+        $em->persist($verification);
+        $em->flush();
+
+        // 📩 Send email
+        $emailSender->sendVerificationEmail($user->getEmail(), (string) $otp);
+
+        return new JsonResponse([
+            'message' => 'Verification code resent'
+        ]);
     }
 
     #[Route('/me', name: 'api_me', methods: ['GET'])]
