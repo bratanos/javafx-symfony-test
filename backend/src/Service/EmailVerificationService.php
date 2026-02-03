@@ -10,7 +10,8 @@ class EmailVerificationService
     public function __construct(
         private EntityManagerInterface $em,
         private EmailSender $emailSender
-    ) {}
+    ) {
+    }
 
     public function sendVerification(User $user): void
     {
@@ -18,17 +19,20 @@ class EmailVerificationService
 
         $verification = new EmailVerificationCode();
         $verification->setUser($user);
-        $verification->setCode((string)$otp);
+        $verification->setCode((string) $otp);
         $verification->setExpiresAt(
             new \DateTimeImmutable('+10 minutes')
         );
+        $verification->setLastSentAt(new \DateTimeImmutable());
+        $verification->setResendAttempts(1);
+        $verification->setVerifyAttempts(0);
 
         $this->em->persist($verification);
         $this->em->flush();
 
         $this->emailSender->sendVerificationEmail(
             $user->getEmail(),
-            (string)$otp
+            (string) $otp
         );
     }
 }
