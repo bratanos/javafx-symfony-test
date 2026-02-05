@@ -7,4 +7,6 @@ module com.test.frontend {
     requires atlantafx.base;
 
     opens com.testing.frontend to javafx.fxml;
+
+
 }
