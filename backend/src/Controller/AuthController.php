@@ -151,7 +151,7 @@ class AuthController extends AbstractController
             $verification->setUser($user);
         }
 
-        // ⏳ Cooldown: 60 seconds
+        //  Cooldown: 60 seconds
         if (
             $verification->getLastSentAt() &&
             $verification->getLastSentAt() > new \DateTimeImmutable('-60 seconds')
@@ -161,21 +161,21 @@ class AuthController extends AbstractController
             ], 429);
         }
 
-        // 🚫 Max resend attempts: 3 per hour
+        //  Max resend attempts: 3 per hour
         if ($verification->getLastSentAt() && $verification->getLastSentAt() < new \DateTimeImmutable('-1 hour')) {
             $verification->setResendAttempts(0);
         }
 
         if (
             $verification->getResendAttempts() >= 3 &&
-            $verification->getLastSentAt() > new \DateTimeImmutable('-1 hour')
+            $verification->getLastSentAt() > new \DateTimeImmutable('-5 minutes')
         ) {
             return new JsonResponse([
                 'error' => 'Too many requests. Try later.'
             ], 429);
         }
 
-        // ✅ Generate new OTP
+        // Generate new OTP
         $otp = random_int(100000, 999999);
 
         $verification->setCode((string) $otp);
@@ -187,7 +187,7 @@ class AuthController extends AbstractController
         $em->persist($verification);
         $em->flush();
 
-        // 📩 Send email
+        //  Send email
         $emailSender->sendVerificationEmail($user->getEmail(), (string) $otp);
 
         return new JsonResponse([
