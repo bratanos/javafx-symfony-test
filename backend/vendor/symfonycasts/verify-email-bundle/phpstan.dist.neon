@@ -1,0 +1,11 @@
+includes:
+    - phpstan-baseline.neon
+parameters:
+    level: 9
+    bootstrapFiles:
+        - vendor/autoload.php
+    paths:
+        - src
+        - tests
+    ignoreErrors:
+        - '#Method .+::getConfigTreeBuilder\(\) return type with generic class Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder does not specify its types: T#'

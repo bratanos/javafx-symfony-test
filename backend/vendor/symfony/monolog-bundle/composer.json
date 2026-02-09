@@ -1,0 +1,40 @@
+{
+    "name": "symfony/monolog-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony MonologBundle",
+    "keywords": ["log", "logging"],
+    "homepage": "https://symfony.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fabien Potencier",
+            "email": "fabien@symfony.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "composer-runtime-api": "^2.0",
+        "monolog/monolog": "^1.25.1 || ^2.0 || ^3.0",
+        "symfony/config": "^6.4 || ^7.0",
+        "symfony/dependency-injection": "^6.4 || ^7.0",
+        "symfony/deprecation-contracts": "^2.5 || ^3.0",
+        "symfony/http-kernel": "^6.4 || ^7.0",
+        "symfony/monolog-bridge": "^6.4 || ^7.0",
+        "symfony/polyfill-php84": "^1.30"
+    },
+    "require-dev": {
+        "symfony/console": "^6.4 || ^7.0",
+        "symfony/phpunit-bridge": "^7.3.3",
+        "symfony/yaml": "^6.4 || ^7.0"
+    },
+    "autoload": {
+        "psr-4": { "Symfony\\Bundle\\MonologBundle\\": "src" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Symfony\\Bundle\\MonologBundle\\Tests\\": "tests" }
+    }
+}

@@ -1,0 +1,7 @@
+Git information
+===============
+
+URL: https://github.com/unicode-org/icu.git
+Revision: 049e0d6a420629ac7db77256987d083a563287b5
+Author: Fredrik Roubert
+Date: 2025-10-29T16:30:26+01:00
