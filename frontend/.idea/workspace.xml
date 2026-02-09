@@ -16,9 +16,6 @@
       <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/testing/frontend/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/testing/frontend/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/testing/frontend/MainController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/login.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/main.fxml" afterDir="false" />
@@ -101,6 +98,8 @@
       <workItem from="1768983671738" duration="5003000" />
       <workItem from="1769018325529" duration="630000" />
       <workItem from="1769079293651" duration="1011000" />
+      <workItem from="1770467576076" duration="64000" />
+      <workItem from="1770468386689" duration="387000" />
     </task>
     <servers />
   </component>
