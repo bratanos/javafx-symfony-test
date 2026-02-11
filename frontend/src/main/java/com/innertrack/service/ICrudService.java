@@ -1,4 +1,4 @@
-package com.innertrack.services;
+package com.innertrack.service;
 
 import java.util.List;
 

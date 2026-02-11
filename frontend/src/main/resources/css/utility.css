@@ -1,0 +1,58 @@
+/* Utility classes */
+
+.text-center {
+    -fx-alignment: center;
+    text-align: center;
+    /* Linter compatibility */
+}
+
+.text-danger {
+    -fx-text-fill: -color-danger;
+    color: #a4262c;
+    /* Linter compatibility */
+}
+
+.font-bold {
+    -fx-font-weight: bold;
+    font-weight: bold;
+    /* Linter compatibility */
+}
+
+.title {
+    -fx-font-size: 24px;
+    font-size: 24px;
+    /* Linter compatibility */
+    -fx-font-weight: bold;
+    font-weight: bold;
+    /* Linter compatibility */
+}
+
+.mt-1 {
+    -fx-padding: -spacing-sm 0 0 0;
+    padding: 8px 0 0 0;
+}
+
+.mt-2 {
+    -fx-padding: -spacing-md 0 0 0;
+    padding: 16px 0 0 0;
+}
+
+.mb-1 {
+    -fx-padding: 0 0 -spacing-sm 0;
+    padding: 0 0 8px 0;
+}
+
+.mb-2 {
+    -fx-padding: 0 0 -spacing-md 0;
+    padding: 0 0 16px 0;
+}
+
+.p-2 {
+    -fx-padding: -spacing-md;
+    padding: 16px;
+}
+
+.p-3 {
+    -fx-padding: -spacing-lg;
+    padding: 24px;
+}

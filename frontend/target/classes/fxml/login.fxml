@@ -8,12 +8,12 @@
 
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.testing.frontend.LoginController"
+            fx:controller="com.innertrack.controller.LoginController"
             spacing="12" alignment="CENTER"
-            style="-fx-padding: 30;">
-<Label text="Login" style="-fx-font-size: 28px; -fx-font-weight: bold;" />
+            styleClass="login-container, p-3">
+<Label text="Login" styleClass="login-title" />
     <TextField fx:id="emailField" promptText="Email" />
     <PasswordField fx:id="passwordField" promptText="Password" />
-    <Button text="Login" fx:id="loginButton" onAction="#onLoginClicked" />
-    <Label fx:id="errorLabel" text="" style="-fx-text-fill: red;" />
+    <Button text="Login" fx:id="loginButton" onAction="#onLoginClicked" styleClass="accent" />
+    <Label fx:id="errorLabel" text="" styleClass="text-danger" />
 </VBox>

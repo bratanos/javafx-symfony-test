@@ -1,4 +1,4 @@
-package com.innertrack.utils;
+package com.innertrack.util;
 
 import java.sql.Connection;
 import java.sql.SQLException;

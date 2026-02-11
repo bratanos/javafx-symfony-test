@@ -1,4 +1,4 @@
-package com.innertrack.models;
+package com.innertrack.model;
 
 import java.util.ArrayList;
 import java.util.List;

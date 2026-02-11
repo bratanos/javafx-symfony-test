@@ -1,0 +1,37 @@
+/* Base styles for standard JavaFX controls */
+
+@import "variables.css";
+
+.root {
+    -fx-font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    /* Linter compatibility */
+    -fx-font-size: 14px;
+    font-size: 14px;
+    /* Linter compatibility */
+    -fx-text-fill: -color-text;
+    color: #323130;
+    /* Linter compatibility */
+    -fx-background-color: -color-bg;
+    background-color: #ffffff;
+    /* Linter compatibility */
+}
+
+.button {
+    -fx-cursor: hand;
+    cursor: pointer;
+    /* Linter compatibility */
+}
+
+.text-field,
+.password-field {
+    -fx-background-radius: -border-radius-md;
+    border-radius: 4px;
+    /* Linter compatibility */
+}
+
+.label {
+    -fx-text-fill: -color-text;
+    color: #323130;
+    /* Linter compatibility */
+}

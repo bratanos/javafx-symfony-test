@@ -1,0 +1,25 @@
+/* CSS Variables/Tokens */
+
+.root {
+    /* Colors */
+    -color-primary: #0078d4;
+    -color-primary-hover: #106ebe;
+    -color-secondary: #2b88d8;
+    -color-bg: #ffffff;
+    -color-surface: #f3f2f1;
+    -color-text: #323130;
+    -color-text-muted: #605e5c;
+    -color-danger: #a4262c;
+
+    /* Spacing */
+    -spacing-xs: 4px;
+    -spacing-sm: 8px;
+    -spacing-md: 16px;
+    -spacing-lg: 24px;
+    -spacing-xl: 32px;
+
+    /* Borders */
+    -border-radius-sm: 2px;
+    -border-radius-md: 4px;
+    -border-radius-lg: 8px;
+}

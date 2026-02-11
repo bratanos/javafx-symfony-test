@@ -1,5 +1,6 @@
 package com.innertrack;
 
+import com.innertrack.util.ThemeManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,10 @@ public class Main extends Application {
 
         // Set up the scene
         Scene scene = new Scene(root, 800, 600);
+
+        // Initialize our Styling Module
+        ThemeManager.init(scene);
+        ThemeManager.addComponentStyle(scene, "login");
 
         // Configure the stage
         primaryStage.setTitle("InnerTrack");
