@@ -7,25 +7,10 @@ public class User {
     private int id;
     private String email;
     private String password;
-    private String status;
     private boolean isVerified;
-    private List<String> roles;
+    private List<String> roles = new ArrayList<>();
+    private String status;
 
-    public User() {
-        this.roles = new ArrayList<>();
-        this.roles.add("ROLE_USER");
-    }
-
-    public User(int id, String email, String password, String status, boolean isVerified, List<String> roles) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.status = status;
-        this.isVerified = isVerified;
-        this.roles = roles;
-    }
-
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -50,14 +35,6 @@ public class User {
         this.password = password;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public boolean isVerified() {
         return isVerified;
     }
@@ -74,14 +51,11 @@ public class User {
         this.roles = roles;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", status='" + status + '\'' +
-                ", isVerified=" + isVerified +
-                ", roles=" + roles +
-                '}';
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

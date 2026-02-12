@@ -1,0 +1,14 @@
+﻿<component name="libraryTable">
+  <library name="Maven: org.openjfx:javafx-fxml:21" type="java-imported" external-system-id="Maven">
+    <properties groupId="org.openjfx" artifactId="javafx-fxml" version="21" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/21/javafx-fxml-21.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/21/javafx-fxml-21-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/21/javafx-fxml-21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

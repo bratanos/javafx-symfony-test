@@ -1,10 +1,8 @@
 package com.innertrack.controller;
 
 import com.innertrack.service.AuthService;
-import com.innertrack.service.DatabaseService;
-import javafx.event.ActionEvent;
+import com.innertrack.util.ViewManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -18,43 +16,44 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
-    private Button loginButton;
-
-    @FXML
     private Label errorLabel;
 
     private final AuthService authService = new AuthService();
 
     @FXML
-    public void onLoginClicked(ActionEvent event) {
+    public void initialize() {
+        MainLayoutController.getInstance().setNavbarVisible(false);
+    }
+
+    @FXML
+    private void handleLogin() {
         String email = emailField.getText();
         String password = passwordField.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
-            errorLabel.setText("Please fill in all fields.");
+            errorLabel.setText("Veuillez remplir tous les champs.");
             return;
         }
 
-        // Disable button to prevent double clicks
-        loginButton.setDisable(true);
-        errorLabel.setText("Authenticating...");
+        String result = authService.login(email, password);
 
-        // Perform login in background thread to keep UI responsive
-        new Thread(() -> {
-            boolean success = authService.login(email, password);
+        if ("SUCCESS".equals(result)) {
+            // Success! Load the main view
+            ViewManager.loadView("main");
+            MainLayoutController.getInstance().setNavbarVisible(true);
+            MainLayoutController.getInstance().updateUiForSession();
+        } else {
+            errorLabel.setText(result);
+        }
+    }
 
-            // Update UI on JavaFX Application Thread
-            javafx.application.Platform.runLater(() -> {
-                loginButton.setDisable(false);
-                if (success) {
-                    errorLabel.setText("Login Successful!");
-                    errorLabel.setStyle("-fx-text-fill: green;");
-                    // TODO: Navigate to dashboard
-                } else {
-                    errorLabel.setText("Invalid credentials.");
-                    errorLabel.setStyle("-fx-text-fill: -color-danger;");
-                }
-            });
-        }).start();
+    @FXML
+    private void goToRegister() {
+        ViewManager.loadView("register");
+    }
+
+    @FXML
+    private void goToForgotPassword() {
+        ViewManager.loadView("forgot_password");
     }
 }

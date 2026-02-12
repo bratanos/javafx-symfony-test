@@ -50,20 +50,3 @@
 
 # Embedded web-server pid file
 /.web-server-pid
-
-# Java/Maven
-target/
-*.class
-*.jar
-*.war
-*.ear
-*.log
-
-# IntelliJ IDEA
-.idea/
-*.iml
-*.iws
-*.ipr
-
-# Temporary files
-git_status.txt
