@@ -1,23 +1,28 @@
-package com.innertrack.utils;
+package com.innertrack.util;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBConnection {
+
     private static DBConnection instance;
     private Connection connection;
 
-    private final String URL = "jdbc:mysql://localhost:3306/testDB";
-    private final String USER = "root";
-    private final String PASSWORD = "";
+    private static final String URL = "jdbc:mysql://localhost:3306/testDB";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
 
     private DBConnection() {
+        connect();
+    }
+
+    private void connect() {
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Database connection established.");
+            System.out.println("Connected to database testDB");
         } catch (SQLException e) {
-            System.err.println("Error establishing database connection: " + e.getMessage());
+            System.err.println("❌ DB Connection failed: " + e.getMessage());
         }
     }
 
@@ -31,10 +36,10 @@ public class DBConnection {
     public Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
-                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                connect();
             }
         } catch (SQLException e) {
-            System.err.println("Error re-establishing database connection: " + e.getMessage());
+            connect();
         }
         return connection;
     }

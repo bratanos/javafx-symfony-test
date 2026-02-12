@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.VerifyOtpController"
+      spacing="30" alignment="TOP_CENTER"
+      maxWidth="400">
+
+    <ImageView fitHeight="70" preserveRatio="true">
+        <image>
+            <Image url="@../images/innertracklogo1.png" />
+        </image>
+    </ImageView>
+
+    <VBox spacing="8" alignment="CENTER">
+        <Label text="Vérification de l'email" styleClass="title" />
+        <Label fx:id="subtitleLabel" text="Nous avons envoyé un code à votre adresse email" styleClass="subtitle" wrapText="true" textAlignment="CENTER" />
+    </VBox>
+
+    <VBox spacing="20" alignment="CENTER">
+        <HBox spacing="10" alignment="CENTER">
+            <TextField fx:id="otp1" styleClass="otp-box" />
+            <TextField fx:id="otp2" styleClass="otp-box" />
+            <TextField fx:id="otp3" styleClass="otp-box" />
+            <TextField fx:id="otp4" styleClass="otp-box" />
+            <TextField fx:id="otp5" styleClass="otp-box" />
+            <TextField fx:id="otp6" styleClass="otp-box" />
+        </HBox>
+        
+        <Button text="Vérifier le code" fx:id="verifyButton" onAction="#handleVerify" 
+                maxWidth="350" styleClass="btn, btn-primary" />
+    </VBox>
+
+    <VBox spacing="10" alignment="CENTER">
+        <Label fx:id="timerLabel" text="Vous pourrez renvoyer le code dans 60s" styleClass="subtitle" />
+        <Button text="Renvoyer le code" fx:id="resendButton" onAction="#handleResend" 
+                styleClass="btn, btn-secondary" disable="true" />
+    </VBox>
+
+    <Label fx:id="messageLabel" wrapText="true" textAlignment="CENTER" />
+
+    <Hyperlink text="Retour à la connexion" onAction="#goToLogin" styleClass="subtitle" />
+
+</VBox>

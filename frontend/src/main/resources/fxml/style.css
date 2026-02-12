@@ -1,0 +1,145 @@
+/* 
+ * safe_style.css
+ * Using direct values to avoid variable resolution errors in some environments.
+ */
+
+.root {
+    -fx-font-family: 'Segoe UI', 'Roboto', sans-serif;
+    /* More vibrant, multi-tone gradient to reduce whiteness */
+    -fx-background-color: linear-gradient(to bottom right, #ddd6fe, #c7d2fe, #e0e7ff);
+    
+    /* Vibrant Purple Theme - Using -inner- prefix to avoid standard property collision */
+    -inner-primary: #7c3aed;
+    -inner-primary-dark: #6d28d9;
+    -inner-primary-light: #a78bfa;
+    -inner-secondary: #6366f1;
+    
+    -inner-bg-default: #f1f5f9;
+    -inner-bg-card: #ffffff;
+    -inner-border: #cbd5e1; /* Slightly darker for better contrast */
+    -inner-text-main: #1e293b;
+    -inner-text-muted: #64748b;
+    -inner-error: #ef4444;
+    -inner-success: #10b981;
+}
+
+/* Navbar */
+.navbar {
+    -fx-background-color: rgba(255, 255, 255, 0.85); /* Slightly more transparent */
+    -fx-padding: 15 40;
+    -fx-border-color: -inner-border;
+    -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.08), 15, 0, 0, 5);
+}
+/* ... rest of navbar-brand and navbar-link ... */
+
+/* Card with distinct outlines */
+.card {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+    -fx-background-radius: 16;
+    -fx-border-color: -inner-primary-light; /* Using purple for the outline */
+    -fx-border-radius: 16;
+    -fx-border-width: 2; /* More distinct outline */
+    -fx-padding: 45;
+    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.12), 30, 0, 0, 15);
+}
+
+/* Buttons */
+.btn {
+    -fx-padding: 12 24;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.btn-primary {
+    -fx-background-color: linear-gradient(to right, -inner-primary, -inner-secondary);
+    -fx-text-fill: white;
+}
+
+.btn-primary:hover {
+    -fx-background-color: linear-gradient(to right, -inner-primary-dark, #4f46e5);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.3), 10, 0, 0, 4);
+}
+
+.btn-secondary {
+    -fx-background-color: #ffffff;
+    -fx-border-color: -inner-border;
+    -fx-border-radius: 8;
+    -fx-text-fill: -inner-text-main;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: -inner-primary-light;
+    -fx-text-fill: -inner-primary;
+}
+
+/* Inputs */
+.text-field, .password-field {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 14;
+    -fx-text-fill: -inner-text-main;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: -inner-primary;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.1), 8, 0, 0, 0);
+}
+
+/* OTP Boxes */
+.otp-box {
+    -fx-pref-width: 50;
+    -fx-pref-height: 60;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-width: 2;
+}
+
+.otp-box:focused {
+    -fx-border-color: -inner-primary;
+    -fx-background-color: #f5f3ff;
+}
+
+/* Labels */
+.title {
+    -fx-font-size: 30px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -inner-text-main;
+}
+
+.subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: -inner-text-muted;
+}
+
+.text-link {
+    -fx-text-fill: -inner-primary;
+    -fx-font-weight: bold;
+    -fx-underline: false;
+}
+
+.text-link:hover {
+    -fx-text-fill: -inner-primary-dark;
+    -fx-underline: true;
+}
+
+.footer {
+    -fx-padding: 30;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1 0 0 0;
+    -fx-background-color: transparent;
+}

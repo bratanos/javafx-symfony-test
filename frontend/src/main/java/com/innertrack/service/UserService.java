@@ -1,7 +1,7 @@
-package com.innertrack.services;
+package com.innertrack.service;
 
-import com.innertrack.models.User;
-import com.innertrack.utils.DBConnection;
+import com.innertrack.model.User;
+import com.innertrack.util.DBConnection;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

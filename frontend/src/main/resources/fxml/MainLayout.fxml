@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.innertrack.controller.MainLayoutController"
+            prefHeight="700.0" prefWidth="1100.0">
+
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+
+    <!-- Navbar -->
+    <top>
+        <HBox fx:id="navbar" styleClass="navbar" alignment="CENTER_LEFT" spacing="20">
+            <ImageView fx:id="logoView" fitHeight="40" preserveRatio="true">
+                <image>
+                    <Image url="@../images/innertracklogo1.png" />
+                </image>
+            </ImageView>
+            <Label text="InnerTrack" styleClass="navbar-brand" />
+            
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <HBox spacing="20" alignment="CENTER_RIGHT">
+                <Hyperlink text="Accueil" styleClass="navbar-link" onAction="#goToHome" />
+                <Hyperlink text="Connexion" fx:id="loginLink" styleClass="navbar-link" onAction="#goToLogin" />
+                <Hyperlink text="S'inscrire" fx:id="registerLink" styleClass="navbar-link" onAction="#goToRegister" />
+                <Button fx:id="profileBtn" text="Mon Profil" styleClass="btn, btn-secondary" visible="false" />
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Main Content Area -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+            <VBox alignment="TOP_CENTER" spacing="0">
+                <padding>
+                    <Insets top="30" bottom="30" />
+                </padding>
+                
+                <VBox fx:id="contentContainer" maxWidth="1050.0" styleClass="card" alignment="TOP_CENTER">
+                    <!-- Dynamic content will be loaded here -->
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Footer -->
+    <bottom>
+        <VBox styleClass="footer">
+            <Label fx:id="footerLabel" text="© 2026 InnerTrack — All rights reserved" styleClass="subtitle" />
+        </VBox>
+    </bottom>
+
+</BorderPane>
