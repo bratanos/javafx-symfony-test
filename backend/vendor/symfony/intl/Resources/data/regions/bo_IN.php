@@ -1,6 +1,0 @@
-<?php
-
-return [
-    'UserAssignedNames' => [],
-    'Names' => [],
-];
