@@ -50,3 +50,19 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# OS junk
+Thumbs.db
+.DS_Store
