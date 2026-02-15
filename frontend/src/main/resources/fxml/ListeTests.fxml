@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.ListeTestsController"
+            prefHeight="800.0" prefWidth="1200.0"
+            styleClass="root">
+
+    <!-- En-tête -->
+    <top>
+        <VBox styleClass="header" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+            <HBox spacing="20.0" alignment="CENTER_LEFT">
+                <Label text="Gestion des Tests Psychologiques" styleClass="title">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="➕ Nouveau Test" onAction="#ouvrirAjoutTest"
+                        styleClass="add-test-btn">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+            </HBox>
+            <Label text="Consultez, modifiez et gérez tous vos tests psychologiques" styleClass="subtitle">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Label>
+        </VBox>
+    </top>
+
+    <!-- Contenu principal avec SplitPane -->
+    <center>
+        <SplitPane dividerPositions="0.35" BorderPane.alignment="CENTER">
+
+            <!-- PARTIE GAUCHE: Liste des Tests -->
+            <VBox spacing="15.0" styleClass="left-panel">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+
+                <!-- Barre de recherche -->
+                <VBox spacing="10.0">
+                    <Label text="🔍 Rechercher un test" styleClass="section-subtitle">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="searchField" promptText="Rechercher par titre..."
+                               styleClass="search-field" onKeyReleased="#rechercherTest" />
+                </VBox>
+
+                <Separator />
+
+                <!-- Statistiques -->
+                <HBox spacing="20.0" styleClass="stats-box">
+                    <VBox spacing="5.0" alignment="CENTER" HBox.hgrow="ALWAYS"
+                          styleClass="stat-card">
+                        <Label fx:id="totalTestsLabel" text="0" styleClass="stat-number">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                        <Label text="Tests" styleClass="stat-label" />
+                    </VBox>
+                    <VBox spacing="5.0" alignment="CENTER" HBox.hgrow="ALWAYS"
+                          styleClass="stat-card">
+                        <Label fx:id="totalQuestionsLabel" text="0" styleClass="stat-number">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                        <Label text="Questions" styleClass="stat-label" />
+                    </VBox>
+                </HBox>
+
+                <Separator />
+
+                <!-- Liste des tests -->
+                <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+                    <Label text="📋 Liste des Tests" styleClass="section-subtitle">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                                styleClass="tests-scroll">
+                        <VBox fx:id="testsListContainer" spacing="10.0">
+                            <padding>
+                                <Insets bottom="10.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                    </ScrollPane>
+                </VBox>
+            </VBox>
+
+            <!-- PARTIE DROITE: Détails du Test et Questions -->
+            <VBox spacing="0.0" styleClass="right-panel">
+
+                <!-- Section: Détails du Test -->
+                <VBox fx:id="detailsSection" spacing="15.0" styleClass="details-section"
+                      managed="false" visible="false">
+                    <padding>
+                        <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                    </padding>
+
+                    <!-- Titre du test sélectionné -->
+                    <HBox spacing="15.0" alignment="CENTER_LEFT">
+                        <Label fx:id="testTitreLabel" text="Titre du Test"
+                               styleClass="test-title-large">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button text="✏️ Modifier" onAction="#modifierTest"
+                                styleClass="edit-btn-header" />
+                        <Button text="🗑️ Supprimer" onAction="#supprimerTest"
+                                styleClass="delete-btn-header" />
+                    </HBox>
+
+                    <!-- Informations du test -->
+                    <VBox spacing="10.0" styleClass="info-box">
+                        <HBox spacing="10.0">
+                            <Label text="Type:" styleClass="info-label-bold">
+                                <font>
+                                    <Font name="System Bold" size="13.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="testTypeLabel" text="Type de test"
+                                   styleClass="info-label-value" />
+                        </HBox>
+                        <HBox spacing="10.0">
+                            <Label text="Description:" styleClass="info-label-bold">
+                                <font>
+                                    <Font name="System Bold" size="13.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="testDescriptionLabel" text="Description du test"
+                                   wrapText="true" styleClass="info-label-value"
+                                   HBox.hgrow="ALWAYS" />
+                        </HBox>
+                        <HBox spacing="10.0">
+                            <Label text="Nombre de questions:" styleClass="info-label-bold">
+                                <font>
+                                    <Font name="System Bold" size="13.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="testNbQuestionsLabel" text="0"
+                                   styleClass="info-label-value" />
+                        </HBox>
+                    </VBox>
+
+                    <Separator />
+
+                    <!-- En-tête des questions -->
+                    <HBox spacing="10.0" alignment="CENTER_LEFT">
+                        <Label text="❓ Questions du Test" styleClass="section-subtitle">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button text="➕ Ajouter Question" onAction="#ajouterNouvelleQuestion"
+                                styleClass="add-question-small-btn" />
+                    </HBox>
+
+                    <!-- Liste des questions -->
+                    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                                styleClass="questions-scroll">
+                        <VBox fx:id="questionsListContainer" spacing="12.0">
+                            <padding>
+                                <Insets bottom="15.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                    </ScrollPane>
+                </VBox>
+
+                <!-- Message par défaut (aucun test sélectionné) -->
+                <VBox fx:id="emptyStateSection" alignment="CENTER" spacing="20.0"
+                      VBox.vgrow="ALWAYS" styleClass="empty-state">
+                    <Label text="📋" styleClass="empty-icon">
+                        <font>
+                            <Font size="72.0" />
+                        </font>
+                    </Label>
+                    <Label text="Sélectionnez un test" styleClass="empty-title">
+                        <font>
+                            <Font name="System Bold" size="20.0" />
+                        </font>
+                    </Label>
+                    <Label text="Cliquez sur un test dans la liste de gauche pour voir ses détails"
+                           styleClass="empty-subtitle" wrapText="true" textAlignment="CENTER"
+                           maxWidth="350.0" />
+                </VBox>
+            </VBox>
+        </SplitPane>
+    </center>
+
+    <!-- Pied de page -->
+    <bottom>
+        <HBox spacing="15.0" alignment="CENTER_LEFT" styleClass="footer"
+              BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+            </padding>
+            <Label fx:id="statusLabel" text="Prêt" styleClass="status-label" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="🔄 Actualiser" onAction="#actualiserListe"
+                    styleClass="refresh-btn" />
+        </HBox>
+    </bottom>
+</BorderPane>

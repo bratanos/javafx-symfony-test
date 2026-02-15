@@ -1,0 +1,380 @@
+/* ============================================
+   Fichier CSS pour l'interface JavaFX
+   Style moderne et professionnel
+   ============================================ */
+
+/* Couleurs principales */
+.root {
+    -fx-background-color: #f5f7fa;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ============================================
+   EN-TÊTE
+   ============================================ */
+.header {
+    -fx-background-color: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+    -fx-background-radius: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 2);
+}
+
+.title {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+    -fx-padding: 5 0 0 0;
+}
+
+/* ============================================
+   SCROLL PANE
+   ============================================ */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+.section-box {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);
+}
+
+.section-title {
+    -fx-text-fill: #2d3748;
+    -fx-font-weight: bold;
+}
+
+.field-label {
+    -fx-text-fill: #4a5568;
+    -fx-font-weight: bold;
+}
+
+.info-label {
+    -fx-text-fill: #718096;
+    -fx-font-style: italic;
+}
+
+.empty-label {
+    -fx-text-fill: #a0aec0;
+    -fx-font-style: italic;
+    -fx-padding: 20 0 20 0;
+    -fx-alignment: center;
+}
+
+/* ============================================
+   CHAMPS DE SAISIE
+   ============================================ */
+.custom-text-field {
+    -fx-background-color: #f7fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 15px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2d3748;
+}
+
+.custom-text-field:focused {
+    -fx-border-color: #667eea;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.2), 8, 0, 0, 0);
+}
+
+.custom-text-area {
+    -fx-background-color: #f7fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 15px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2d3748;
+}
+
+.custom-text-area:focused {
+    -fx-border-color: #667eea;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.2), 8, 0, 0, 0);
+}
+
+.custom-text-area .content {
+    -fx-background-color: transparent;
+}
+
+/* ============================================
+   COMBOBOX
+   ============================================ */
+.custom-combo-box {
+    -fx-background-color: #f7fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-size: 14px;
+}
+
+.custom-combo-box:focused {
+    -fx-border-color: #667eea;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+}
+
+.custom-combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2d3748;
+    -fx-padding: 8px 12px;
+}
+
+.custom-combo-box .list-cell:hover {
+    -fx-background-color: #edf2f7;
+}
+
+/* ============================================
+   SPINNER
+   ============================================ */
+.custom-spinner {
+    -fx-background-color: #f7fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.custom-spinner:focused {
+    -fx-border-color: #667eea;
+    -fx-border-width: 2px;
+}
+
+.custom-spinner .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2d3748;
+    -fx-font-size: 14px;
+}
+
+.custom-spinner .increment-arrow-button,
+.custom-spinner .decrement-arrow-button {
+    -fx-background-color: #e2e8f0;
+    -fx-background-radius: 0 8px 8px 0;
+}
+
+.custom-spinner .increment-arrow-button:hover,
+.custom-spinner .decrement-arrow-button:hover {
+    -fx-background-color: #cbd5e0;
+}
+
+/* ============================================
+   BOUTONS
+   ============================================ */
+.add-question-btn {
+    -fx-background-color: linear-gradient(to bottom, #48bb78, #38a169);
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(72, 187, 120, 0.3), 8, 0, 0, 2);
+}
+
+.add-question-btn:hover {
+    -fx-background-color: linear-gradient(to bottom, #38a169, #2f855a);
+    -fx-effect: dropshadow(gaussian, rgba(72, 187, 120, 0.5), 12, 0, 0, 3);
+}
+
+.add-question-btn:pressed {
+    -fx-background-color: #2f855a;
+    -fx-translate-y: 1px;
+}
+
+.validate-btn {
+    -fx-background-color: linear-gradient(to bottom, #4299e1, #3182ce);
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 20px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.validate-btn:hover {
+    -fx-background-color: linear-gradient(to bottom, #3182ce, #2c5282);
+}
+
+.cancel-btn {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #4a5568;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 20px;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.cancel-btn:hover {
+    -fx-background-color: #cbd5e0;
+}
+
+.save-button {
+    -fx-background-color: linear-gradient(to bottom, #667eea, #5568d3);
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+    -fx-padding: 12px 30px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.4), 12, 0, 0, 3);
+}
+
+.save-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #5568d3, #4c51bf);
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.6), 15, 0, 0, 4);
+    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.02;
+}
+
+.save-button:pressed {
+    -fx-background-color: #4c51bf;
+    -fx-translate-y: 2px;
+}
+
+.cancel-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #cbd5e0;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #4a5568;
+    -fx-padding: 12px 30px;
+    -fx-cursor: hand;
+}
+
+.cancel-button:hover {
+    -fx-border-color: #a0aec0;
+    -fx-background-color: #f7fafc;
+}
+
+.return-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #667eea;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #667eea;
+    -fx-padding: 12px 30px;
+    -fx-cursor: hand;
+}
+
+.return-button:hover {
+    -fx-background-color: #667eea;
+    -fx-text-fill: white;
+}
+
+/* ============================================
+   BOUTONS DE QUESTION
+   ============================================ */
+.question-delete-btn {
+    -fx-background-color: linear-gradient(to bottom, #fc8181, #f56565);
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 12px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+.question-delete-btn:hover {
+    -fx-background-color: linear-gradient(to bottom, #f56565, #e53e3e);
+}
+
+.question-edit-btn {
+    -fx-background-color: linear-gradient(to bottom, #f6ad55, #ed8936);
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 12px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+.question-edit-btn:hover {
+    -fx-background-color: linear-gradient(to bottom, #ed8936, #dd6b20);
+}
+
+/* ============================================
+   CARTE DE QUESTION
+   ============================================ */
+.question-card {
+    -fx-background-color: #f7fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 15px;
+}
+
+.question-card:hover {
+    -fx-background-color: #edf2f7;
+    -fx-border-color: #cbd5e0;
+}
+
+.question-number {
+    -fx-background-color: #667eea;
+    -fx-text-fill: white;
+    -fx-background-radius: 50%;
+    -fx-padding: 8px;
+    -fx-min-width: 35px;
+    -fx-min-height: 35px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+
+.question-text {
+    -fx-text-fill: #2d3748;
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+}
+
+.question-input-box {
+    -fx-background-color: #edf2f7;
+    -fx-background-radius: 8px;
+    -fx-padding: 15px;
+}
+
+/* ============================================
+   PIED DE PAGE
+   ============================================ */
+.footer {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* ============================================
+   SEPARATOR
+   ============================================ */
+.separator {
+    -fx-background-color: #e2e8f0;
+}
+
+.separator .line {
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* ============================================
+   ANIMATIONS & TRANSITIONS
+   ============================================ */
+.custom-text-field,
+.custom-text-area,
+.custom-combo-box,
+.add-question-btn,
+.validate-btn,
+.cancel-btn,
+.save-button,
+.cancel-button {
+    -fx-transition: all 0.3s ease;
+}

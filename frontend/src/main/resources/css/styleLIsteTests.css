@@ -1,0 +1,429 @@
+/* ============================================
+   CSS pour l'Interface de Liste des Tests
+   Style moderne et professionnel
+   ============================================ */
+
+/* Couleurs principales */
+.root {
+    -fx-background-color: #f5f7fa;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ============================================
+   EN-TÊTE
+   ============================================ */
+.header {
+    -fx-background-color: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 2);
+}
+
+.title {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+    -fx-padding: 5 0 0 0;
+}
+
+/* ============================================
+   BOUTON PRINCIPAL - NOUVEAU TEST
+   ============================================ */
+.add-test-btn {
+    -fx-background-color: linear-gradient(to bottom, #48bb78, #38a169);
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+    -fx-padding: 12px 25px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(72, 187, 120, 0.4), 10, 0, 0, 2);
+}
+
+.add-test-btn:hover {
+    -fx-background-color: linear-gradient(to bottom, #38a169, #2f855a);
+    -fx-scale-y: 1.03;
+    -fx-scale-x: 1.03;
+    -fx-effect: dropshadow(gaussian, rgba(72, 187, 120, 0.6), 12, 0, 0, 3);
+}
+
+.add-test-btn:pressed {
+    -fx-translate-y: 1px;
+}
+
+/* ============================================
+   PANELS GAUCHE ET DROITE
+   ============================================ */
+.left-panel {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 1 0 0;
+}
+
+.right-panel {
+    -fx-background-color: #f7fafc;
+}
+
+/* ============================================
+   BARRE DE RECHERCHE
+   ============================================ */
+.section-subtitle {
+    -fx-text-fill: #2d3748;
+    -fx-font-weight: bold;
+}
+
+.search-field {
+    -fx-background-color: #f7fafc;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 15px;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #a0aec0;
+}
+
+.search-field:focused {
+    -fx-border-color: #667eea;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.2), 8, 0, 0, 0);
+}
+
+/* ============================================
+   STATISTIQUES
+   ============================================ */
+.stats-box {
+    -fx-padding: 10 0 10 0;
+}
+
+.stat-card {
+    -fx-background-color: linear-gradient(to bottom, #f7fafc, #edf2f7);
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);
+}
+
+.stat-number {
+    -fx-text-fill: #667eea;
+    -fx-font-weight: bold;
+}
+
+.stat-label {
+    -fx-text-fill: #718096;
+    -fx-font-size: 12px;
+}
+
+/* ============================================
+   SCROLL PANES
+   ============================================ */
+.tests-scroll,
+.questions-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.tests-scroll > .viewport,
+.questions-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ============================================
+   CARTE DE TEST (dans la liste)
+   ============================================ */
+.test-card {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);
+}
+
+.test-card:hover {
+    -fx-background-color: #f7fafc;
+    -fx-border-color: #cbd5e0;
+    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.02;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);
+}
+
+.test-card-selected {
+    -fx-background-color: linear-gradient(to right, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    -fx-border-color: #667eea;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.3), 10, 0, 0, 2);
+}
+
+.test-card-title {
+    -fx-text-fill: #2d3748;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+
+.test-card-info {
+    -fx-text-fill: #718096;
+    -fx-font-size: 12px;
+}
+
+.test-card-badge {
+    -fx-background-color: #667eea;
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-padding: 4px 10px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* ============================================
+   SECTION DÉTAILS
+   ============================================ */
+.details-section {
+    -fx-background-color: white;
+}
+
+.test-title-large {
+    -fx-text-fill: #2d3748;
+    -fx-font-weight: bold;
+}
+
+.info-box {
+    -fx-background-color: #f7fafc;
+    -fx-padding: 15px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+}
+
+.info-label-bold {
+    -fx-text-fill: #4a5568;
+    -fx-font-weight: bold;
+}
+
+.info-label-value {
+    -fx-text-fill: #2d3748;
+}
+
+/* ============================================
+   BOUTONS D'EN-TÊTE (Modifier/Supprimer)
+   ============================================ */
+.edit-btn-header {
+    -fx-background-color: linear-gradient(to bottom, #4299e1, #3182ce);
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.edit-btn-header:hover {
+    -fx-background-color: linear-gradient(to bottom, #3182ce, #2c5282);
+}
+
+.delete-btn-header {
+    -fx-background-color: linear-gradient(to bottom, #fc8181, #f56565);
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.delete-btn-header:hover {
+    -fx-background-color: linear-gradient(to bottom, #f56565, #e53e3e);
+}
+
+.add-question-small-btn {
+    -fx-background-color: linear-gradient(to bottom, #48bb78, #38a169);
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+.add-question-small-btn:hover {
+    -fx-background-color: linear-gradient(to bottom, #38a169, #2f855a);
+}
+
+/* ============================================
+   CARTE DE QUESTION
+   ============================================ */
+.question-card {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);
+}
+
+.question-card:hover {
+    -fx-background-color: #f7fafc;
+    -fx-border-color: #cbd5e0;
+}
+
+.question-number {
+    -fx-background-color: #667eea;
+    -fx-text-fill: white;
+    -fx-background-radius: 50%;
+    -fx-padding: 8px;
+    -fx-min-width: 35px;
+    -fx-min-height: 35px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+
+.question-text {
+    -fx-text-fill: #2d3748;
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+}
+
+/* ============================================
+   BOUTONS OUI/NON/PARFOIS
+   ============================================ */
+.reponse-btn {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #4a5568;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 14px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.reponse-btn:hover {
+    -fx-background-color: #cbd5e0;
+}
+
+.reponse-btn-oui {
+    -fx-background-color: linear-gradient(to bottom, #48bb78, #38a169);
+    -fx-text-fill: white;
+}
+
+.reponse-btn-oui:hover {
+    -fx-background-color: linear-gradient(to bottom, #38a169, #2f855a);
+}
+
+.reponse-btn-non {
+    -fx-background-color: linear-gradient(to bottom, #fc8181, #f56565);
+    -fx-text-fill: white;
+}
+
+.reponse-btn-non:hover {
+    -fx-background-color: linear-gradient(to bottom, #f56565, #e53e3e);
+}
+
+.reponse-btn-parfois {
+    -fx-background-color: linear-gradient(to bottom, #f6ad55, #ed8936);
+    -fx-text-fill: white;
+}
+
+.reponse-btn-parfois:hover {
+    -fx-background-color: linear-gradient(to bottom, #ed8936, #dd6b20);
+}
+
+/* ============================================
+   BOUTONS D'ACTION QUESTION
+   ============================================ */
+.question-edit-btn {
+    -fx-background-color: #4299e1;
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 12px;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+}
+
+.question-edit-btn:hover {
+    -fx-background-color: #3182ce;
+}
+
+.question-delete-btn {
+    -fx-background-color: #fc8181;
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 12px;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+}
+
+.question-delete-btn:hover {
+    -fx-background-color: #f56565;
+}
+
+/* ============================================
+   ÉTAT VIDE (Aucun test sélectionné)
+   ============================================ */
+.empty-state {
+    -fx-background-color: white;
+}
+
+.empty-icon {
+    -fx-text-fill: #cbd5e0;
+}
+
+.empty-title {
+    -fx-text-fill: #4a5568;
+}
+
+.empty-subtitle {
+    -fx-text-fill: #a0aec0;
+}
+
+/* ============================================
+   PIED DE PAGE
+   ============================================ */
+.footer {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.status-label {
+    -fx-text-fill: #718096;
+    -fx-font-size: 13px;
+}
+
+.refresh-btn {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #4a5568;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+.refresh-btn:hover {
+    -fx-background-color: #cbd5e0;
+}
+
+/* ============================================
+   SEPARATOR
+   ============================================ */
+.separator {
+    -fx-background-color: #e2e8f0;
+}
+
+.separator .line {
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* ============================================
+   SPLIT PANE
+   ============================================ */
+.split-pane {
+    -fx-background-color: transparent;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: #e2e8f0;
+    -fx-padding: 0 1 0 0;
+}

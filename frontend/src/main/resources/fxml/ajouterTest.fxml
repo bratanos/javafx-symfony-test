@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.AjouterTestController"
+            prefHeight="700.0" prefWidth="900.0"
+            styleClass="root">
+
+    <!-- En-tête -->
+    <top>
+        <VBox styleClass="header" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+            <Label text="Ajouter un Test Psychologique" styleClass="title">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+            </Label>
+            <Label text="Créez un nouveau test et ajoutez ses questions" styleClass="subtitle">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Label>
+        </VBox>
+    </top>
+
+    <!-- Contenu principal -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" BorderPane.alignment="CENTER">
+            <VBox spacing="25.0">
+                <padding>
+                    <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                </padding>
+
+                <!-- Section 1: Informations du Test -->
+                <VBox spacing="15.0" styleClass="section-box">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+
+                    <Label text="📋 Informations du Test" styleClass="section-title">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                    </Label>
+
+                    <Separator />
+
+                    <!-- Titre du test -->
+                    <VBox spacing="5.0">
+                        <Label text="Titre du test *" styleClass="field-label">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="titreField" promptText="Ex: Test de Personnalité Big Five"
+                                   styleClass="custom-text-field" />
+                    </VBox>
+
+                    <!-- Type du test -->
+                    <VBox spacing="5.0">
+                        <Label text="Type de test *" styleClass="field-label">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="typeComboBox" promptText="Sélectionner un type"
+                                  prefWidth="300.0" styleClass="custom-combo-box" />
+                    </VBox>
+
+                    <!-- Description -->
+                    <VBox spacing="5.0">
+                        <Label text="Description *" styleClass="field-label">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <TextArea fx:id="descriptionArea"
+                                  promptText="Décrivez l'objectif et le contenu du test psychologique..."
+                                  prefRowCount="4" wrapText="true" styleClass="custom-text-area" />
+                    </VBox>
+
+                    <!-- Nombre de questions -->
+                    <VBox spacing="5.0">
+                        <Label text="Nombre de questions *" styleClass="field-label">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <HBox spacing="10.0" alignment="CENTER_LEFT">
+                            <Spinner fx:id="nombreQuestionsSpinner" prefWidth="120.0"
+                                     styleClass="custom-spinner" />
+                            <Label fx:id="questionsCountLabel" text="0 question(s) ajoutée(s)"
+                                   styleClass="info-label" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <!-- Section 2: Questions du Test -->
+                <VBox spacing="15.0" styleClass="section-box">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+
+                    <HBox spacing="10.0" alignment="CENTER_LEFT">
+                        <Label text="❓ Questions du Test" styleClass="section-title">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="ajouterQuestionBtn" text="+ Ajouter une Question"
+                                onAction="#ajouterQuestion" styleClass="add-question-btn" />
+                    </HBox>
+
+                    <Separator />
+
+                    <!-- Champ pour ajouter une question -->
+                    <VBox spacing="10.0" fx:id="ajoutQuestionBox" managed="false" visible="false">
+                        <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="question-input-box">
+                            <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                <Label text="Contenu de la question" styleClass="field-label">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Label>
+                                <TextArea fx:id="questionContentArea"
+                                          promptText="Tapez votre question ici..."
+                                          prefRowCount="2" wrapText="true"
+                                          styleClass="custom-text-area" />
+                            </VBox>
+                        </HBox>
+                        <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                            <Button text="Annuler" onAction="#annulerQuestion"
+                                    styleClass="cancel-btn" />
+                            <Button text="Valider" onAction="#validerQuestion"
+                                    styleClass="validate-btn" />
+                        </HBox>
+                    </VBox>
+
+                    <!-- Liste des questions ajoutées -->
+                    <VBox spacing="10.0" fx:id="questionsListBox">
+                        <Label fx:id="noQuestionsLabel" text="Aucune question ajoutée pour le moment"
+                               styleClass="empty-label" />
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Pied de page avec boutons d'action -->
+    <bottom>
+        <HBox spacing="15.0" alignment="CENTER_RIGHT" styleClass="footer"
+              BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+
+            <Button text="← Retour à la Liste" onAction="#retournerListeTests"
+                    styleClass="return-button">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button text="Annuler" onAction="#annulerTest" styleClass="cancel-button">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
+
+            <Button text="Enregistrer le Test" onAction="#enregistrerTest"
+                    styleClass="save-button">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>
