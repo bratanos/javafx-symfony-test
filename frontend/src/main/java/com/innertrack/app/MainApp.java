@@ -25,7 +25,7 @@ public class MainApp extends Application {
         primaryStage.show();
 
         // Load the initial view (login or main)
-        ViewManager.loadView("login");
+        ViewManager.loadView("AfficherEvenement");
     }
 
     public static void main(String[] args) {

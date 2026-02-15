@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.innertrack.controller.AjouterEvenementController">
+
+    <children>
+
+        <MenuBar VBox.vgrow="NEVER" />
+
+        <AnchorPane VBox.vgrow="ALWAYS">
+
+            <children>
+
+                <Label layoutX="38.0" layoutY="47.0" text="Nom De L'evenement:" />
+                <TextField fx:id="title_input" layoutX="170.0" layoutY="43.0" />
+
+                <Label layoutX="65.0" layoutY="100.0" text="Description:" />
+                <TextArea fx:id="description_input" layoutX="170.0" layoutY="96.0" prefHeight="40.0" prefWidth="400.0" />
+
+                <Label layoutX="83.0" layoutY="150.0" text="Date:" />
+                <DatePicker fx:id="date_input" layoutX="170.0" layoutY="146.0" />
+
+                <Label layoutX="43.0" layoutY="195.0" text="Type D'evenement:" />
+                <ComboBox fx:id="type_combobox" layoutX="170.0" layoutY="191.0" prefWidth="150.0" />
+
+                <Label layoutX="72.0" layoutY="259.0" text="Capacite:" />
+                <TextField fx:id="capacity_input" layoutX="170.0" layoutY="246.0" />
+
+                <Button layoutX="410.0" layoutY="344.0" onAction="#submit_event" text="Submit" />
+            <Label layoutX="73.0" layoutY="314.0" prefHeight="18.0" prefWidth="42.0" text="Status" />
+            <CheckBox layoutX="156.0" layoutY="315.0" mnemonicParsing="false" text="En Crour" />
+            <CheckBox layoutX="258.0" layoutY="315.0" mnemonicParsing="false" text="Terminé" />
+            <Label layoutX="286.0" layoutY="14.0" text="Ajouter Evenement" />
+
+            </children>
+
+        </AnchorPane>
+
+    </children>
+</VBox>

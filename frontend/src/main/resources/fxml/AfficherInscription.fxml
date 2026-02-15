@@ -1,0 +1,25 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Button?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.AfficherInscriptionController"
+      spacing="20" alignment="CENTER">
+
+    <Label text="Gestion des Inscriptions" style="-fx-font-size: 22px;" />
+
+    <TableView fx:id="table_inscriptions" prefWidth="600" prefHeight="400">
+    <columns>
+        <TableColumn fx:id="col_titre" text="Event" />
+        <TableColumn fx:id="col_nom" text="Nom" />
+        <TableColumn fx:id="col_email" text="Email" />
+        <TableColumn fx:id="col_date" text="Date Inscription" />
+        <TableColumn fx:id="col_actions" text="Actions" prefWidth="120" />
+    </columns>
+</TableView>
+    <Button text="Retour" onAction="#goBackToEvents" />
+
+
+</VBox>

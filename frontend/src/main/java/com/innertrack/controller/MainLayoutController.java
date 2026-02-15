@@ -2,13 +2,16 @@ package com.innertrack.controller;
 
 import com.innertrack.session.SessionManager;
 import com.innertrack.util.ViewManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.time.Year;
 
 public class MainLayoutController {
@@ -48,6 +51,17 @@ public class MainLayoutController {
         ViewManager.setContainer(contentContainer);
         footerLabel.setText("© " + Year.now().getValue() + " InnerTrack — All rights reserved");
         updateUiForSession();
+        loadAfficherEvenement();
+    }
+
+    public void loadAfficherEvenement() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AfficherEvenement.fxml"));
+            VBox page = loader.load();
+            contentContainer.getChildren().setAll(page);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateUiForSession() {
@@ -55,6 +69,17 @@ public class MainLayoutController {
         loginLink.setVisible(!loggedIn);
         registerLink.setVisible(!loggedIn);
         profileBtn.setVisible(loggedIn);
+    }
+
+    public void loadAfficherInscription() {
+        try {
+            VBox page = FXMLLoader.load(
+                    getClass().getResource("/fxml/AfficherInscription.fxml")
+            );
+            contentContainer.getChildren().setAll(page);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -70,5 +95,10 @@ public class MainLayoutController {
     @FXML
     private void goToRegister() {
         ViewManager.loadView("register");
+    }
+
+    @FXML
+    public void goToInscriptions(ActionEvent actionEvent) {
+        loadAfficherInscription();
     }
 }
