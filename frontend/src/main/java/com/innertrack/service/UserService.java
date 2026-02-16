@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Currently unused - UserDao is being used instead. Consider removing or implementing when business logic layer is needed.
 public class UserService implements ICrudService<User> {
     private final Connection connection;
     private final Gson gson = new Gson();
