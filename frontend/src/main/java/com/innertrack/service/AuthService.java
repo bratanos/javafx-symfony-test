@@ -33,11 +33,15 @@ public class AuthService {
         user.setVerified(false);
         user.setStatus("PENDING");
 
-        if (userDao.create(user)) {
-            // Reload user to get generated ID
-            user = userDao.findByEmail(email);
-            sendNewOtp(user);
-            return "SUCCESS";
+        try {
+            if (userDao.create(user)) {
+                // Reload user to get generated ID
+                user = userDao.findByEmail(email);
+                sendNewOtp(user);
+                return "SUCCESS";
+            }
+        } catch (Exception e) {
+            System.err.println("Error creating user: " + e.getMessage());
         }
         return "Registration failed.";
     }
