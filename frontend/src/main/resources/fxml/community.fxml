@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="450.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.innertrack.controller.CommunityController">
+   <children>
+      <TextField fx:id="newComment" onAction="#storeNewComment" promptText="Write a new comment..." />
+      <TreeView fx:id="comments" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="443.0" prefWidth="854.0" />
+   </children>
+</VBox>
