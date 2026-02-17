@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
 public class AfficherEvenementController {
 
     private final com.innertrack.service.EventService eventService = new EventService();
@@ -116,15 +117,27 @@ public class AfficherEvenementController {
                     nomDialog.setHeaderText("Participer à : " + ev.getTitre());
                     nomDialog.setContentText("Nom :");
                     var nomOpt = nomDialog.showAndWait();
-                    if (nomOpt.isEmpty() || nomOpt.get().trim().isEmpty()) return;
+                    String nom = nomOpt.get().trim();
 
+                    if (!isValidName(nom)) {
+                        new Alert(Alert.AlertType.WARNING,
+                                "Nom invalide !\nSeulement des lettres, minimum 3 caractères.")
+                                .showAndWait();
+                        return;
+                    }
                     TextInputDialog emailDialog = new TextInputDialog();
                     emailDialog.setTitle("Inscription");
                     emailDialog.setHeaderText("Participer à : " + ev.getTitre());
                     emailDialog.setContentText("Email :");
                     var emailOpt = emailDialog.showAndWait();
-                    if (emailOpt.isEmpty() || emailOpt.get().trim().isEmpty()) return;
+                    String email = emailOpt.get().trim();
 
+                    if (!isValidEmail(email)) {
+                        new Alert(Alert.AlertType.WARNING,
+                                "Email invalide !\nExemple: test@gmail.com")
+                                .showAndWait();
+                        return;
+                    }
                     try {
                         new com.innertrack.service.InscriptionService()
                                 .participer(ev.getIdEvent(), nomOpt.get().trim(), emailOpt.get().trim());
@@ -144,6 +157,14 @@ public class AfficherEvenementController {
                 setGraphic(empty ? null : btn);
             }
         });
+    }
+
+    private boolean isValidName(String name) {
+        return name.matches("^[A-Za-zÀ-ÿ ]{3,}$");
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
     }
 
 
@@ -191,7 +212,6 @@ public class AfficherEvenementController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjouterEvenement.fxml"));
             Parent root = loader.load();
-
             Stage stage = (Stage) table_events.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Ajouter Evenement");

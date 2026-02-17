@@ -35,6 +35,11 @@
 
                 <Label layoutX="72.0" layoutY="259.0" text="Capacite:" />
                 <TextField fx:id="capacity_input" layoutX="170.0" layoutY="246.0" />
+                <Label fx:id="error"
+                       layoutX="170.0"
+                       layoutY="280.0"
+                       textFill="red"
+                       visible="false" />
 
                 <Button layoutX="410.0" layoutY="344.0" onAction="#submit_event" text="Submit" />
             <Label layoutX="73.0" layoutY="314.0" prefHeight="18.0" prefWidth="42.0" text="Status" />
