@@ -126,12 +126,15 @@ public class CrudTestGui extends Application {
     /* ================= CRUD ================= */
 
     private void createUser() {
+
+        if (!validateForm(true)) return;
+
         try {
             User user = new User();
-            user.setEmail(emailField.getText());
+            user.setEmail(emailField.getText().trim());
             user.setPassword(passwordField.getText());
             user.setRoles(parseRoles(rolesField.getText()));
-            user.setStatus(statusField.getText());
+            user.setStatus(statusField.getText().trim());
             user.setVerified(verifiedCheckBox.isSelected());
 
             userDao.create(user);
@@ -145,17 +148,24 @@ public class CrudTestGui extends Application {
     }
 
     private void updateUser() {
+
         User selected = tableView.getSelectionModel().getSelectedItem();
         if (selected == null) {
             warning("Select a user first");
             return;
         }
 
+        if (!validateForm(false)) return;
+
         try {
-            selected.setEmail(emailField.getText());
-            selected.setPassword(passwordField.getText());
+            selected.setEmail(emailField.getText().trim());
+
+            if (!passwordField.getText().trim().isEmpty()) {
+                selected.setPassword(passwordField.getText());
+            }
+
             selected.setRoles(parseRoles(rolesField.getText()));
-            selected.setStatus(statusField.getText());
+            selected.setStatus(statusField.getText().trim());
             selected.setVerified(verifiedCheckBox.isSelected());
 
             userDao.update(selected);
@@ -168,6 +178,7 @@ public class CrudTestGui extends Application {
     }
 
     private void deleteUser() {
+
         User selected = tableView.getSelectionModel().getSelectedItem();
         if (selected == null) {
             warning("Select a user first");
@@ -180,18 +191,46 @@ public class CrudTestGui extends Application {
         confirm.showAndWait().ifPresent(btn -> {
             if (btn == ButtonType.OK) {
                 try {
-                    userDao.delete(selected.getId()); // INTERNAL ONLY
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
+                    userDao.delete(selected.getId());
                     loadUsers();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    clearForm();
+                } catch (Exception e) {
+                    error(e.getMessage());
                 }
-                clearForm();
             }
         });
+    }
+
+    /* ================= Validation ================= */
+
+    private boolean validateForm(boolean isCreate) {
+
+        if (emailField.getText().trim().isEmpty()) {
+            warning("Email is required");
+            return false;
+        }
+
+        if (!emailField.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            warning("Invalid email format");
+            return false;
+        }
+
+        if (isCreate && passwordField.getText().trim().isEmpty()) {
+            warning("Password is required");
+            return false;
+        }
+
+        if (rolesField.getText().trim().isEmpty()) {
+            warning("Roles are required");
+            return false;
+        }
+
+        if (statusField.getText().trim().isEmpty()) {
+            warning("Status is required");
+            return false;
+        }
+
+        return true;
     }
 
     /* ================= Helpers ================= */
