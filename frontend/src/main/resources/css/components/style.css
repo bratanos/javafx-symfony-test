@@ -1,0 +1,561 @@
+/* ============================================================================
+   VIBRANT PROFESSIONAL THEME - InnerTrack
+   Dynamic, colorful, and alive design with smooth animations
+   JavaFX Compatible Version
+   ============================================================================ */
+
+.root {
+    -fx-background-color: #f5f7fa;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* ============================================================================
+   MAIN CONTAINER
+   ============================================================================ */
+
+.main-container {
+    -fx-background-color: #f5f7fa;
+}
+
+/* ============================================================================
+   HEADER - Vibrant Gradient (JavaFX syntax)
+   ============================================================================ */
+
+.page-header {
+    -fx-background-color: linear-gradient(to right, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -fx-padding: 24 28;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.4), 15, 0, 0, 4);
+}
+
+.page-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0, 0, 2);
+}
+
+.page-subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: rgba(255, 255, 255, 0.95);
+    -fx-padding: 5 0 0 0;
+}
+
+/* ============================================================================
+   CARD COMPONENTS - Colorful & Dynamic
+   ============================================================================ */
+
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-padding: 18px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.15), 10, 0, 0, 3);
+}
+
+.card:hover {
+    -fx-background-color: #f0f4ff;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.35), 18, 0, 0, 6);
+}
+
+.card-selected {
+    -fx-background-color: #e8f0fe;
+    -fx-border-color: #667eea;
+    -fx-border-width: 3px;
+    -fx-border-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.5), 20, 0, 0, 8);
+}
+
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4c51bf;
+}
+
+.card-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #5a67d8;
+}
+
+.card-badge {
+    -fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);
+    -fx-text-fill: white;
+    -fx-background-radius: 16px;
+    -fx-padding: 5 12;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.4), 6, 0, 0, 2);
+}
+
+/* ============================================================================
+   SIDEBAR - Colorful accent
+   ============================================================================ */
+
+.sidebar {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-spacing: 14;
+    -fx-border-color: #e0e7ff;
+    -fx-border-width: 0 2 0 0;
+}
+
+.sidebar-header {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4c51bf;
+    -fx-padding: 0 0 10 0;
+}
+
+/* ============================================================================
+   DETAIL PANEL - Vibrant with accent
+   ============================================================================ */
+
+.detail-panel {
+    -fx-background-color: white;
+    -fx-background-radius: 16px;
+    -fx-padding: 28;
+    -fx-border-color: #e0e7ff;
+    -fx-border-width: 2px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.2), 15, 0, 0, 5);
+}
+
+.detail-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4c51bf;
+}
+
+.detail-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5a67d8;
+    -fx-padding: 0 0 6 0;
+}
+
+.detail-value {
+    -fx-font-size: 15px;
+    -fx-text-fill: #2d3748;
+    -fx-padding: 0 0 18 0;
+}
+
+/* ============================================================================
+   SEARCH BAR - Colorful focus effect
+   ============================================================================ */
+
+.search-field {
+    -fx-background-color: white;
+    -fx-background-radius: 24px;
+    -fx-border-color: #cbd5e0;
+    -fx-border-radius: 24px;
+    -fx-border-width: 2px;
+    -fx-padding: 14 20;
+    -fx-font-size: 14px;
+    -fx-pref-height: 48px;
+    -fx-prompt-text-fill: #a0aec0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 0, 2);
+}
+
+.search-field:focused {
+    -fx-border-color: #667eea;
+    -fx-border-width: 3px;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.4), 15, 0, 0, 3);
+}
+
+/* ============================================================================
+   BUTTONS - Vibrant Gradients (JavaFX Compatible)
+   ============================================================================ */
+
+.button {
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-padding: 12 24;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.btn-primary {
+    -fx-background-color: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.5), 12, 0, 0, 4);
+}
+
+.btn-primary:hover {
+    -fx-background-color: linear-gradient(to bottom, #5568d3 0%, #6842a0 100%);
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.7), 18, 0, 0, 6);
+}
+
+.btn-primary:pressed {
+    -fx-background-color: #4c51bf;
+}
+
+.btn-secondary {
+    -fx-background-color: linear-gradient(to bottom, #4299e1 0%, #3182ce 100%);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(66, 153, 225, 0.4), 10, 0, 0, 3);
+}
+
+.btn-secondary:hover {
+    -fx-background-color: linear-gradient(to bottom, #3182ce 0%, #2c5282 100%);
+    -fx-effect: dropshadow(gaussian, rgba(66, 153, 225, 0.6), 15, 0, 0, 5);
+}
+
+.btn-success {
+    -fx-background-color: linear-gradient(to bottom, #48bb78 0%, #38a169 100%);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(72, 187, 120, 0.4), 10, 0, 0, 3);
+}
+
+.btn-success:hover {
+    -fx-background-color: linear-gradient(to bottom, #38a169 0%, #2f855a 100%);
+    -fx-effect: dropshadow(gaussian, rgba(72, 187, 120, 0.7), 16, 0, 0, 5);
+}
+
+.btn-success:pressed {
+    -fx-background-color: #2f855a;
+}
+
+.btn-danger {
+    -fx-background-color: linear-gradient(to bottom, #fc8181 0%, #f56565 100%);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(252, 129, 129, 0.4), 10, 0, 0, 3);
+}
+
+.btn-danger:hover {
+    -fx-background-color: linear-gradient(to bottom, #f56565 0%, #e53e3e 100%);
+    -fx-effect: dropshadow(gaussian, rgba(252, 129, 129, 0.7), 16, 0, 0, 5);
+}
+
+.btn-info {
+    -fx-background-color: linear-gradient(to bottom, #f6ad55 0%, #ed8936 100%);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(246, 173, 85, 0.4), 10, 0, 0, 3);
+}
+
+.btn-info:hover {
+    -fx-background-color: linear-gradient(to bottom, #ed8936 0%, #dd6b20 100%);
+}
+
+.btn-ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: #667eea;
+    -fx-border-color: #667eea;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+.btn-ghost:hover {
+    -fx-background-color: #f0f4ff;
+    -fx-border-color: #5568d3;
+    -fx-border-width: 3px;
+}
+
+/* ============================================================================
+   FORM INPUTS - Colorful & Interactive
+   ============================================================================ */
+
+.text-field, .text-area, .date-picker, .combo-box {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-color: #cbd5e0;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-padding: 12 16;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2d3748;
+}
+
+.text-field:focused, .text-area:focused,
+.date-picker:focused, .combo-box:focused {
+    -fx-border-color: #667eea;
+    -fx-border-width: 3px;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.3), 12, 0, 0, 2);
+}
+
+.text-area {
+    -fx-background-color: white;
+}
+
+.text-area .content {
+    -fx-background-color: transparent;
+}
+
+/* ComboBox styling */
+.combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2d3748;
+    -fx-padding: 10 14;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #edf2f7;
+}
+
+/* ============================================================================
+   SCROLL PANE - Colorful scrollbar
+   ============================================================================ */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar:vertical,
+.scroll-pane > .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12px;
+}
+
+.scroll-pane > .scroll-bar > .thumb {
+    -fx-background-color: #cbd5e0;
+    -fx-background-radius: 6px;
+}
+
+.scroll-pane > .scroll-bar > .thumb:hover {
+    -fx-background-color: #a0aec0;
+}
+
+.scroll-pane > .scroll-bar > .track {
+    -fx-background-color: #f7fafc;
+    -fx-background-radius: 6px;
+}
+
+.scroll-pane > .scroll-bar > .increment-button,
+.scroll-pane > .scroll-bar > .decrement-button {
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+/* ============================================================================
+   SEPARATOR - Colorful
+   ============================================================================ */
+
+.separator {
+    -fx-background-color: #e0e7ff;
+}
+
+.separator .line {
+    -fx-border-color: #e0e7ff;
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* ============================================================================
+   EMPTY STATE - Friendly & Colorful
+   ============================================================================ */
+
+.empty-state {
+    -fx-alignment: center;
+    -fx-padding: 80;
+    -fx-background-color: white;
+    -fx-background-radius: 16px;
+}
+
+.empty-state-text {
+    -fx-font-size: 18px;
+    -fx-text-fill: #5a67d8;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+}
+
+.empty-icon {
+    -fx-text-fill: #cbd5e0;
+}
+
+.empty-subtitle {
+    -fx-text-fill: #a0aec0;
+}
+
+/* ============================================================================
+   STATISTICS BOXES - Colorful cards
+   ============================================================================ */
+
+.stats-box {
+    -fx-padding: 12 0 12 0;
+}
+
+.stat-card {
+    -fx-background-color: #e8f0fe;
+    -fx-background-radius: 12px;
+    -fx-padding: 18px;
+    -fx-border-color: #cbd5e0;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.2), 10, 0, 0, 3);
+}
+
+.stat-number {
+    -fx-text-fill: #667eea;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
+.stat-label {
+    -fx-text-fill: #5a67d8;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+/* ============================================================================
+   INFO BOX - Soft colorful background
+   ============================================================================ */
+
+.info-box {
+    -fx-background-color: #f0f9ff;
+    -fx-padding: 18px;
+    -fx-background-radius: 10px;
+    -fx-border-color: #bae6fd;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+.info-label-bold {
+    -fx-text-fill: #0369a1;
+    -fx-font-weight: bold;
+}
+
+.info-label-value {
+    -fx-text-fill: #075985;
+}
+
+/* ============================================================================
+   SECTION STYLING - Vibrant sections
+   ============================================================================ */
+
+.section-box {
+    -fx-background-color: white;
+    -fx-background-radius: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.15), 12, 0, 0, 4);
+}
+
+.section-title {
+    -fx-text-fill: #4c51bf;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+.section-subtitle {
+    -fx-text-fill: #5a67d8;
+    -fx-font-weight: bold;
+}
+
+.field-label {
+    -fx-text-fill: #5a67d8;
+    -fx-font-weight: bold;
+}
+
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================ */
+
+.text-bold {
+    -fx-font-weight: bold;
+}
+
+.text-muted {
+    -fx-text-fill: #718096;
+}
+
+.text-small {
+    -fx-font-size: 12px;
+}
+
+/* ============================================================================
+   SPLIT PANE - Colorful divider
+   ============================================================================ */
+
+.split-pane {
+    -fx-background-color: transparent;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: #e0e7ff;
+    -fx-padding: 0 2 0 0;
+}
+
+/* ============================================================================
+   FOOTER - Gradient footer
+   ============================================================================ */
+
+.footer {
+    -fx-background-color: white;
+    -fx-border-color: #e0e7ff;
+    -fx-border-width: 2px 0 0 0;
+}
+
+.status-label {
+    -fx-text-fill: #5a67d8;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+/* ============================================================================
+   PREVIEW AREA - Colorful preview box
+   ============================================================================ */
+
+.preview-box {
+    -fx-background-color: #f0f9ff;
+    -fx-background-radius: 10px;
+    -fx-padding: 16;
+    -fx-border-color: #bae6fd;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+.preview-area {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-border-color: transparent;
+}
+
+/* ============================================================================
+   TABLE VIEW (if needed)
+   ============================================================================ */
+
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f7fafc;
+    -fx-text-fill: #4a5568;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #2d3748;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f7fafc;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e8f0fe;
+}
+
+/* ============================================================================
+   ACCENT BORDERS - Colorful accents
+   ============================================================================ */
+
+.accent-border-left {
+    -fx-border-color: transparent transparent transparent #667eea;
+    -fx-border-width: 0 0 0 4px;
+    -fx-padding: 0 0 0 12;
+}
+
+.accent-border-top {
+    -fx-border-color: #667eea transparent transparent transparent;
+    -fx-border-width: 3px 0 0 0;
+    -fx-padding: 12 0 0 0;
+}

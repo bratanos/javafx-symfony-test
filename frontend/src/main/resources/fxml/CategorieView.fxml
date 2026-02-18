@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    ArticleView.fxml
+    ════════════════
+    Layout: BorderPane
+      TOP    → page header
+      CENTER → HBox with two panels:
+                 LEFT  → search + refresh + "New Article" + TableView
+                 RIGHT → StackPane with emptyState OR detailScrollPane (form + preview)
+
+    No fx:controller here — MainController sets the controller manually
+    via loader.setController() before loader.load().
+-->
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.innertrack.controller.CategorieController"
+            styleClass="main-container"
+            stylesheets="@../css/components/style.css">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TOP: Page header
+         ═══════════════════════════════════════════════════════════ -->
+    <top>
+        <VBox styleClass="page-header">
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="📰" style="-fx-font-size: 32px;"/>
+                <VBox>
+                    <Label text="Gestion des Articles" styleClass="page-title"/>
+                    <Label text="Créez, modifiez et consultez vos articles" styleClass="page-subtitle"/>
+                </VBox>
+                <!-- Back button in the header — always visible -->
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnBack"
+                        text="← Retour aux catégories"
+                        onAction="#goBackToCategories"
+                        style="-fx-background-color: transparent;
+                               -fx-text-fill: #ffffff;
+                               -fx-cursor: hand;
+                               -fx-font-size: 12px;
+                               -fx-underline: true;
+                               -fx-padding: 4 8 4 8;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         CENTER: Two-column layout
+         ═══════════════════════════════════════════════════════════ -->
+    <center>
+        <HBox spacing="20" style="-fx-padding: 20;">
+
+            <!-- ─────────────────────────────────────────────────────
+                 LEFT: Table + search sidebar
+                 ───────────────────────────────────────────────────── -->
+            <VBox fx:id="sidebarVBox" spacing="12" prefWidth="480" styleClass="sidebar">
+
+                <!-- Search field + refresh button side by side -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <!--
+                        HBox.hgrow="ALWAYS" makes the search field expand to fill
+                        available width, pushing the refresh button to the right.
+                    -->
+                    <TextField fx:id="tfSearch"
+                               promptText="🔍 Rechercher par titre, auteur, catégorie..."
+                               styleClass="search-field"
+                               HBox.hgrow="ALWAYS"/>
+                    <Button text="🔃 Actualiser"
+                            onAction="#handleRefresh"
+                            styleClass="btn-success"
+                            prefHeight="40"/>
+                </HBox>
+
+                <!-- Opens the detail panel in blank "new article" mode -->
+                <Button text="➕ Nouvel Article"
+                        onAction="#handleNewArticle"
+                        styleClass="btn-primary"
+                        prefWidth="Infinity"
+                        prefHeight="40"/>
+
+                <Separator styleClass="separator"/>
+
+                <!--
+                    TableView displays the filtered article list.
+                    VBox.vgrow="ALWAYS" makes it fill remaining vertical space.
+                    Column cells are wired to Article properties via
+                    PropertyValueFactory in ArticleController.setupTable().
+                -->
+                <TableView fx:id="tableArticles"
+                           VBox.vgrow="ALWAYS"
+                           styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="colTitre"     text="Titre"     prefWidth="160"/>
+                        <TableColumn fx:id="colAuteur"    text="Auteur"    prefWidth="110"/>
+                        <TableColumn fx:id="colCategorie" text="Catégorie" prefWidth="110"/>
+                        <TableColumn fx:id="colDate"      text="Date"      prefWidth="100"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <!-- ─────────────────────────────────────────────────────
+                 RIGHT: Detail panel
+                 ───────────────────────────────────────────────────── -->
+            <StackPane HBox.hgrow="ALWAYS">
+
+                <!-- Empty state: shown when no article is selected -->
+                <VBox fx:id="emptyState"
+                      alignment="CENTER"
+                      spacing="16"
+                      visible="true"
+                      style="-fx-padding: 60;
+                             -fx-background-color: #ffffff;
+                             -fx-background-radius: 12px;">
+                    <Label text="📰" style="-fx-font-size: 64px; -fx-opacity: 0.3;"/>
+                    <Label text="Sélectionnez un article" styleClass="empty-state-text"/>
+                    <Label text="ou créez-en un nouveau pour commencer"
+                           style="-fx-font-size: 13px; -fx-text-fill: #8a8886;"/>
+                </VBox>
+
+                <!-- Detail / edit panel -->
+                <ScrollPane fx:id="detailScrollPane"
+                            fitToWidth="true"
+                            visible="false"
+                            style="-fx-background: transparent; -fx-background-color: transparent;">
+
+                    <VBox fx:id="detailView" spacing="15" styleClass="detail-panel">
+
+                        <!-- Article header: title + meta info line -->
+                        <VBox spacing="6">
+                            <Label fx:id="lblDetailTitle"
+                                   text="Titre de l'article"
+                                   styleClass="detail-title"/>
+                            <Label fx:id="lblDetailMeta"
+                                   text="Auteur · Catégorie · Date"
+                                   style="-fx-font-size: 13px; -fx-text-fill: #605e5c;"/>
+                        </VBox>
+
+                        <Separator styleClass="separator"/>
+
+                        <!-- Titre field -->
+                        <Label text="Titre de l'article :" styleClass="detail-label"/>
+                        <TextField fx:id="tfTitre"
+                                   promptText="Ex: Les bienfaits de la méditation"
+                                   styleClass="text-field"/>
+
+                        <!-- Auteur field -->
+                        <Label text="Auteur :" styleClass="detail-label"/>
+                        <TextField fx:id="tfAuteur"
+                                   promptText="Ex: Dr Sophie Martin"
+                                   styleClass="text-field"/>
+
+                        <!-- Date + Category: side by side using HBox -->
+                        <HBox spacing="12">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="Date de publication :" styleClass="detail-label"/>
+                                <DatePicker fx:id="dpDatePublication"
+                                            promptText="Sélectionner une date"
+                                            maxWidth="Infinity"
+                                            styleClass="date-picker"/>
+                            </VBox>
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <Label text="Catégorie :" styleClass="detail-label"/>
+                                <!--
+                                    ComboBox items and cell factory are set in Java
+                                    (loadCategories()) because we need custom rendering
+                                    (show nom instead of toString()).
+                                -->
+                                <ComboBox fx:id="cbCategorie"
+                                          promptText="Choisir une catégorie"
+                                          maxWidth="Infinity"
+                                          styleClass="combo-box"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- Contenu (article body) -->
+                        <Label text="Contenu :" styleClass="detail-label"/>
+                        <TextArea fx:id="taContenu"
+                                  promptText="Écrivez le contenu de votre article ici..."
+                                  wrapText="true"
+                                  prefHeight="180"
+                                  styleClass="text-area"/>
+
+                        <Separator styleClass="separator"/>
+
+                        <!-- CRUD action buttons -->
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Button fx:id="btnAdd"
+                                    text="➕ Ajouter"
+                                    onAction="#handleAdd"
+                                    styleClass="btn-primary"
+                                    prefWidth="130"/>
+
+                            <Button fx:id="btnUpdate"
+                                    text="✓ Enregistrer"
+                                    onAction="#handleUpdate"
+                                    styleClass="btn-secondary"
+                                    prefWidth="130"/>
+
+                            <Button fx:id="btnDelete"
+                                    text="🗑️ Supprimer"
+                                    onAction="#handleDelete"
+                                    styleClass="btn-danger"
+                                    prefWidth="130"/>
+
+                            <Region HBox.hgrow="ALWAYS"/>
+
+                            <Button fx:id="btnClear"
+                                    text="Annuler"
+                                    onAction="#clearForm"
+                                    styleClass="btn-ghost"/>
+                        </HBox>
+
+                        <!-- Read-only content preview -->
+                        <VBox spacing="8" styleClass="preview-box">
+                            <Label text="📖 Aperçu du contenu" styleClass="section-subtitle"/>
+                            <!--
+                                taPreview is read-only (editable="false").
+                                It's updated in showDetailPanel() and fillForm().
+                            -->
+                            <TextArea fx:id="taPreview"
+                                      editable="false"
+                                      wrapText="true"
+                                      prefHeight="120"
+                                      styleClass="preview-area"/>
+                        </VBox>
+
+                    </VBox>
+                </ScrollPane>
+
+            </StackPane>
+        </HBox>
+    </center>
+</BorderPane>
+
