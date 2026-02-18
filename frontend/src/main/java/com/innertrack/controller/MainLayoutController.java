@@ -19,7 +19,7 @@ public class MainLayoutController {
     private HBox navbar;
 
     @FXML
-    private VBox contentContainer;
+    private javafx.scene.layout.StackPane contentContainer;
 
     @FXML
     private Hyperlink loginLink;
@@ -37,9 +37,17 @@ public class MainLayoutController {
         return instance;
     }
 
+    @FXML
+    private VBox footer;
+
     public void setNavbarVisible(boolean visible) {
         navbar.setVisible(visible);
         navbar.setManaged(visible);
+    }
+
+    public void setFooterVisible(boolean visible) {
+        footer.setVisible(visible);
+        footer.setManaged(visible);
     }
 
     @FXML

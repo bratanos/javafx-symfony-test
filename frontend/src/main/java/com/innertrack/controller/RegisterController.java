@@ -10,6 +10,12 @@ import java.util.Collections;
 public class RegisterController {
 
     @FXML
+    private TextField firstNameField;
+
+    @FXML
+    private TextField lastNameField;
+
+    @FXML
     private TextField emailField;
 
     @FXML
@@ -28,18 +34,22 @@ public class RegisterController {
 
     @FXML
     public void initialize() {
-        MainLayoutController.getInstance().setNavbarVisible(false);
+        com.innertrack.controller.MainLayoutController.getInstance().setNavbarVisible(false);
+        com.innertrack.controller.MainLayoutController.getInstance().setFooterVisible(false);
         roleComboBox.setItems(FXCollections.observableArrayList("Normal User", "Psychologue"));
     }
 
     @FXML
     private void handleRegister() {
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
         String selectedRole = roleComboBox.getValue();
 
-        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || selectedRole == null) {
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()
+                || confirmPassword.isEmpty() || selectedRole == null) {
             showMessage("Tous les champs sont obligatoires.", true);
             return;
         }
@@ -49,11 +59,10 @@ public class RegisterController {
             return;
         }
 
-        // Map UI role names to ROLE_ codes if necessary, or just keep them as is
-        // Symfony logic used ROLE_USER, etc.
+        // Map UI role names to ROLE_ codes
         String roleCode = selectedRole.equals("Psychologue") ? "ROLE_PSYCHOLOGUE" : "ROLE_USER";
 
-        String result = authService.register(email, password, Collections.singletonList(roleCode));
+        String result = authService.register(email, password, firstName, lastName, Collections.singletonList(roleCode));
 
         if ("SUCCESS".equals(result)) {
             // Success! Load OTP view and pass email

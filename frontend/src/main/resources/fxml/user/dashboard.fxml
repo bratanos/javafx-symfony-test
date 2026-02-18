@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.paint.ImagePattern?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.innertrack.controller.user.UserDashboardController"
+            stylesheets="@../../style/dashboards.css"
+            maxHeight="Infinity" maxWidth="Infinity">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="250">
+            <VBox styleClass="sidebar-logo" alignment="CENTER">
+                <ImageView fitWidth="150" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/innertracklogo1.png" />
+                    </image>
+                </ImageView>
+            </VBox>
+
+            <VBox styleClass="profile-section">
+                <javafx.scene.shape.Circle fx:id="profileCircle" radius="35" styleClass="profile-pic" />
+                <Label fx:id="userFullNameLabel" text="Utilisateur" styleClass="profile-name" />
+            </VBox>
+
+            <Separator opacity="0.1" />
+
+            <VBox spacing="5">
+                <Button text="Tableau de bord" styleClass="sidebar-button, sidebar-button-active" maxWidth="Infinity">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-th-large" iconSize="18" iconColor="#ffffff" />
+                    </graphic>
+                </Button>
+                <Button text="Mon Journal" styleClass="sidebar-button" maxWidth="Infinity" onAction="#handleGoToJournal">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-book" iconSize="18" iconColor="#ffffff" />
+                    </graphic>
+                </Button>
+                <Button text="Mes Habitudes" styleClass="sidebar-button" maxWidth="Infinity" onAction="#handleGoToHabits">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-check-circle" iconSize="18" iconColor="#ffffff" />
+                    </graphic>
+                </Button>
+                <Button text="Profil &amp; Paramètres" onAction="#handleGoToSettings" styleClass="sidebar-button" maxWidth="Infinity">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-user-cog" iconSize="18" iconColor="#ffffff" />
+                    </graphic>
+                </Button>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Button text="Déconnexion" styleClass="sidebar-button" maxWidth="Infinity" onAction="#handleLogout">
+                <graphic>
+                    <FontIcon iconLiteral="fas-sign-out-alt" iconSize="18" iconColor="#ffffff" />
+                </graphic>
+            </Button>
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+            <VBox spacing="30" styleClass="dashboard-container" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="30" right="40" bottom="30" left="40" />
+                </padding>
+
+                <!-- Header -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <VBox>
+                        <Label fx:id="welcomeLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Bonjour" />
+                        <Label text="Continuez vos efforts, chaque petit pas compte." style="-fx-text-fill: #7f8c8d;" />
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button text="Nouvelle entrée journal" style="-fx-background-color: #1d7bed; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 10 25;" />
+                </HBox>
+
+                <!-- Stats Cards -->
+                <HBox spacing="20">
+                    <VBox styleClass="dashboard-card, stat-card" HBox.hgrow="ALWAYS">
+                        <FontIcon iconLiteral="fas-fire" iconSize="24" iconColor="#e67e22" />
+                        <Label fx:id="streakLabel" styleClass="stat-value" text="0" style="-fx-text-fill: #e67e22;" />
+                        <Label styleClass="stat-label" text="Série actuelle" />
+                    </VBox>
+                    <VBox styleClass="dashboard-card, stat-card" HBox.hgrow="ALWAYS">
+                        <FontIcon iconLiteral="fas-pen-nib" iconSize="24" iconColor="#1d7bed" />
+                        <Label fx:id="journalEntriesLabel" styleClass="stat-value" text="0" />
+                        <Label styleClass="stat-label" text="Entrées au journal" />
+                    </VBox>
+                    <VBox styleClass="dashboard-card, stat-card" HBox.hgrow="ALWAYS">
+                        <FontIcon iconLiteral="fas-check-double" iconSize="24" iconColor="#27ae60" />
+                        <Label fx:id="habitsCompletedLabel" styleClass="stat-value" text="0%" style="-fx-text-fill: #27ae60;" />
+                        <Label styleClass="stat-label" text="Habitudes suivies" />
+                    </VBox>
+                </HBox>
+
+                <!-- Daily Inspiration Card -->
+                <VBox styleClass="dashboard-card" spacing="15" style="-fx-background-color: linear-gradient(to right, #1d7bed, #4CA8F5); -fx-padding: 30;">
+                    <Label text="Inspiration du jour" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                    <Label text="&quot;Le succès n'est pas final, l'échec n'est pas fatal : c'est le courage de continuer qui compte.&quot;" 
+                           style="-fx-font-style: italic; -fx-font-size: 16px; -fx-text-fill: white;" wrapText="true" />
+                    <Label text="— Winston Churchill" style="-fx-text-fill: rgba(255,255,255,0.8);" />
+                </VBox>
+
+                <!-- Quick Actions -->
+                <HBox spacing="20">
+                    <VBox styleClass="dashboard-card" HBox.hgrow="ALWAYS" spacing="10">
+                        <padding><Insets top="20" right="20" bottom="20" left="20" /></padding>
+                        <Label text="Missions d'aujourd'hui" style="-fx-font-weight: bold;" />
+                        <CheckBox text="Méditation (10 min)" style="-fx-padding: 5 0;" />
+                        <CheckBox text="Écrire dans le journal" selected="true" style="-fx-padding: 5 0;" />
+                        <CheckBox text="Boire 2L d'eau" style="-fx-padding: 5 0;" />
+                    </VBox>
+                    <VBox styleClass="dashboard-card" HBox.hgrow="ALWAYS" spacing="10" alignment="CENTER">
+                        <padding><Insets top="20" right="20" bottom="20" left="20" /></padding>
+                        <Label text="Comment vous sentez-vous ?" style="-fx-font-weight: bold;" />
+                        <HBox spacing="15" alignment="CENTER">
+                            <Button text="😊" style="-fx-font-size: 20; -fx-background-color: #f1f1f1;" />
+                            <Button text="😐" style="-fx-font-size: 20; -fx-background-color: #f1f1f1;" />
+                            <Button text="😔" style="-fx-font-size: 20; -fx-background-color: #f1f1f1;" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

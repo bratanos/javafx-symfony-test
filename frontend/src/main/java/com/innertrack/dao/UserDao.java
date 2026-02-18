@@ -50,13 +50,16 @@ public class UserDao implements ICrudService<User> {
 
     @Override
     public boolean create(User user) throws SQLException {
-        String sql = "INSERT INTO user (email, password, roles, is_verified, status) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO user (email, password, roles, is_verified, status, first_name, last_name, profile_picture) VALUES (?,?,?,?,?,?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, user.getEmail());
             stmt.setString(2, user.getPassword());
             stmt.setString(3, gson.toJson(user.getRoles()));
             stmt.setBoolean(4, user.isVerified());
             stmt.setString(5, user.getStatus());
+            stmt.setString(6, user.getFirstName());
+            stmt.setString(7, user.getLastName());
+            stmt.setString(8, user.getProfilePicture());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Create user error : " + e.getMessage());
@@ -71,10 +74,28 @@ public class UserDao implements ICrudService<User> {
         user.setPassword(rs.getString("password"));
         user.setVerified(rs.getBoolean("is_verified"));
         user.setStatus(rs.getString("status"));
+        user.setFirstName(rs.getString("first_name"));
+        user.setLastName(rs.getString("last_name"));
+        user.setProfilePicture(rs.getString("profile_picture"));
 
         String rolesJson = rs.getString("roles");
-        List<String> roles = gson.fromJson(rolesJson, new TypeToken<List<String>>() {
-        }.getType());
+        List<String> roles;
+        try {
+            if (rolesJson != null && rolesJson.startsWith("[")) {
+                roles = gson.fromJson(rolesJson, new TypeToken<List<String>>() {
+                }.getType());
+            } else if (rolesJson != null && !rolesJson.isEmpty()) {
+                // If it's a single string, wrap it in a list
+                roles = new java.util.ArrayList<>();
+                roles.add(rolesJson.replace("\"", "")); // Remove quotes if present
+            } else {
+                roles = new java.util.ArrayList<>();
+            }
+        } catch (Exception e) {
+            System.err.println("Error parsing roles JSON: " + rolesJson);
+            roles = new java.util.ArrayList<>();
+            roles.add("ROLE_USER"); // Default fallback
+        }
         user.setRoles(roles);
 
         return user;
@@ -127,13 +148,16 @@ public class UserDao implements ICrudService<User> {
     @Override
     public boolean update(User user) throws SQLException {
         // Generic update for all fields except password (handled separately usually)
-        String sql = "UPDATE user SET email = ?, is_verified = ?, status = ?, roles = ? WHERE id = ?";
+        String sql = "UPDATE user SET email = ?, is_verified = ?, status = ?, roles = ?, first_name = ?, last_name = ?, profile_picture = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, user.getEmail());
             stmt.setBoolean(2, user.isVerified());
             stmt.setString(3, user.getStatus());
             stmt.setString(4, gson.toJson(user.getRoles()));
-            stmt.setInt(5, user.getId());
+            stmt.setString(5, user.getFirstName());
+            stmt.setString(6, user.getLastName());
+            stmt.setString(7, user.getProfilePicture());
+            stmt.setInt(8, user.getId());
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("update error : " + e.getMessage());

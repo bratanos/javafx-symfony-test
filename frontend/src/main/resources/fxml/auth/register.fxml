@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.RegisterController"
+      spacing="25" alignment="TOP_CENTER"
+      maxWidth="450" stylesheets="@../../style/style.css">
+
+    <ImageView fitHeight="60" preserveRatio="true">
+        <image>
+            <Image url="@../../Images/innertracklogo1.png" />
+        </image>
+    </ImageView>
+
+    <VBox spacing="5" alignment="CENTER">
+        <Label text="Créer un compte" styleClass="title" />
+        <Label text="Commencez votre parcours de bien-être" styleClass="subtitle" />
+    </VBox>
+
+    <GridPane vgap="18" hgap="10" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="300" />
+        </columnConstraints>
+
+        <VBox spacing="5" GridPane.rowIndex="0">
+            <Label text="Prénom" styleClass="subtitle" />
+            <TextField fx:id="firstNameField" promptText="Jean" />
+        </VBox>
+
+        <VBox spacing="5" GridPane.rowIndex="1">
+            <Label text="Nom" styleClass="subtitle" />
+            <TextField fx:id="lastNameField" promptText="Dupont" />
+        </VBox>
+
+        <VBox spacing="5" GridPane.rowIndex="2">
+            <Label text="Email" styleClass="subtitle" />
+            <TextField fx:id="emailField" promptText="exemple@email.com" />
+        </VBox>
+
+        <VBox spacing="5" GridPane.rowIndex="3">
+            <Label text="Mot de passe" styleClass="subtitle" />
+            <PasswordField fx:id="passwordField" promptText="••••••••" />
+        </VBox>
+
+        <VBox spacing="5" GridPane.rowIndex="4">
+            <Label text="Confirmer le mot de passe" styleClass="subtitle" />
+            <PasswordField fx:id="confirmPasswordField" promptText="••••••••" />
+        </VBox>
+
+        <VBox spacing="5" GridPane.rowIndex="5">
+            <Label text="Je suis un..." styleClass="subtitle" />
+            <ComboBox fx:id="roleComboBox" promptText="Sélectionnez votre rôle" maxWidth="Infinity" />
+        </VBox>
+    </GridPane>
+
+    <VBox spacing="15" alignment="CENTER">
+        <Button fx:id="registerButton" text="S'inscrire gratuitement" onAction="#handleRegister" 
+                maxWidth="Infinity" styleClass="btn, btn-primary" />
+        
+        <HBox spacing="5" alignment="CENTER">
+            <Label text="Déjà membre ?" styleClass="subtitle" />
+            <Hyperlink text="Se connecter" onAction="#goToLogin" styleClass="text-link" />
+        </HBox>
+    </VBox>
+
+    <Label fx:id="messageLabel" wrapText="true" textAlignment="CENTER" />
+
+</VBox>

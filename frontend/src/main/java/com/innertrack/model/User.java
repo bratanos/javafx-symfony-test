@@ -10,6 +10,9 @@ public class User {
     private boolean isVerified;
     private List<String> roles = new ArrayList<>();
     private String status;
+    private String firstName;
+    private String lastName;
+    private String profilePicture;
 
     public int getId() {
         return id;
@@ -57,5 +60,37 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getFullName() {
+        if  (firstName == null || lastName == null) {
+            return email;
+        }
+        return  firstName + " " + lastName;
+
     }
 }

@@ -18,13 +18,42 @@ public class ViewManager {
             System.err.println("Error: Content container not set in ViewManager.");
             return null;
         }
+        return loadView(fxmlName, contentContainer);
+    }
 
+    public static <T> T loadView(String fxmlName, Pane container) {
         try {
-            String path = "/fxml/" + fxmlName + ".fxml";
-            FXMLLoader loader = new FXMLLoader(ViewManager.class.getResource(path));
-            Node view = loader.load();
+            container.getChildren().clear();
 
-            contentContainer.getChildren().setAll(view);
+            String path = null;
+            FXMLLoader loader = null;
+
+            // Prioritize auth/ folder for specific auth views if fxmlName doesn't contain a
+            // path
+            if (!fxmlName.contains("/")) {
+                java.util.List<String> authViews = java.util.Arrays.asList("login", "register", "verify_otp",
+                        "forgot_password", "reset_password");
+                if (authViews.contains(fxmlName)) {
+                    path = "/fxml/auth/" + fxmlName + ".fxml";
+                    loader = new FXMLLoader(ViewManager.class.getResource(path));
+                }
+            }
+
+            // If not loaded from auth/ or if fxmlName already contains a path, try the
+            // direct path
+            if (loader == null || loader.getLocation() == null) {
+                path = "/fxml/" + fxmlName + ".fxml";
+                loader = new FXMLLoader(ViewManager.class.getResource(path));
+            }
+
+            // Check if resource was found
+            if (loader.getLocation() == null) {
+                System.err.println("Error: FXML resource not found for path: " + path);
+                return null;
+            }
+
+            Node view = loader.load();
+            container.getChildren().add(view);
             return loader.getController();
 
         } catch (IOException e) {

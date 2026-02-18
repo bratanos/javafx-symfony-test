@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.LoginController"
+      spacing="30" alignment="TOP_CENTER"
+      maxWidth="400" stylesheets="@../../style/style.css">
+
+    <ImageView fitHeight="80" preserveRatio="true">
+        <image>
+            <Image url="@../../Images/innertracklogo1.png" />
+        </image>
+    </ImageView>
+
+    <VBox spacing="8" alignment="CENTER">
+        <Label text="Connexion" styleClass="title" />
+        <Label text="Heureux de vous revoir sur InnerTrack" styleClass="subtitle" />
+    </VBox>
+
+    <VBox spacing="20" alignment="CENTER">
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Email" styleClass="subtitle" />
+            <TextField fx:id="emailField" promptText="exemple@email.com" maxWidth="Infinity" />
+        </VBox>
+
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Mot de passe" styleClass="subtitle" />
+            <PasswordField fx:id="passwordField" promptText="••••••••" maxWidth="Infinity" />
+            <Hyperlink text="Mot de passe oublié ?" onAction="#goToForgotPassword" styleClass="text-link" style="-fx-font-size: 13px;" />
+        </VBox>
+    </VBox>
+
+    <VBox spacing="15" alignment="CENTER">
+        <Button text="Se connecter" fx:id="loginButton" onAction="#handleLogin" 
+                maxWidth="Infinity" styleClass="btn, btn-primary" />
+        
+        <HBox spacing="5" alignment="CENTER">
+            <Label text="Pas encore de compte ?" styleClass="subtitle" />
+            <Hyperlink text="S'inscrire" onAction="#goToRegister" styleClass="text-link" />
+        </HBox>
+    </VBox>
+
+    <Label fx:id="errorLabel" wrapText="true" textAlignment="CENTER" styleClass="text-danger" />
+
+</VBox>

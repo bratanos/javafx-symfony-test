@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.paint.ImagePattern?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" 
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.innertrack.controller.profile.ProfileController"
+            stylesheets="@../../style/dashboards.css">
+    
+    <VBox spacing="30" styleClass="dashboard-container">
+        <padding>
+            <Insets top="30" right="40" bottom="30" left="40" />
+        </padding>
+
+        <!-- Header -->
+        <HBox spacing="20" alignment="CENTER_LEFT">
+            <Button onAction="#handleBack" style="-fx-background-color: #f1f1f1; -fx-background-radius: 50; -fx-padding: 8; -fx-cursor: hand;">
+                <graphic>
+                    <FontIcon iconLiteral="fas-arrow-left" iconSize="20" iconColor="#2c3e50" />
+                </graphic>
+            </Button>
+            <VBox>
+                <Label text="Profil &amp; Paramètres" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+                <Label text="Gérez vos informations personnelles et vos préférences." style="-fx-text-fill: #7f8c8d;" />
+            </VBox>
+        </HBox>
+
+        <HBox spacing="30">
+            <!-- Profile Card -->
+            <VBox styleClass="dashboard-card" spacing="20" prefWidth="350" alignment="CENTER">
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30" />
+                </padding>
+                
+                <Label text="Photo de Profil" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                
+                <StackPane>
+                    <Circle fx:id="profileCircle" radius="80" styleClass="profile-pic" />
+                    <Button onAction="#handleChangePicture" style="-fx-background-color: rgba(0,0,0,0.5); -fx-background-radius: 50; -fx-padding: 8; -fx-cursor: hand;" StackPane.alignment="BOTTOM_RIGHT">
+                        <graphic>
+                            <FontIcon iconLiteral="fas-camera" iconSize="20" iconColor="white" />
+                        </graphic>
+                    </Button>
+                </StackPane>
+                
+                <VBox alignment="CENTER" spacing="5">
+                    <Label fx:id="nameLabel" text="Nom d'utilisateur" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                    <Label fx:id="roleLabel" text="Rôle" style="-fx-text-fill: #1d7bed; -fx-font-weight: bold;" />
+                </VBox>
+                
+                <Separator />
+                
+                <Button text="Changer de mot de passe" style="-fx-background-color: transparent; -fx-text-fill: #1d7bed; -fx-cursor: hand;" />
+            </VBox>
+
+            <!-- Details Card -->
+            <VBox styleClass="dashboard-card" spacing="25" HBox.hgrow="ALWAYS">
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30" />
+                </padding>
+                
+                <Label text="Informations Personnelles" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                
+                <GridPane hgap="20" vgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="150" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    
+                    <Label text="Prénom :" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                    <TextField fx:id="firstNameField" promptText="Votre prénom" styleClass="input-field" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                    
+                    <Label text="Nom :" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                    <TextField fx:id="lastNameField" promptText="Votre nom" styleClass="input-field" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                    
+                    <Label text="Email :" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                    <TextField fx:id="emailField" editable="false" style="-fx-opacity: 0.7;" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                </GridPane>
+                
+                <Region VBox.vgrow="ALWAYS" />
+                
+                <HBox spacing="15" alignment="CENTER_RIGHT">
+                    <Button text="Annuler" onAction="#handleBack" style="-fx-background-color: #f1f1f1; -fx-text-fill: #7f8c8d; -fx-padding: 10 25; -fx-background-radius: 5;" />
+                    <Button text="Enregistrer les modifications" onAction="#handleUpdateProfile" 
+                            style="-fx-background-color: #1d7bed; -fx-text-fill: white; -fx-padding: 10 25; -fx-background-radius: 5; -fx-font-weight: bold;" />
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

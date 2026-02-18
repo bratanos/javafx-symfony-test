@@ -1,0 +1,119 @@
+.header {
+    -fx-background-color: linear-gradient(to bottom right, #00132d , #1d7bed);
+    -fx-border-color:  #fff;
+    -fx-border-width: 0 0 .8px 0;
+}
+.nav-form {
+    -fx-background-color: linear-gradient(to bottom right, #1ac1ea , #e3f6fc);
+}
+
+.nav-btn{
+    -fx-background-color: transparent ;
+    -fx-border-color: #fff;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+}
+.nav-btn:hover{
+    -fx-background-color: #fff;
+    -fx-text-fill: #000;
+}
+.logout{
+    -fx-background-color: #0f5ea3;
+    -fx-cursor: hand;
+    -fx-background-radius: 50px;
+
+}
+.logout:hover{
+    -fx-background-color: #a71931;
+}
+.shadow{
+    -fx-effect : dropshadow(three-pass-box, rgba(0,0,0,0.5), 5,0,0,0);
+}
+.white-bg{
+    -fx-background-color: #fff;
+}
+.radius{
+    -fx-background-radius: 8px;
+}
+.transparent{
+    -fx-background-color: transparent;
+}
+.table-view{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-color: linear-gradient(to bottom right, #1ac1ea , #e3f6fc);
+    -fx-border-radius: 5px;
+    -fx-border-width: 1.5px;
+}
+.table-view .column-header-background{
+    -fx-background-color: #0f5ea3;
+    -fx-background-radius: 5px 5px 0 0;
+    -fx-background-insets: 0 0 0 0;
+
+}
+.table-view .column-header, .filter{
+    -fx-background-color: transparent;
+    -fx-size: 45px;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #fff;
+}
+.btn{
+    -fx-background-color: #0f5ea3;
+    -fx-cursor: hand;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+
+}
+.btn:hover{
+    -fx-background-color: #0f5ea3;
+
+}
+.button1 {
+    -fx-background-color: #00132d;
+}
+.button1:hover {
+    -fx-background-color: #1d7bed;
+}
+.button1:pressed {
+    -fx-background-color: #1ac1ea;
+}
+
+.button2 {
+    -fx-background-color: #002a5a;
+    -fx-background-radius: 20;
+}
+.button2:hover {
+    -fx-background-color: #1d7bed;
+    -fx-background-radius: 20;
+}
+.button2:pressed {
+    -fx-background-color: #1ac1ea;
+    -fx-background-radius: 20;
+}
+
+.button3 {
+    -fx-background-color: #002a5a;
+    -fx-background-radius: 0 0 0 0;
+}
+.button3:hover {
+    -fx-background-color: #1d7bed;
+}
+.button3:pressed {
+    -fx-background-color: #1ac1ea;
+}
+
+.button4 {
+    -fx-background-color: linear-gradient(to top left, #1d7bed, #1ac1ea);
+    -fx-background-radius: 30 30 30 30;
+}
+.button4:hover {
+    -fx-background-color: linear-gradient(to top left, #1ac1ea, #1d7bed);
+    -fx-background-radius: 30 30 30 30;
+}
+.button4:pressed {
+    -fx-background-color: linear-gradient(to top left, #1d7bed, #1ac1ea);
+    -fx-background-radius: 30 30 30 30;
+}

@@ -5,7 +5,6 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.innertrack.controller.MainController"
       spacing="30" alignment="CENTER"
       maxWidth="1000">
 

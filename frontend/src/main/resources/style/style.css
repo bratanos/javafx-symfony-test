@@ -1,0 +1,322 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom, #D9A9FF, #00132d); /* Light purple to light blue gradient */
+}
+
+/* Sidebar style */
+.AnchorPane {
+    -fx-background-color: #0a2a4c;
+}
+
+/* TableView style */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #4CA8F5; /* Light blue border */
+    -fx-border-width: 2px;
+    -fx-table-cell-border-color: transparent; /* No cell borders */
+    -fx-table-header-border-color: transparent; /* No header border */
+}
+
+/* Column header background */
+.table-view .column-header-background {
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+/* Remove grid lines */
+.table-view .show-hide-columns-button {
+    -fx-border-color: transparent;
+}
+
+/* Table row cell style */
+.table-view .table-row-cell {
+    -fx-background-color: #00132d; /* Light blue for other rows */
+    -fx-text-fill: black;
+}
+/* Style for selected rows */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #4CA8F5; /* Very light blue for selected rows */
+    -fx-text-fill: white;
+}
+
+/* Common button styles */
+.button1, .button2, .button3, .button4 {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+/* Button 1 style */
+.button1 {
+    -fx-background-color: #0a2a4c; /* Dark blue */
+}
+
+.button1:hover {
+    -fx-background-color: #4CA8F5; /* Light blue on hover */
+}
+
+.button1:pressed {
+    -fx-background-color: #00132d; /* Very light blue when pressed */
+}
+
+/* Button 2 style */
+.button2 {
+    -fx-background-color: #1a436b; /* Softer dark blue */
+    -fx-background-radius: 20;
+}
+
+.button2:hover {
+    -fx-background-color: #4CA8F5;
+}
+
+.button2:pressed {
+    -fx-background-color: #00132d;
+}
+
+/* Button 3 style */
+.button3 {
+    -fx-background-color: #1a436b; /* Softer dark blue */
+}
+
+.button3:hover {
+    -fx-background-color: #4CA8F5;
+}
+
+.button3:pressed {
+    -fx-background-color: #00132d;
+}
+
+/* Button 4 style with gradient */
+.button4 {
+    -fx-background-color: linear-gradient(to top left, #4CA8F5, #00132d); /* Gradient */
+    -fx-background-radius: 30;
+}
+
+.button4:hover {
+    -fx-background-color: linear-gradient(to top left, #00132d, #4CA8F5);
+}
+
+.button4:pressed {
+    -fx-background-color: linear-gradient(to top left, #4CA8F5, #00132d);
+}
+    .button1 {
+        -fx-background-color: #00132d; /* Slightly lighter than #00132d */
+
+    }
+
+    .button1:hover {
+        -fx-background-color: #1d7bed; /* Slightly lighter hover color */
+    }
+
+    .button1:pressed {
+        -fx-background-color: #1ac1ea; /* Slightly lighter pressed color */
+    }
+
+    .circle2:hover {
+
+    }
+
+    .button2 {
+        -fx-background-color: #002a5a; /* Slightly lighter than #00132d */
+        -fx-background-radius: 20;
+    }
+
+    .button2:hover {
+        -fx-background-color: #1d7bed; /* Slightly lighter hover color */
+        -fx-background-radius: 20;
+    }
+
+    .button2:pressed {
+        -fx-background-color: #1ac1ea; /* Slightly lighter pressed color */
+        -fx-background-radius: 20;
+    }
+
+    .button3 {
+        -fx-background-color: #002a5a; /* Slightly lighter than #00132d */
+        -fx-background-radius: 0 0 0 0;
+    }
+
+    .button3:hover {
+        -fx-background-color: #1d7bed; /* Slightly lighter hover color */
+    }
+
+    .button3:pressed {
+        -fx-background-color: #1ac1ea; /* Slightly lighter pressed color */
+    }
+
+    .button4 {
+        -fx-background-color: linear-gradient(to top left, #1d7bed, #1ac1ea); /* Light gradient */
+        -fx-background-radius: 30 30 30 30;
+    }
+
+    .button4:hover {
+        -fx-background-color: linear-gradient(to top left, #1ac1ea, #1d7bed); /* Light gradient */
+        -fx-background-radius: 30 30 30 30;
+    }
+
+    .button4:pressed {
+        -fx-background-color: linear-gradient(to top left, #1d7bed, #1ac1ea); /* Light gradient */
+        -fx-background-radius: 30 30 30 30;
+    }
+
+    .sidebar-button {
+        -fx-background-color: transparent;
+        -fx-text-fill: white;
+        -fx-font-size: 18px;
+        -fx-alignment: center-left;
+    }
+    .Text {
+        -fx-font-family: Poppins Black;
+        -fx-font-size: 30px;
+
+        -fx-fill: white;
+    }
+
+    .sidebar-button:hover {
+        -fx-background-color: #1d7bed;
+    }
+.date-picker, .combo-box {
+    -fx-border-color: #1d7bed;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.date-picker:hover, .combo-box:hover {
+    -fx-border-color: #00337a;
+}
+
+.button:hover {
+    -fx-background-color: #00337a;
+}
+
+
+
+/* Styling for TableView Column Headers */
+.table-view .column-header {
+    -fx-background-color: #2c3e50; /* Dark background for column headers */
+    -fx-text-fill: white; /* White text color */
+}
+
+/* Styling for TableView Cells */
+.table-view .table-cell {
+    -fx-background-color: #34495e; /* Background for table cells */
+    -fx-text-fill: white; /* Text color in cells */
+}
+
+/* Styling for individual column cells (you can target a specific column) */
+#idColumn .table-cell {
+    -fx-background-color: #16a085; /* Background color for the 'ID' column cells */
+}
+
+/* Styling for specific column headers */
+#nameColumn .column-header {
+    -fx-background-color: #e74c3c; /* Red background for 'Name' column header */
+    -fx-text-fill: white; /* White text for the column header */
+}
+
+.button5 {
+    -fx-background-color: linear-gradient(to top right, #4CA8F5, #00132d); /* Gradient */
+    -fx-background-radius: 30;
+}
+.button5:hover {
+    -fx-background-color: linear-gradient(to top right, #00132d, #4CA8F5);
+} /* Sidebar Button Style */
+.date-picker:hover, .combo-box:hover {
+    .sidebar-button {
+        -fx-background-color: transparent;
+        -fx-border-color: #00337a;
+        -fx-text-fill: white;
+        -fx-font-size: 18px;
+        -fx-alignment: center-left;
+    }
+}
+.sidebar-button:hover {
+    .button:hover {
+        -fx-background-color: #1d7bed;
+        -fx-background-color: #00337a;
+    }
+}
+/* Add your styling here as previously discussed */
+/* BarChart Styling */
+.styled-bar-chart {
+    -fx-background-color: #f4f4f4;
+    -fx-border-radius: 10;
+    -fx-padding: 10;
+}
+/* Customizing the X and Y Axis */
+.styled-bar-chart .category-axis,
+.styled-bar-chart .number-axis {
+    -fx-stroke: #000000;
+    -fx-tick-mark-visible: false;
+    -fx-tick-label-fill: #333333;
+    -fx-font-size: 14;
+}
+/* Axis Title Styling */
+.styled-bar-chart .axis-label {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-fill: #2c3e50; /* Dark Gray */
+}
+/* Title Styling */
+.styled-bar-chart .chart-title {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-fill: #1a237e; /* Deep Blue */
+}
+/* Style for the Truck Distribution series */
+.truck-series .chart-bar {
+    -fx-bar-fill: #1d7bed; /* Set default color for the bars */
+}
+.chart-pie-label {
+    -fx-fill: white;
+}
+.list-view {
+    -fx-background-color:  #0a2a4c; /* Bleu foncé */
+}
+.list-cell {
+    -fx-background-color: transparent; /* Pour éviter d'écraser la couleur du ListView */
+    -fx-text-fill: white; /* Texte en blanc */
+}
+.list-cell:filled:selected, .list-cell:filled:hover {
+    -fx-background-color: #1d7bed; /* Bleu plus clair au survol/sélection */
+}
+/* Add to your existing CSS */
+.pagination {
+    -fx-background-insets: 0;
+    -fx-padding: 5 0 0 0;
+}
+
+.pagination .page {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.pagination .pagination-control {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.pagination .pagination-control .bullet-button {
+    -fx-background-insets: 0;
+    -fx-padding: 2 5;
+}
+
+.pagination .pagination-control .left-arrow,
+.pagination .pagination-control .right-arrow {
+    -fx-background-insets: 0;
+    -fx-padding: 2;
+}
+.search-bar {
+    -fx-background-color: #918b8b;          /* Light gray background */
+    -fx-background-radius: 20;              /* Rounded corners */
+    -fx-border-radius: 15;                  /* Rounded border */
+    -fx-border-color: #1d7bed;              /* Blue border color */
+    -fx-border-width: 2;
+    -fx-padding: 8 15 8 15;                 /* Padding inside the field */
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;                 /* Dark text color */
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
+.search-bar:focused {
+    -fx-border-color: #0056b3;              /* Darker blue on focus */
+    -fx-background-color: #ffffff;          /* White background on focus */
+}

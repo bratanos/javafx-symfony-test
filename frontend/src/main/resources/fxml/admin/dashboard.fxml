@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.paint.ImagePattern?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.innertrack.controller.admin.AdminDashboardController"
+            stylesheets="@../../style/dashboards.css"
+            maxHeight="Infinity" maxWidth="Infinity">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="250">
+            <VBox styleClass="sidebar-logo" alignment="CENTER">
+                <ImageView fitWidth="150" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/innertracklogo1.png" />
+                    </image>
+                </ImageView>
+            </VBox>
+
+            <VBox styleClass="profile-section">
+                <javafx.scene.shape.Circle fx:id="profileCircle" radius="35" styleClass="profile-pic" />
+                <Label fx:id="userFullNameLabel" text="Admin" styleClass="profile-name" />
+            </VBox>
+
+            <Separator opacity="0.1" />
+
+            <VBox spacing="5">
+                <Button text="Tableau de bord" styleClass="sidebar-button, sidebar-button-active" maxWidth="Infinity">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-chart-line" iconSize="18" iconColor="#ffffff" />
+                    </graphic>
+                </Button>
+                <Button text="Utilisateurs" styleClass="sidebar-button" maxWidth="Infinity" onAction="#handleManageUsers">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-users" iconSize="18" iconColor="#ffffff" />
+                    </graphic>
+                </Button>
+                <Button text="Journaux système" styleClass="sidebar-button" maxWidth="Infinity" onAction="#handleViewLogs">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-clipboard-list" iconSize="18" iconColor="#ffffff" />
+                    </graphic>
+                </Button>
+                <Button text="Profil &amp; Paramètres" styleClass="sidebar-button" maxWidth="Infinity" onAction="#handleGoToSettings">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-user-cog" iconSize="18" iconColor="#ffffff" />
+                    </graphic>
+                </Button>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Button text="Déconnexion" styleClass="sidebar-button" maxWidth="Infinity" onAction="#handleLogout">
+                <graphic>
+                    <FontIcon iconLiteral="fas-sign-out-alt" iconSize="18" iconColor="#ffffff" />
+                </graphic>
+            </Button>
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+            <VBox spacing="30" styleClass="dashboard-container" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets top="30" right="40" bottom="30" left="40" />
+                </padding>
+
+                <!-- Header -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <VBox>
+                        <Label fx:id="welcomeLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Bonjour, Admin" />
+                        <Label text="Voici un aperçu de l'état du système aujourd'hui." style="-fx-text-fill: #7f8c8d;" />
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button text="Rapport du jour" style="-fx-background-color: #1d7bed; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10 20;" />
+                </HBox>
+
+                <!-- Stats Cards -->
+                <HBox spacing="20">
+                    <VBox styleClass="dashboard-card, stat-card" HBox.hgrow="ALWAYS">
+                        <FontIcon iconLiteral="fas-user-friends" iconSize="24" iconColor="#1d7bed" />
+                        <Label fx:id="totalUsersLabel" styleClass="stat-value" text="0" />
+                        <Label styleClass="stat-label" text="Utilisateurs Totaux" />
+                    </VBox>
+                    <VBox styleClass="dashboard-card, stat-card" HBox.hgrow="ALWAYS">
+                        <FontIcon iconLiteral="fas-signal" iconSize="24" iconColor="#27ae60" />
+                        <Label fx:id="activeSessionsLabel" styleClass="stat-value" text="0" style="-fx-text-fill: #27ae60;" />
+                        <Label styleClass="stat-label" text="Sessions Actives" />
+                    </VBox>
+                    <VBox styleClass="dashboard-card, stat-card" HBox.hgrow="ALWAYS">
+                        <FontIcon iconLiteral="fas-server" iconSize="24" iconColor="#e67e22" />
+                        <Label fx:id="systemStatusLabel" styleClass="stat-value" text="Stable" style="-fx-text-fill: #e67e22;" />
+                        <Label styleClass="stat-label" text="État du Serveur" />
+                    </VBox>
+                </HBox>
+
+                <!-- Recent Activity (Placeholder) -->
+                <VBox styleClass="dashboard-card" spacing="15">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20" />
+                    </padding>
+                    <Label text="Activités Récentes" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                    <Separator />
+                    <VBox spacing="10">
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <FontIcon iconLiteral="fas-user-plus" iconColor="#1d7bed" />
+                            <Label text="Nouvel utilisateur inscrit : martin.durand@email.com" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label text="Il y a 2h" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12px;" />
+                        </HBox>
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <FontIcon iconLiteral="fas-exclamation-triangle" iconColor="#e74c3c" />
+                            <Label text="Tentative de connexion échouée : admin_test" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label text="Il y a 5h" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12px;" />
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,99 @@
+/* Global Styling for InnerTrack - Inspired by NextCity-dev */
+
+.root {
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-background-color: linear-gradient(to bottom, #00132d, #0a2a4c);
+}
+
+/* Backgrounds & Panels */
+.main-container {
+    -fx-background-color: #00132d;
+}
+
+.panel-cyan {
+    -fx-background-color: rgba(76, 168, 245, 0.1);
+    -fx-background-radius: 15;
+    -fx-border-color: #4CA8F5;
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+}
+
+/* Typography */
+.text-primary {
+    -fx-fill: white;
+    -fx-font-size: 14px;
+}
+
+.heading-1 {
+    -fx-fill: #4CA8F5;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+/* Buttons */
+.button-premium {
+    -fx-background-color: linear-gradient(to right, #4CA8F5, #1d7bed);
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+    -fx-padding: 10 25;
+    -fx-transition: 0.3s;
+}
+
+.button-premium:hover {
+    -fx-background-color: linear-gradient(to right, #1d7bed, #4CA8F5);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.button-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #4CA8F5;
+    -fx-border-radius: 25;
+    -fx-text-fill: #4CA8F5;
+    -fx-cursor: hand;
+}
+
+.button-secondary:hover {
+    -fx-background-color: rgba(76, 168, 245, 0.2);
+}
+
+/* Inputs */
+.text-field-premium {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #888;
+    -fx-padding: 8 15;
+}
+
+.text-field-premium:focused {
+    -fx-border-color: #4CA8F5;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Sidebar & Navigation */
+.sidebar {
+    -fx-background-color: #0a2a4c;
+}
+
+.nav-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ccc;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+.nav-item:hover {
+    -fx-background-color: rgba(76, 168, 245, 0.1);
+    -fx-text-fill: white;
+}
+
+.nav-item-active {
+    -fx-background-color: #4CA8F5;
+    -fx-text-fill: white;
+}

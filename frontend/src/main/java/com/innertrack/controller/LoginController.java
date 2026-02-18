@@ -35,14 +35,28 @@ public class LoginController {
             return;
         }
 
-        String result = authService.login(email, password);
+        String result = (String) authService.login(email, password);
 
         if ("SUCCESS".equals(result)) {
-            // Success! Load the main view
-            ViewManager.loadView("main");
-            MainLayoutController.getInstance().setNavbarVisible(true);
+            System.out.println("Login successful for user: " + email);
+            // Success! Determine redirection based on role
+            com.innertrack.model.User user = com.innertrack.session.SessionManager.getInstance().getCurrentUser();
+            String dashboardView;
+
+            if (user instanceof com.innertrack.model.Admin) {
+                dashboardView = "admin/dashboard";
+            } else if (user instanceof com.innertrack.model.Psychologue) {
+                dashboardView = "psychologue/dashboard";
+            } else {
+                dashboardView = "user/dashboard";
+            }
+
+            System.out.println("Redirecting to: " + dashboardView);
+            ViewManager.loadView(dashboardView);
+            // The dashboard's initialize() will handle its own visibility needs.
             MainLayoutController.getInstance().updateUiForSession();
         } else {
+            System.err.println("Login failed: " + result);
             errorLabel.setText(result);
         }
     }
