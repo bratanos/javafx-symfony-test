@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.AjoutHabitudeController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+    <Label text="Ajouter une habitude" style="-fx-font-size: 20px;"/>
+    <TextField fx:id="nomHabitudeField" promptText="Nom de l'habitude"/>
+    <ComboBox fx:id="emotionComboBox" promptText="Émotion"/>
+    <TextArea fx:id="noteTextArea" promptText="Notes..."/>
+    <Label text="Énergie"/>
+    <Slider fx:id="energieSlider" min="0" max="10"/>
+    <Label text="Stress"/>
+    <Slider fx:id="stressSlider" min="0" max="10"/>
+    <Label text="Sommeil"/>
+    <Slider fx:id="sommeilSlider" min="0" max="10"/>
+    <DatePicker fx:id="datePicker"/>
+    <Label fx:id="nomErrorLabel" text="Nom requis" textFill="red" visible="false"/>
+    <Label fx:id="emotionErrorLabel" text="Émotion requise" textFill="red" visible="false"/>
+    <Label fx:id="dateErrorLabel" text="Date requise" textFill="red" visible="false"/>
+    <Button text="Ajouter" onAction="#ajouterHabitude"/>
+    <Button text="Retour" onAction="#afficherHabitudes"/>
+</VBox>

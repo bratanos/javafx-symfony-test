@@ -10,7 +10,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
-import model.EntreeJournal;
+import com.innertrack.model.EntreeJournal;
 import com.innertrack.service.*;
 
 import java.io.IOException;
@@ -80,24 +80,23 @@ public class AjoutJournalController implements Initializable {
             return;
         }
 
-        JournalService service = new JournalService();
+        JournalService journalService = new JournalService();
 
         try {
             int idUserParDefaut = 1;
 
-            service.ajouter(new EntreeJournal(
+            journalService.create(new EntreeJournal(
                     (int) humeurSlider.getValue(),
                     description,
                     dateChoisie,
-                    idUserParDefaut
-            ));
+                    idUserParDefaut));
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Journal ajoute");
             alert.setContentText("Journal ajoute avec succes !");
             alert.show();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageJournal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AffichageJournal.fxml"));
             Parent root = loader.load();
             noteTextArea.getScene().setRoot(root);
 
@@ -111,7 +110,7 @@ public class AjoutJournalController implements Initializable {
 
     @FXML
     void allerAuxHabitudes(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutHabitude.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutHabitude.fxml"));
         Parent root = loader.load();
         noteTextArea.getScene().setRoot(root);
     }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.AffichageHabitudeController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+    <Label text="Mes Habitudes" style="-fx-font-size: 20px;"/>
+    <TableView fx:id="habitudeTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="nomColumn" text="Nom"/>
+            <TableColumn fx:id="emotionColumn" text="Émotion"/>
+            <TableColumn fx:id="noteColumn" text="Note"/>
+            <TableColumn fx:id="energieColumn" text="Énergie"/>
+            <TableColumn fx:id="stressColumn" text="Stress"/>
+            <TableColumn fx:id="sommeilColumn" text="Sommeil"/>
+            <TableColumn fx:id="dateColumn" text="Date"/>
+        </columns>
+    </TableView>
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Ajouter" onAction="#ajouterNouvelleHabitude"/>
+        <Button text="Modifier" onAction="#modifierHabitude"/>
+        <Button text="Supprimer" onAction="#supprimerHabitude"/>
+        <Button text="Journal" onAction="#allerAuJournal"/>
+    </HBox>
+</VBox>

@@ -5,11 +5,13 @@ import java.util.List;
 
 public interface ICrudService<T> {
 
-    void ajouter(T t) throws SQLException;
+    void create(T t) throws SQLException;
 
-    void modifier(T t) throws SQLException;
+    T read(int id) throws SQLException;
 
-    void supprimer(T t) throws SQLException;
+    void update(T t) throws SQLException;
 
-    List<T> recuperer() throws SQLException;
+    void delete(int id) throws SQLException;
+
+    List<T> findAll() throws SQLException;
 }

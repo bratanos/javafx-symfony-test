@@ -1,4 +1,4 @@
-package controller;
+package com.innertrack.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,8 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import model.Habitude;
-import service.HabitudeService;
+import com.innertrack.model.Habitude;
+import com.innertrack.service.HabitudeService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -99,14 +99,15 @@ public class AjoutHabitudeController implements Initializable {
             datePicker.setStyle("");
         }
 
-        if (!valide) return;
+        if (!valide)
+            return;
 
-        HabitudeService service = new HabitudeService();
+        HabitudeService habitudeService = new HabitudeService();
 
         try {
             int idUserParDefaut = 1;
 
-            service.ajouter(new Habitude(
+            habitudeService.create(new Habitude(
                     nom.trim(),
                     emotion,
                     noteTextArea.getText().trim(),
@@ -114,8 +115,7 @@ public class AjoutHabitudeController implements Initializable {
                     (int) stressSlider.getValue(),
                     (int) sommeilSlider.getValue(),
                     dateChoisie,
-                    idUserParDefaut
-            ));
+                    idUserParDefaut));
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Habitude ajoutee");
@@ -124,7 +124,7 @@ public class AjoutHabitudeController implements Initializable {
             alert.showAndWait();
 
             // Redirection vers l'affichage après ajout
-            naviguerVers("/AffichageHabitude.fxml");
+            naviguerVers("/fxml/AffichageHabitude.fxml");
 
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -138,7 +138,7 @@ public class AjoutHabitudeController implements Initializable {
     @FXML
     private void afficherHabitudes() {
         try {
-            naviguerVers("/AffichageHabitude.fxml");
+            naviguerVers("/fxml/AffichageHabitude.fxml");
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
@@ -150,7 +150,7 @@ public class AjoutHabitudeController implements Initializable {
 
     @FXML
     void allerAuJournal(ActionEvent event) throws IOException {
-        naviguerVers("/AjoutJournal.fxml");
+        naviguerVers("/fxml/AjoutJournal.fxml");
     }
 
     // Méthode utilitaire de navigation

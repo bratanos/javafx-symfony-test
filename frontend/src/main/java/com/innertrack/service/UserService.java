@@ -18,7 +18,7 @@ public class UserService implements ICrudService<User> {
     }
 
     @Override
-    public boolean create(User user) {
+    public void create(User user) throws SQLException {
         String query = "INSERT INTO user (email, password, roles, is_verified, status) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query,
                 Statement.RETURN_GENERATED_KEYS)) {
@@ -35,16 +35,12 @@ public class UserService implements ICrudService<User> {
                         user.setId(generatedKeys.getInt(1));
                     }
                 }
-                return true;
             }
-        } catch (SQLException e) {
-            System.err.println("Error creating user: " + e.getMessage());
         }
-        return false;
     }
 
     @Override
-    public User read(int id) {
+    public User read(int id) throws SQLException {
         String query = "SELECT * FROM user WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
@@ -53,14 +49,12 @@ public class UserService implements ICrudService<User> {
                     return mapResultSetToUser(resultSet);
                 }
             }
-        } catch (SQLException e) {
-            System.err.println("Error reading user: " + e.getMessage());
         }
         return null;
     }
 
     @Override
-    public boolean update(User user) {
+    public void update(User user) throws SQLException {
         String query = "UPDATE user SET email = ?, password = ?, roles = ?, is_verified = ?, status = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getEmail());
@@ -70,27 +64,21 @@ public class UserService implements ICrudService<User> {
             preparedStatement.setString(5, user.getStatus());
             preparedStatement.setInt(6, user.getId());
 
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error updating user: " + e.getMessage());
+            preparedStatement.executeUpdate();
         }
-        return false;
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) throws SQLException {
         String query = "DELETE FROM user WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error deleting user: " + e.getMessage());
+            preparedStatement.executeUpdate();
         }
-        return false;
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll() throws SQLException {
         List<User> users = new ArrayList<>();
         String query = "SELECT * FROM user";
         try (Statement statement = connection.createStatement();
@@ -98,8 +86,6 @@ public class UserService implements ICrudService<User> {
             while (resultSet.next()) {
                 users.add(mapResultSetToUser(resultSet));
             }
-        } catch (SQLException e) {
-            System.err.println("Error finding all users: " + e.getMessage());
         }
         return users;
     }

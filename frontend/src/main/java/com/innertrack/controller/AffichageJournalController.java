@@ -1,4 +1,4 @@
-package controller;
+package com.innertrack.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,8 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.EntreeJournal;
-import service.JournalService;
+import com.innertrack.model.EntreeJournal;
+import com.innertrack.service.JournalService;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.ButtonBar;
@@ -47,8 +47,8 @@ public class AffichageJournalController {
 
         // Formater la date en "dd/MM/yyyy"
         dateColumn.setCellFactory(column -> new javafx.scene.control.TableCell<EntreeJournal, LocalDate>() {
-            private final java.time.format.DateTimeFormatter formatter =
-                    java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            private final java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter
+                    .ofPattern("dd/MM/yyyy");
 
             @Override
             protected void updateItem(LocalDate date, boolean empty) {
@@ -66,8 +66,7 @@ public class AffichageJournalController {
 
     private void chargerJournaux() {
         try {
-            ObservableList<EntreeJournal> journaux = FXCollections.observableArrayList(journalService.recuperer());
-            journalTable.setItems(journaux);
+            journalTable.setItems(FXCollections.observableArrayList(journalService.findAll()));
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
@@ -78,7 +77,7 @@ public class AffichageJournalController {
 
     @FXML
     void ajouterNouveauJournal(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutJournal.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutJournal.fxml"));
         Parent root = loader.load();
         journalTable.getScene().setRoot(root);
     }
@@ -95,7 +94,7 @@ public class AffichageJournalController {
         }
 
         try {
-            journalService.supprimer(selected);
+            journalService.delete(selected.getIdJournal());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setContentText("Journal supprimé avec succès !");
@@ -141,8 +140,7 @@ public class AffichageJournalController {
         vbox.setPadding(new Insets(20));
         vbox.getChildren().addAll(
                 new Label("Humeur (0-10) :"), humeurSpinner,
-                new Label("Note :"), noteTextArea
-        );
+                new Label("Note :"), noteTextArea);
         dialog.getDialogPane().setContent(vbox);
 
         // Résultat
@@ -157,7 +155,7 @@ public class AffichageJournalController {
 
         dialog.showAndWait().ifPresent(entree -> {
             try {
-                journalService.modifier(entree);
+                journalService.update(selected);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Succès");
                 alert.setContentText("Journal modifié avec succès !");
@@ -172,7 +170,6 @@ public class AffichageJournalController {
         });
     }
 
-
     // Méthode appelée par ModifierJournalController pour rafraîchir la liste
     public void rafraichir() {
         chargerJournaux();
@@ -180,7 +177,7 @@ public class AffichageJournalController {
 
     @FXML
     void allerAuxHabitudes(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutHabitude.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutHabitude.fxml"));
         Parent root = loader.load();
         journalTable.getScene().setRoot(root);
     }

@@ -9,7 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.Habitude;
+import com.innertrack.model.Habitude;
 import com.innertrack.service.*;
 
 import javafx.geometry.Insets;
@@ -64,8 +64,7 @@ public class AffichageHabitudeController {
 
     private void chargerHabitudes() {
         try {
-            ObservableList<Habitude> habitudes = FXCollections.observableArrayList(habitudeService.recuperer());
-            habitudeTable.setItems(habitudes);
+            habitudeTable.setItems(FXCollections.observableArrayList(habitudeService.findAll()));
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
@@ -76,7 +75,7 @@ public class AffichageHabitudeController {
 
     @FXML
     void ajouterNouvelleHabitude(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutHabitude.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutHabitude.fxml"));
         Parent root = loader.load();
         habitudeTable.getScene().setRoot(root);
     }
@@ -93,7 +92,7 @@ public class AffichageHabitudeController {
         }
 
         try {
-            habitudeService.supprimer(selected);
+            habitudeService.delete(selected.getIdHabit());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setContentText("Habitude supprimée avec succès !");
@@ -132,8 +131,7 @@ public class AffichageHabitudeController {
         ComboBox<String> emotionCombo = new ComboBox<>();
         emotionCombo.getItems().addAll(
                 "Joie", "Serenite", "Motivation", "Calme",
-                "Energie", "Detente", "Concentration", "Colere"
-        );
+                "Energie", "Detente", "Concentration", "Colere");
         emotionCombo.setValue(selected.getEmotionDominantes());
         emotionCombo.setPrefWidth(300);
 
@@ -161,8 +159,7 @@ public class AffichageHabitudeController {
                 new Label("Note :"), noteArea,
                 new Label("Énergie (0-20) :"), energieSpinner,
                 new Label("Stress (0-20) :"), stressSpinner,
-                new Label("Qualité Sommeil (0-10) :"), sommeilSpinner
-        );
+                new Label("Qualité Sommeil (0-10) :"), sommeilSpinner);
         dialog.getDialogPane().setContent(vbox);
 
         dialog.setResultConverter(dialogButton -> {
@@ -180,7 +177,7 @@ public class AffichageHabitudeController {
 
         dialog.showAndWait().ifPresent(habitude -> {
             try {
-                habitudeService.modifier(habitude);
+                habitudeService.update(habitude);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Succès");
                 alert.setContentText("Habitude modifiée avec succès !");
@@ -197,7 +194,7 @@ public class AffichageHabitudeController {
 
     @FXML
     void allerAuJournal(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutJournal.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutJournal.fxml"));
         Parent root = loader.load();
         habitudeTable.getScene().setRoot(root);
     }

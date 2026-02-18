@@ -1,4 +1,4 @@
-package main;
+package com.innertrack.app;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,8 +17,7 @@ public class MainJ extends Application {
 
             // 1️⃣ Charger l'interface immédiatement
             Parent root = FXMLLoader.load(
-                    getClass().getResource("/AffichageJournal.fxml")
-            );
+                    getClass().getResource("/fxml/AffichageJournal.fxml"));
 
             Scene scene = new Scene(root, 800, 600);
             primaryStage.setTitle("InnerTrack - Gestion Émotionnelle");
@@ -46,18 +45,14 @@ public class MainJ extends Application {
                 DBConnection db = DBConnection.getInstance();
 
                 if (db.getConnection() == null) {
-                    Platform.runLater(() ->
-                            showError("Impossible de se connecter à la base de données.")
-                    );
+                    Platform.runLater(() -> showError("Impossible de se connecter à la base de données."));
                 } else {
                     System.out.println("✓ Connexion DB établie");
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Platform.runLater(() ->
-                        showError("Erreur DB : " + e.getMessage())
-                );
+                Platform.runLater(() -> showError("Erreur DB : " + e.getMessage()));
             }
         }).start();
     }

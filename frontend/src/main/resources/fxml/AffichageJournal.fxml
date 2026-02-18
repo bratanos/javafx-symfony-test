@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.AffichageJournalController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+    <Label text="Journal Intime" style="-fx-font-size: 20px;"/>
+    <TableView fx:id="journalTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="humeurColumn" text="Humeur"/>
+            <TableColumn fx:id="noteColumn" text="Note"/>
+            <TableColumn fx:id="dateColumn" text="Date"/>
+        </columns>
+    </TableView>
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Ajouter" onAction="#ajouterNouveauJournal"/>
+        <Button text="Modifier" onAction="#modifierJournal"/>
+        <Button text="Supprimer" onAction="#supprimerJournal"/>
+        <Button text="Habitudes" onAction="#allerAuxHabitudes"/>
+    </HBox>
+</VBox>

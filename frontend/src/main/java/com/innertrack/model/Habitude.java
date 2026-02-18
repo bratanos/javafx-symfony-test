@@ -1,4 +1,4 @@
-package model;
+package com.innertrack.model;
 
 import java.time.LocalDate;
 
@@ -15,30 +15,29 @@ public class Habitude {
     private int idUser;
     private Integer idJournal;
 
-
-    public Habitude() {}
-
-/*
-    public Habitude(int idHabit, String nomHabitude, String emotionDominantes,
-                    String noteTextuelle, int niveauEnergie, int niveauStress,
-                    int qualiteSommeil, LocalDate dateCreation, int idUser, Integer idJournal) {
-        this.idHabit = idHabit;
-        this.nomHabitude = nomHabitude;
-        this.emotionDominantes = emotionDominantes;
-        this.noteTextuelle = noteTextuelle;
-        this.niveauEnergie = niveauEnergie;
-        this.niveauStress = niveauStress;
-        this.qualiteSommeil = qualiteSommeil;
-        this.dateCreation = dateCreation;
-        this.idUser = idUser;
-        this.idJournal = idJournal;
+    public Habitude() {
     }
-*/
 
+    /*
+     * public Habitude(int idHabit, String nomHabitude, String emotionDominantes,
+     * String noteTextuelle, int niveauEnergie, int niveauStress,
+     * int qualiteSommeil, LocalDate dateCreation, int idUser, Integer idJournal) {
+     * this.idHabit = idHabit;
+     * this.nomHabitude = nomHabitude;
+     * this.emotionDominantes = emotionDominantes;
+     * this.noteTextuelle = noteTextuelle;
+     * this.niveauEnergie = niveauEnergie;
+     * this.niveauStress = niveauStress;
+     * this.qualiteSommeil = qualiteSommeil;
+     * this.dateCreation = dateCreation;
+     * this.idUser = idUser;
+     * this.idJournal = idJournal;
+     * }
+     */
 
     public Habitude(String nomHabitude, String emotionDominantes, String noteTextuelle,
-                    int niveauEnergie, int niveauStress, int qualiteSommeil,
-                    LocalDate dateCreation, int idUser) {
+            int niveauEnergie, int niveauStress, int qualiteSommeil,
+            LocalDate dateCreation, int idUser) {
         this.nomHabitude = nomHabitude;
         this.emotionDominantes = emotionDominantes;
         this.noteTextuelle = noteTextuelle;

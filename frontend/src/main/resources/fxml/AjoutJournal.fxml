@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.AjoutJournalController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+    <Label text="Ajouter une entrée de journal" style="-fx-font-size: 20px;"/>
+    <Slider fx:id="humeurSlider" min="0" max="10" showTickLabels="true" showTickMarks="true"/>
+    <TextArea fx:id="noteTextArea" promptText="Comment vous sentez-vous ?"/>
+    <DatePicker fx:id="datePicker"/>
+    <Label fx:id="dateErrorLabel" text="Date invalide" textFill="red" visible="false"/>
+    <Label fx:id="descErrorLabel" text="Description vide" textFill="red" visible="false"/>
+    <Button text="Ajouter" onAction="#ajouterJournal"/>
+    <Button text="Retour" onAction="#allerAuJournal"/>
+</VBox>
