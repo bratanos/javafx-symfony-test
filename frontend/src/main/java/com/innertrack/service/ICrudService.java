@@ -1,15 +1,15 @@
 package com.innertrack.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ICrudService<T> {
-    boolean create(T entity);
 
-    T read(int id);
+    void ajouter(T t) throws SQLException;
 
-    boolean update(T entity);
+    void modifier(T t) throws SQLException;
 
-    boolean delete(int id);
+    void supprimer(T t) throws SQLException;
 
-    List<T> findAll();
+    List<T> recuperer() throws SQLException;
 }

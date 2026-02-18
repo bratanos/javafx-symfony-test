@@ -10,6 +10,7 @@ module com.innertrack {
     // Security & JWT
     requires jbcrypt;
     requires jjwt.api;
+    requires protobuf.java;
 
     opens com.innertrack.model to com.google.gson, javafx.base;
     opens com.innertrack.dao to java.sql;
