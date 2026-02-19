@@ -16,7 +16,7 @@ public class MainApp extends Application {
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
 
         // Load the main layout
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainLayout.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AffichageJournal.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

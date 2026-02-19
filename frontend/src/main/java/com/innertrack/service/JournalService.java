@@ -16,7 +16,7 @@ public class JournalService implements ICrudService<EntreeJournal> {
 
     @Override
     public void create(EntreeJournal entree) throws SQLException {
-        String sql = "INSERT INTO journal (humeur, note_textuelle, date_saisie, id_user) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO journal_emotionnel (humeur, note_textuelle, date_saisie, id) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, entree.getHumeur());
             ps.setString(2, entree.getNoteTextuelle());
@@ -28,7 +28,7 @@ public class JournalService implements ICrudService<EntreeJournal> {
 
     @Override
     public EntreeJournal read(int id) throws SQLException {
-        String sql = "SELECT * FROM journal WHERE id_journal = ?";
+        String sql = "SELECT * FROM journal_emotionnel WHERE id_journal = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -38,7 +38,7 @@ public class JournalService implements ICrudService<EntreeJournal> {
                             rs.getInt("humeur"),
                             rs.getString("note_textuelle"),
                             rs.getDate("date_saisie").toLocalDate(),
-                            rs.getInt("id_user"));
+                            rs.getInt("id"));
                 }
             }
         }
@@ -47,7 +47,7 @@ public class JournalService implements ICrudService<EntreeJournal> {
 
     @Override
     public void update(EntreeJournal entree) throws SQLException {
-        String sql = "UPDATE journal SET humeur = ?, note_textuelle = ?, date_saisie = ? WHERE id_journal = ?";
+        String sql = "UPDATE journal_emotionnel SET humeur = ?, note_textuelle = ?, date_saisie = ? WHERE id_journal = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, entree.getHumeur());
             ps.setString(2, entree.getNoteTextuelle());
@@ -59,7 +59,7 @@ public class JournalService implements ICrudService<EntreeJournal> {
 
     @Override
     public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM journal WHERE id_journal = ?";
+        String sql = "DELETE FROM journal_emotionnel WHERE id_journal = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -68,7 +68,7 @@ public class JournalService implements ICrudService<EntreeJournal> {
 
     @Override
     public List<EntreeJournal> findAll() throws SQLException {
-        String sql = "SELECT * FROM journal";
+        String sql = "SELECT * FROM journal_emotionnel";
         List<EntreeJournal> entrees = new ArrayList<>();
         try (Statement st = connection.createStatement();
                 ResultSet rs = st.executeQuery(sql)) {
@@ -78,7 +78,7 @@ public class JournalService implements ICrudService<EntreeJournal> {
                         rs.getInt("humeur"),
                         rs.getString("note_textuelle"),
                         rs.getDate("date_saisie").toLocalDate(),
-                        rs.getInt("id_user"));
+                        rs.getInt("id"));
                 entrees.add(e);
             }
         }
