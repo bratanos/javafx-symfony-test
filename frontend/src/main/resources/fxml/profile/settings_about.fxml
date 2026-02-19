@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40" />
+    </padding>
+
+    <Label text="InnerTrack v1.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+    <Label text="Solution de gestion et de suivi de santé mentale." styleClass="text-muted" />
+    
+    <Separator maxWidth="300" />
+    
+    <Label text="Développé par l'équipe InnerTrack" />
+    <Label text="© 2026 Tous droits réservés." styleClass="text-muted" />
+
+</VBox>

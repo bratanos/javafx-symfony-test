@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox spacing="30" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.settings.SettingsAccountController">
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30" />
+    </padding>
+
+    <Label text="Informations du compte" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    
+    <GridPane hgap="20" vgap="15">
+        <Label text="%settings.account.creationDate" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="text-muted" />
+        <Label fx:id="creationDateLabel" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+        
+        <Label text="%settings.account.lastLogin" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="text-muted" />
+        <Label fx:id="lastLoginLabel" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+    </GridPane>
+
+    <Separator />
+
+    <Label text="Actions de sécurité" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <VBox spacing="20">
+        <VBox spacing="5">
+            <Button text="%settings.account.deactivate" onAction="#handleDeactivate" styleClass="btn" style="-fx-text-fill: #e67e22;" />
+            <Label text="%settings.account.deactivateInfo" styleClass="text-muted" style="-fx-font-size: 12px;" />
+        </VBox>
+
+        <VBox spacing="5">
+            <Button text="%settings.account.delete" onAction="#handleDelete" styleClass="btn" style="-fx-text-fill: #e74c3c;" />
+            <Label text="%settings.account.deleteInfo" styleClass="text-muted" style="-fx-font-size: 12px;" />
+        </VBox>
+    </VBox>
+
+</VBox>

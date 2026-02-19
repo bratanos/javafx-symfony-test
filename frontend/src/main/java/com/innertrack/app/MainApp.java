@@ -9,9 +9,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
+    private static Stage primaryStage;
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
+        primaryStage = stage;
         // Set the AtlantaFX theme
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
 

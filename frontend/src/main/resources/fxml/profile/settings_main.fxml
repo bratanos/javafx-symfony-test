@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox spacing="30" styleClass="dashboard-container"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.settings.SettingsController"
+      stylesheets="@../../style/dashboards.css, @../../style/themes.css">
+    
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40" />
+    </padding>
+
+    <!-- Header -->
+    <HBox spacing="20" alignment="CENTER_LEFT">
+        <Button onAction="#handleBack" style="-fx-background-color: #f1f1f1; -fx-background-radius: 50; -fx-padding: 8; -fx-cursor: hand;">
+            <graphic>
+                <FontIcon iconLiteral="fas-arrow-left" iconSize="20" iconColor="#2c3e50" />
+            </graphic>
+        </Button>
+        <VBox>
+            <Label text="%settings.title" styleClass="title" />
+            <Label text="Personnalisez votre expérience et gérez votre compte." styleClass="text-muted" />
+        </VBox>
+    </HBox>
+
+    <TabPane fx:id="settingsTabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" styleClass="dashboard-card">
+        <Tab text="%settings.appearance">
+            <fx:include source="settings_appearance.fxml" />
+        </Tab>
+        <Tab text="%settings.accessibility">
+            <fx:include source="settings_accessibility.fxml" />
+        </Tab>
+        <Tab text="%settings.account">
+            <fx:include source="settings_account.fxml" />
+        </Tab>
+        <Tab text="%settings.about">
+            <fx:include source="settings_about.fxml" />
+        </Tab>
+    </TabPane>
+
+</VBox>

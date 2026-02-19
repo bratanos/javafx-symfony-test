@@ -57,7 +57,14 @@ public class LoginController {
             MainLayoutController.getInstance().updateUiForSession();
         } else {
             System.err.println("Login failed: " + result);
-            errorLabel.setText(result);
+            if ("Account not verified. Please verify your email.".equals(result)) {
+                VerifyOtpController controller = ViewManager.loadView("verify_otp");
+                if (controller != null) {
+                    controller.setEmail(email);
+                }
+            } else {
+                errorLabel.setText(result);
+            }
         }
     }
 

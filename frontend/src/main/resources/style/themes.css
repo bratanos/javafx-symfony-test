@@ -1,0 +1,86 @@
+/* Base theme variables */
+.root {
+    -it-bg: #f4f7f6;
+    -it-card: #ffffff;
+    -it-text: #2c3e50;
+    -it-text-muted: #7f8c8d;
+    -it-primary: #1d7bed;
+    -it-font-size: 14px;
+}
+
+.root.dark-theme {
+    -it-bg: #1a1a1a;
+    -it-card: #2d2d2d;
+    -it-text: #ecf0f1;
+    -it-text-muted: #bdc3c7;
+}
+
+.root.font-small { -it-font-size: 12px; }
+.root.font-normal { -it-font-size: 14px; }
+.root.font-large { -it-font-size: 18px; }
+
+/* Apply to components */
+.dashboard-container {
+    -fx-background-color: -it-bg;
+}
+
+.dashboard-card {
+    -fx-background-color: -it-card;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.label {
+    -fx-text-fill: -it-text;
+    -fx-font-size: -it-font-size;
+}
+
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -it-text;
+}
+
+.text-muted {
+    -fx-text-fill: -it-text-muted;
+}
+
+/* Ensure ScrollPane content area also takes the theme */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Fix for buttons and inputs to respect colors */
+.button, .toggle-button, .radio-button {
+    -fx-font-size: -it-font-size;
+    -fx-text-fill: -it-text;
+}
+
+.text-field {
+    -fx-background-color: -it-bg;
+    -fx-text-fill: -it-text;
+    -fx-border-color: -it-text-muted;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.combo-box {
+    -fx-background-color: -it-card;
+    -fx-border-color: -it-text-muted;
+    -fx-border-radius: 5;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: -it-text;
+    -fx-background-color: -it-card;
+}
+
+.separator *.line {
+    -fx-border-color: -it-text-muted;
+    -fx-border-width: 0.5px;
+}

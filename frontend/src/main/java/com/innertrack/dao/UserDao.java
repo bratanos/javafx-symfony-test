@@ -48,6 +48,17 @@ public class UserDao implements ICrudService<User> {
         return false;
     }
 
+    public boolean updateLastLogin(int userId) {
+        String sql = "UPDATE user SET last_login = CURRENT_TIMESTAMP WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("updateLastLogin error : " + e.getMessage());
+        }
+        return false;
+    }
+
     @Override
     public boolean create(User user) throws SQLException {
         String sql = "INSERT INTO user (email, password, roles, is_verified, status, first_name, last_name, profile_picture) VALUES (?,?,?,?,?,?,?,?)";
@@ -77,6 +88,16 @@ public class UserDao implements ICrudService<User> {
         user.setFirstName(rs.getString("first_name"));
         user.setLastName(rs.getString("last_name"));
         user.setProfilePicture(rs.getString("profile_picture"));
+
+        Timestamp createdAt = rs.getTimestamp("created_at");
+        if (createdAt != null) {
+            user.setCreatedAt(createdAt.toLocalDateTime());
+        }
+
+        Timestamp lastLogin = rs.getTimestamp("last_login");
+        if (lastLogin != null) {
+            user.setLastLogin(lastLogin.toLocalDateTime());
+        }
 
         String rolesJson = rs.getString("roles");
         List<String> roles;

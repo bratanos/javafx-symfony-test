@@ -13,6 +13,8 @@ public class User {
     private String firstName;
     private String lastName;
     private String profilePicture;
+    private java.time.LocalDateTime createdAt;
+    private java.time.LocalDateTime lastLogin;
 
     public int getId() {
         return id;
@@ -86,11 +88,27 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
+    public java.time.LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(java.time.LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public java.time.LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(java.time.LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
     public String getFullName() {
-        if  (firstName == null || lastName == null) {
+        if (firstName == null || lastName == null) {
             return email;
         }
-        return  firstName + " " + lastName;
+        return firstName + " " + lastName;
 
     }
 }

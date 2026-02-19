@@ -29,12 +29,20 @@
             
             <Region HBox.hgrow="ALWAYS" />
             
+            <HBox spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 0 20 0 0;">
+                <Button style="-fx-background-color: transparent; -fx-cursor: hand;">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-bell" iconSize="20" iconColor="#7f8c8d" />
+                    </graphic>
+                </Button>
+                
                 <HBox spacing="10" alignment="CENTER_RIGHT" fx:id="authBox">
                     <Hyperlink text="Accueil" styleClass="navbar-link" onAction="#goToHome" />
                     <Hyperlink text="Connexion" fx:id="loginLink" styleClass="navbar-link" onAction="#goToLogin" />
                     <Hyperlink text="S'inscrire" fx:id="registerLink" styleClass="navbar-link" onAction="#goToRegister" />
                     <Button fx:id="profileBtn" text="Mon Profil" styleClass="btn, btn-secondary" visible="false" />
                 </HBox>
+            </HBox>
         </HBox>
     </top>
 

@@ -16,7 +16,8 @@ public class AuthService {
     private final UserDao userDao = new UserDao();
     private final EmailVerificationCodeDao otpDao = new EmailVerificationCodeDao();
 
-    public String register(String email, String password, List<String> requestedRoles) {
+    public String register(String email, String password, String firstName, String lastName,
+            List<String> requestedRoles) {
         // Validation: Block Admin role from registration
         if (requestedRoles.contains("ROLE_ADMIN")) {
             return "Registration for Admin is not allowed.";
@@ -29,6 +30,8 @@ public class AuthService {
         User user = new User();
         user.setEmail(email);
         user.setPassword(BCryptHasher.hash(password));
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
         user.setRoles(requestedRoles);
         user.setVerified(false);
         user.setStatus("PENDING");
@@ -140,12 +143,21 @@ public class AuthService {
         }
 
         if (!user.isVerified() || !"ACTIVE".equals(user.getStatus())) {
+            if ("BLOCKED".equals(user.getStatus())) {
+                return "Your account has been blocked. Please contact an admin.";
+            }
             return "Account not verified. Please verify your email.";
         }
 
         String token = JwtUtil.generateToken(user.getEmail(), user.getRoles());
         SessionManager.getInstance().setCurrentUser(user);
         SessionManager.getInstance().setJwtToken(token);
+
+        // Update last login
+        userDao.updateLastLogin(user.getId());
+
+        // Load user settings
+        SettingsService.getInstance().loadSettings(user.getId());
 
         return "SUCCESS";
     }

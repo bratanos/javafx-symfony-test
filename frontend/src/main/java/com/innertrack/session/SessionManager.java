@@ -33,6 +33,10 @@ public class SessionManager {
         this.jwtToken = jwtToken;
     }
 
+    public void logout() {
+        cleanSession();
+    }
+
     public void cleanSession() {
         currentUser = null;
         jwtToken = null;

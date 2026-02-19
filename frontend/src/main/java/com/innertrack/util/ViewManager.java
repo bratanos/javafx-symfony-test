@@ -1,9 +1,11 @@
 package com.innertrack.util;
 
+import com.innertrack.service.SettingsService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class ViewManager {
 
@@ -39,6 +41,7 @@ public class ViewManager {
                 }
             }
 
+
             // If not loaded from auth/ or if fxmlName already contains a path, try the
             // direct path
             if (loader == null || loader.getLocation() == null) {
@@ -51,6 +54,9 @@ public class ViewManager {
                 System.err.println("Error: FXML resource not found for path: " + path);
                 return null;
             }
+
+            // Add resource bundle for localization
+            loader.setResources(SettingsService.getInstance().getBundle());
 
             Node view = loader.load();
             container.getChildren().add(view);

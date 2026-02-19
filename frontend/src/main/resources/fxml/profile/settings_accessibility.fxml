@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="25" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.settings.SettingsAccessibilityController">
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30" />
+    </padding>
+
+    <Label text="%settings.fontSize" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    
+    <VBox spacing="15">
+        <RadioButton fx:id="fontSmallBtn" text="%settings.fontSize.small" onAction="#setFontSmall" />
+        <RadioButton fx:id="fontNormalBtn" text="%settings.fontSize.normal" onAction="#setFontNormal" />
+        <RadioButton fx:id="fontLargeBtn" text="%settings.fontSize.large" onAction="#setFontLarge" />
+    </VBox>
+
+</VBox>

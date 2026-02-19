@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox spacing="25" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.innertrack.controller.settings.SettingsAppearanceController">
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30" />
+    </padding>
+
+    <Label text="%settings.theme" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    
+    <HBox spacing="20">
+        <ToggleButton fx:id="lightThemeBtn" text="%settings.theme.light" onAction="#setLightTheme" prefWidth="150" styleClass="btn" />
+        <ToggleButton fx:id="darkThemeBtn" text="%settings.theme.dark" onAction="#setDarkTheme" prefWidth="150" styleClass="btn" />
+    </HBox>
+
+    <Separator />
+
+    <Label text="%settings.language" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    
+    <ComboBox fx:id="languageComboBox" prefWidth="200" onAction="#handleLanguageChange" />
+
+</VBox>

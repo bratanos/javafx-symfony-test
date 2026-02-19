@@ -28,6 +28,7 @@ module com.innertrack {
     opens com.innertrack.controller.psychologue to javafx.fxml;
     opens com.innertrack.controller.user to javafx.fxml;
     opens com.innertrack.controller.profile to javafx.fxml;
+    opens com.innertrack.controller.settings to javafx.fxml;
     opens com.innertrack.util to javafx.fxml;
 
     // Auth resources are now in a subfolder
