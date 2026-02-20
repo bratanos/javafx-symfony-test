@@ -7,6 +7,9 @@ module com.innertrack {
     requires atlantafx.base;
     requires jakarta.mail;
 
+    //exportation pdf
+    requires itextpdf;
+
     // Security & JWT
     requires jbcrypt;
     requires jjwt.api;

@@ -124,4 +124,43 @@ public class HabitudeService implements ICrudService<Habitude> {
             return habitudes;
         }
     }
+
+    public List<Habitude> search(String keyword) throws SQLException {
+        String sql = "SELECT * FROM habittracker WHERE nom_habitude LIKE ? " +
+                "OR emotion_dominantes LIKE ? " +
+                "OR note_textuelle LIKE ?";
+
+        List<Habitude> habitudes = new ArrayList<>();
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            String pattern = "%" + keyword + "%";
+            ps.setString(1, pattern);
+            ps.setString(2, pattern);
+            ps.setString(3, pattern);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Habitude h = new Habitude();
+                h.setIdHabit(rs.getInt("id_habit"));
+                h.setNomHabitude(rs.getString("nom_habitude"));
+                h.setEmotionDominantes(rs.getString("emotion_dominantes"));
+                h.setNoteTextuelle(rs.getString("note_textuelle"));
+                h.setNiveauEnergie(rs.getInt("niveau_energie"));
+                h.setNiveauStress(rs.getInt("niveau_stress"));
+                h.setQualiteSommeil(rs.getInt("qualite_sommeil"));
+                h.setDateCreation(rs.getDate("date_creation").toLocalDate());
+                h.setIdUser(rs.getInt("id"));
+
+                int idJournal = rs.getInt("id_journal");
+                if (!rs.wasNull()) {
+                    h.setIdJournal(idJournal);
+                }
+
+                habitudes.add(h);
+            }
+        }
+        return habitudes;
+    }
 }

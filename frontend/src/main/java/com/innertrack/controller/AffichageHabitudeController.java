@@ -21,6 +21,15 @@ import javafx.geometry.Insets;
 import com.innertrack.model.Habitude;
 import com.innertrack.service.*;
 
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.File;
+
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+import com.innertrack.util.PdfExporter;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -67,6 +76,9 @@ public class AffichageHabitudeController {
     @FXML
     private Label moyenneSommeilLabel;
 
+    @FXML
+    private TextField searchField;
+
     private HabitudeService habitudeService;
 
     @FXML
@@ -81,6 +93,10 @@ public class AffichageHabitudeController {
         stressColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("niveauStress"));
         sommeilColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("qualiteSommeil"));
         dateColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("dateCreation"));
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            rechercherHabitude();
+        });
 
         // Formater la date
         dateColumn.setCellFactory(column -> new javafx.scene.control.TableCell<Habitude, java.time.LocalDate>() {
@@ -251,4 +267,61 @@ public class AffichageHabitudeController {
         alert.setContentText(message);
         alert.show();
     }
+
+    @FXML
+    void rechercherHabitude() {
+        try {
+            String keyword = searchField.getText();
+
+            if (keyword == null || keyword.isEmpty()) {
+                habitudeTable.setItems(FXCollections.observableArrayList(
+                        habitudeService.findAll()
+                ));
+            } else {
+                habitudeTable.setItems(FXCollections.observableArrayList(
+                        habitudeService.search(keyword)
+                ));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void exporterPDF() {
+        try {
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Enregistrer le fichier PDF");
+
+            // filtre pour autoriser seulement PDF
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Fichiers PDF", "*.pdf")
+            );
+
+            fileChooser.setInitialFileName("Habitudes.pdf");
+
+            Stage stage = (Stage) habitudeTable.getScene().getWindow();
+            File file = fileChooser.showSaveDialog(stage);
+
+            if (file != null) {
+                PdfExporter.exportHabitudes(
+                        habitudeService.findAll(),
+                        file.getAbsolutePath()
+                );
+                statusLabel.setText("✅ PDF enregistré avec succès !");
+            }
+
+        } catch (Exception e) {
+            statusLabel.setText("❌ Erreur export PDF");
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void viderRecherche() {
+        searchField.clear();
+        chargerHabitudes();   // recharge toutes les données
+    }
 }
+
