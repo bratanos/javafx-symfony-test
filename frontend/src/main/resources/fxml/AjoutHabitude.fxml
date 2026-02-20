@@ -1,25 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.innertrack.controller.AjoutHabitudeController"
-      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
-    <Label text="Ajouter une habitude" style="-fx-font-size: 20px;"/>
-    <TextField fx:id="nomHabitudeField" promptText="Nom de l'habitude"/>
-    <ComboBox fx:id="emotionComboBox" promptText="Émotion"/>
-    <TextArea fx:id="noteTextArea" promptText="Notes..."/>
-    <Label text="Énergie"/>
-    <Slider fx:id="energieSlider" min="0" max="10"/>
-    <Label text="Stress"/>
-    <Slider fx:id="stressSlider" min="0" max="10"/>
-    <Label text="Sommeil"/>
-    <Slider fx:id="sommeilSlider" min="0" max="10"/>
-    <DatePicker fx:id="datePicker"/>
-    <Label fx:id="nomErrorLabel" text="Nom requis" textFill="red" visible="false"/>
-    <Label fx:id="emotionErrorLabel" text="Émotion requise" textFill="red" visible="false"/>
-    <Label fx:id="dateErrorLabel" text="Date requise" textFill="red" visible="false"/>
-    <Button text="Ajouter" onAction="#ajouterHabitude"/>
-    <Button text="Retour" onAction="#afficherHabitudes"/>
-</VBox>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.innertrack.controller.AjoutHabitudeController"
+            stylesheets="@../css/components/journal.css">
+
+    <!-- ============ EN-TÊTE ============ -->
+    <top>
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="20">
+            <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="🌿 Ajouter une Habitude" styleClass="title" style="-fx-font-size: 24px;"/>
+                <Label text="Enregistrez une nouvelle habitude quotidienne" styleClass="subtitle" style="-fx-font-size: 13px;"/>
+            </VBox>
+        </HBox>
+    </top>
+
+    <!-- ============ CONTENU PRINCIPAL ============ -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" style="-fx-padding: 20;">
+            <VBox spacing="15">
+                <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+                <!-- Section Informations de base -->
+                <VBox styleClass="section-box" spacing="15">
+                    <padding><Insets top="20" right="25" bottom="20" left="25"/></padding>
+                    <Label text="📋  Informations de l'Habitude" styleClass="section-title" style="-fx-font-size: 16px;"/>
+                    <Separator/>
+
+                    <VBox spacing="6">
+                        <Label text="Nom de l'habitude *" styleClass="field-label"/>
+                        <TextField fx:id="nomHabitudeField" promptText="Ex: Méditation matinale, Sport, Lecture..."
+                                   styleClass="custom-text-field"/>
+                        <Label fx:id="nomErrorLabel" text="⚠ Le nom est requis"
+                               style="-fx-text-fill: #e53e3e; -fx-font-size: 12px;" visible="false"/>
+                    </VBox>
+
+                    <VBox spacing="6">
+                        <Label text="Émotion dominante *" styleClass="field-label"/>
+                        <ComboBox fx:id="emotionComboBox" promptText="Sélectionnez une émotion..."
+                                  styleClass="custom-combo-box" maxWidth="Infinity"/>
+                        <Label fx:id="emotionErrorLabel" text="⚠ L'émotion est requise"
+                               style="-fx-text-fill: #e53e3e; -fx-font-size: 12px;" visible="false"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Section Niveaux + Note + Date -->
+                <VBox styleClass="section-box" spacing="15">
+                    <padding><Insets top="20" right="25" bottom="20" left="25"/></padding>
+                    <Label text="📊  Niveaux du Jour" styleClass="section-title" style="-fx-font-size: 16px;"/>
+                    <Separator/>
+
+                    <VBox spacing="8">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="⚡ Niveau d'Énergie" styleClass="field-label" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="energieValueLabel" text="10" styleClass="stat-number" style="-fx-font-size: 18px;"/>
+                            <Label text="/ 20" styleClass="stat-label"/>
+                        </HBox>
+                        <Slider fx:id="energieSlider" min="0" max="20" value="10" showTickLabels="true"
+                                showTickMarks="true" majorTickUnit="5" blockIncrement="1"
+                                style="-fx-accent: #667eea;"/>
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="😰 Niveau de Stress" styleClass="field-label" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="stressValueLabel" text="10" styleClass="stat-number" style="-fx-font-size: 18px;"/>
+                            <Label text="/ 20" styleClass="stat-label"/>
+                        </HBox>
+                        <Slider fx:id="stressSlider" min="0" max="20" value="10" showTickLabels="true"
+                                showTickMarks="true" majorTickUnit="5" blockIncrement="1"
+                                style="-fx-accent: #f56565;"/>
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="😴 Qualité du Sommeil" styleClass="field-label" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="sommeilValueLabel" text="5" styleClass="stat-number" style="-fx-font-size: 18px;"/>
+                            <Label text="/ 10" styleClass="stat-label"/>
+                        </HBox>
+                        <Slider fx:id="sommeilSlider" min="0" max="10" value="5" showTickLabels="true"
+                                showTickMarks="true" majorTickUnit="2" blockIncrement="1"
+                                style="-fx-accent: #48bb78;"/>
+                    </VBox>
+
+                    <VBox spacing="6">
+                        <Label text="Notes personnelles" styleClass="field-label"/>
+                        <TextArea fx:id="noteTextArea" promptText="Décrivez votre habitude, vos ressentis..."
+                                  styleClass="custom-text-area" prefRowCount="4" wrapText="true"/>
+                    </VBox>
+
+                    <VBox spacing="6">
+                        <Label text="Date *" styleClass="field-label"/>
+                        <DatePicker fx:id="datePicker" styleClass="custom-combo-box" maxWidth="250"/>
+                        <Label fx:id="dateErrorLabel" text="⚠ La date est requise"
+                               style="-fx-text-fill: #e53e3e; -fx-font-size: 12px;" visible="false"/>
+                    </VBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- ============ PIED DE PAGE ============ -->
+    <bottom>
+        <HBox styleClass="footer" alignment="CENTER_RIGHT" spacing="10">
+            <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
+            <Button text="← Retour à la Liste" styleClass="return-button"
+                    onAction="#afficherHabitudes" HBox.hgrow="ALWAYS"/>
+            <Button text="Annuler" styleClass="cancel-button"
+                    onAction="#afficherHabitudes"/>
+            <Button text="✅ Enregistrer l'Habitude" styleClass="save-button"
+                    onAction="#ajouterHabitude"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

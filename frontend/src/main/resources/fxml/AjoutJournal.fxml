@@ -1,17 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.innertrack.controller.AjoutJournalController"
-      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
-    <Label text="Ajouter une entrée de journal" style="-fx-font-size: 20px;"/>
-    <Slider fx:id="humeurSlider" min="0" max="10" showTickLabels="true" showTickMarks="true"/>
-    <TextArea fx:id="noteTextArea" promptText="Comment vous sentez-vous ?"/>
-    <DatePicker fx:id="datePicker"/>
-    <Label fx:id="dateErrorLabel" text="Date invalide" textFill="red" visible="false"/>
-    <Label fx:id="descErrorLabel" text="Description vide" textFill="red" visible="false"/>
-    <Button text="Ajouter" onAction="#ajouterJournal"/>
-    <Button text="Retour" onAction="#allerAuJournal"/>
-</VBox>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.innertrack.controller.AjoutJournalController"
+            stylesheets="@../css/components/journal.css">
+
+    <!-- ============ EN-TÊTE ============ -->
+    <top>
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="20">
+            <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="📓 Ajouter une Entrée" styleClass="title" style="-fx-font-size: 24px;"/>
+                <Label text="Notez votre humeur et vos pensées du jour" styleClass="subtitle" style="-fx-font-size: 13px;"/>
+            </VBox>
+        </HBox>
+    </top>
+
+    <!-- ============ CONTENU PRINCIPAL ============ -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" style="-fx-padding: 20;">
+            <VBox spacing="15">
+                <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+                <!-- Section Humeur -->
+                <VBox styleClass="section-box" spacing="15">
+                    <padding><Insets top="20" right="25" bottom="20" left="25"/></padding>
+
+                    <Label text="😊  Comment vous sentez-vous ?" styleClass="section-title" style="-fx-font-size: 16px;"/>
+                    <Separator/>
+
+                    <!-- Slider Humeur -->
+                    <VBox spacing="8">
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="😊 Niveau d'Humeur" styleClass="field-label" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="humeurValueLabel" text="5"
+                                   styleClass="stat-number" style="-fx-font-size: 18px;"/>
+                            <Label text="/ 10" styleClass="stat-label"/>
+                        </HBox>
+                        <Slider fx:id="humeurSlider" min="0" max="10" value="5"
+                                showTickLabels="true" showTickMarks="true"
+                                majorTickUnit="2" blockIncrement="1"
+                                style="-fx-accent: #667eea;"/>
+                        <HBox>
+                            <Label text="😔 Très mauvaise" styleClass="stat-label" HBox.hgrow="ALWAYS"/>
+                            <Label text="😄 Excellente" styleClass="stat-label"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+
+                <!-- Section Journal -->
+                <VBox styleClass="section-box" spacing="15">
+                    <padding><Insets top="20" right="25" bottom="20" left="25"/></padding>
+
+                    <Label text="📝  Mon Journal du Jour" styleClass="section-title" style="-fx-font-size: 16px;"/>
+                    <Separator/>
+
+                    <!-- Note -->
+                    <VBox spacing="6">
+                        <Label text="Description de ma journée *" styleClass="field-label"/>
+                        <TextArea fx:id="noteTextArea"
+                                  promptText="Comment s'est passée votre journée ? Quels sont vos ressentis, vos pensées..."
+                                  styleClass="custom-text-area" prefRowCount="6" wrapText="true"/>
+                        <Label fx:id="descErrorLabel" text="⚠ La description est requise"
+                               style="-fx-text-fill: #e53e3e; -fx-font-size: 12px;" visible="false"/>
+                    </VBox>
+
+                    <!-- Date -->
+                    <VBox spacing="6">
+                        <Label text="Date *" styleClass="field-label"/>
+                        <DatePicker fx:id="datePicker" styleClass="custom-combo-box" maxWidth="250"/>
+                        <Label fx:id="dateErrorLabel" text="⚠ La date est requise"
+                               style="-fx-text-fill: #e53e3e; -fx-font-size: 12px;" visible="false"/>
+                    </VBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- ============ PIED DE PAGE ============ -->
+    <bottom>
+        <HBox styleClass="footer" alignment="CENTER_RIGHT" spacing="10">
+            <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
+            <Button text="← Retour au Journal" styleClass="return-button"
+                    onAction="#allerAuJournal" HBox.hgrow="ALWAYS"/>
+            <Button text="🌿 Habitudes" styleClass="refresh-btn"
+                    onAction="#allerAuxHabitudes"/>
+            <Button text="Annuler" styleClass="cancel-button"
+                    onAction="#allerAuJournal"/>
+            <Button text="✅ Enregistrer l'Entrée" styleClass="save-button"
+                    onAction="#ajouterJournal"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

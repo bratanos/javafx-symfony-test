@@ -1,31 +1,30 @@
 package com.innertrack.controller;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import com.innertrack.model.Habitude;
-import com.innertrack.service.*;
-
-import javafx.geometry.Insets;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
+import javafx.geometry.Insets;
+import com.innertrack.model.Habitude;
+import com.innertrack.service.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class AffichageHabitudeController {
 
@@ -53,56 +52,116 @@ public class AffichageHabitudeController {
     @FXML
     private TableColumn<Habitude, LocalDate> dateColumn;
 
+    @FXML
+    private Label statusLabel;
+
+    @FXML
+    private Label totalHabitudesLabel;
+
+    @FXML
+    private Label moyenneEnergieLabel;
+
+    @FXML
+    private Label moyenneStressLabel;
+
+    @FXML
+    private Label moyenneSommeilLabel;
+
     private HabitudeService habitudeService;
 
     @FXML
     public void initialize() {
         habitudeService = new HabitudeService();
+
+        // ✅ LIAISON colonnes <-> propriétés du modèle
+        nomColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("nomHabitude"));
+        emotionColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("emotionDominantes"));
+        noteColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("noteTextuelle"));
+        energieColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("niveauEnergie"));
+        stressColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("niveauStress"));
+        sommeilColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("qualiteSommeil"));
+        dateColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("dateCreation"));
+
+        // Formater la date
+        dateColumn.setCellFactory(column -> new javafx.scene.control.TableCell<Habitude, java.time.LocalDate>() {
+            private final java.time.format.DateTimeFormatter formatter =
+                    java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            @Override
+            protected void updateItem(java.time.LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setText(empty || date == null ? null : formatter.format(date));
+            }
+        });
+
         habitudeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         chargerHabitudes();
     }
 
     private void chargerHabitudes() {
         try {
-            habitudeTable.setItems(FXCollections.observableArrayList(habitudeService.findAll()));
+            List<Habitude> habitudes = habitudeService.findAll();
+            habitudeTable.setItems(FXCollections.observableArrayList(habitudes));
+
+            int total = habitudes.size();
+            totalHabitudesLabel.setText(String.valueOf(total));
+
+            if (total > 0) {
+                double moyEnergie = habitudes.stream()
+                        .mapToInt(Habitude::getNiveauEnergie)
+                        .average().orElse(0);
+                double moyStress = habitudes.stream()
+                        .mapToInt(Habitude::getNiveauStress)
+                        .average().orElse(0);
+                double moySommeil = habitudes.stream()
+                        .mapToInt(Habitude::getQualiteSommeil)
+                        .average().orElse(0);
+
+                moyenneEnergieLabel.setText(String.format("%.1f", moyEnergie));
+                moyenneStressLabel.setText(String.format("%.1f", moyStress));
+                moyenneSommeilLabel.setText(String.format("%.1f", moySommeil));
+            } else {
+                moyenneEnergieLabel.setText("—");
+                moyenneStressLabel.setText("—");
+                moyenneSommeilLabel.setText("—");
+            }
+
+            statusLabel.setText(total + " habitude(s) chargée(s)");
+
         } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Erreur lors du chargement : " + e.getMessage());
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement : " + e.getMessage());
         }
     }
 
     @FXML
-    void ajouterNouvelleHabitude(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutHabitude.fxml"));
-        Parent root = loader.load();
-        habitudeTable.getScene().setRoot(root);
+    void ajouterNouvelleHabitude(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutHabitude.fxml"));
+            if (loader.getLocation() == null) {
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Fichier FXML introuvable : /fxml/AjoutHabitude.fxml");
+                return;
+            }
+            Parent root = loader.load();
+            habitudeTable.getScene().setRoot(root);
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur de navigation", "Impossible d'ouvrir le formulaire : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void supprimerHabitude(ActionEvent event) {
         Habitude selected = habitudeTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Attention");
-            alert.setContentText("Veuillez sélectionner une habitude à supprimer !");
-            alert.show();
+            showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez sélectionner une habitude à supprimer !");
             return;
         }
 
         try {
             habitudeService.delete(selected.getIdHabit());
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
-            alert.setContentText("Habitude supprimée avec succès !");
-            alert.show();
+            showAlert(Alert.AlertType.INFORMATION, "Succès", "Habitude supprimée avec succès !");
             chargerHabitudes();
         } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Erreur lors de la suppression : " + e.getMessage());
-            alert.show();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la suppression : " + e.getMessage());
         }
     }
 
@@ -110,10 +169,7 @@ public class AffichageHabitudeController {
     void modifierHabitude(ActionEvent event) {
         Habitude selected = habitudeTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Attention");
-            alert.setContentText("Veuillez sélectionner une habitude à modifier !");
-            alert.show();
+            showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez sélectionner une habitude à modifier !");
             return;
         }
 
@@ -124,10 +180,8 @@ public class AffichageHabitudeController {
         ButtonType sauvegarderButtonType = new ButtonType("Sauvegarder", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(sauvegarderButtonType, ButtonType.CANCEL);
 
-        // Champs du formulaire
         TextField nomField = new TextField(selected.getNomHabitude());
 
-        // ComboBox pour l'émotion (cohérent avec AjoutHabitude)
         ComboBox<String> emotionCombo = new ComboBox<>();
         emotionCombo.getItems().addAll(
                 "Joie", "Serenite", "Motivation", "Calme",
@@ -139,7 +193,6 @@ public class AffichageHabitudeController {
         noteArea.setWrapText(true);
         noteArea.setPrefRowCount(3);
 
-        // Spinners avec les bons max (cohérents avec les sliders d'ajout)
         Spinner<Integer> energieSpinner = new Spinner<>(0, 20, selected.getNiveauEnergie());
         energieSpinner.setEditable(true);
 
@@ -149,7 +202,6 @@ public class AffichageHabitudeController {
         Spinner<Integer> sommeilSpinner = new Spinner<>(0, 10, selected.getQualiteSommeil());
         sommeilSpinner.setEditable(true);
 
-        // Layout
         VBox vbox = new VBox(8);
         vbox.setPadding(new Insets(20));
         vbox.setPrefWidth(380);
@@ -178,16 +230,10 @@ public class AffichageHabitudeController {
         dialog.showAndWait().ifPresent(habitude -> {
             try {
                 habitudeService.update(habitude);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Succès");
-                alert.setContentText("Habitude modifiée avec succès !");
-                alert.show();
+                showAlert(Alert.AlertType.INFORMATION, "Succès", "Habitude modifiée avec succès !");
                 chargerHabitudes();
             } catch (SQLException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setContentText("Erreur : " + e.getMessage());
-                alert.show();
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur : " + e.getMessage());
             }
         });
     }
@@ -197,5 +243,12 @@ public class AffichageHabitudeController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutJournal.fxml"));
         Parent root = loader.load();
         habitudeTable.getScene().setRoot(root);
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.show();
     }
 }

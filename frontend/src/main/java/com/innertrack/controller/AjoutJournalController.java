@@ -21,70 +21,55 @@ import java.util.ResourceBundle;
 
 public class AjoutJournalController implements Initializable {
 
-    @FXML
-    private Slider humeurSlider;
-
-    @FXML
-    private TextArea noteTextArea;
-
-    @FXML
-    private DatePicker datePicker;
-
-    @FXML
-    private Label dateErrorLabel;
-
-    @FXML
-    private Label descErrorLabel;
+    @FXML private Slider humeurSlider;
+    @FXML private TextArea noteTextArea;
+    @FXML private DatePicker datePicker;
+    @FXML private Label dateErrorLabel;
+    @FXML private Label descErrorLabel;
+    @FXML private Label humeurValueLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         datePicker.setValue(LocalDate.now());
         dateErrorLabel.setVisible(false);
         descErrorLabel.setVisible(false);
+
+        // Affichage dynamique de la valeur du slider humeur
+        humeurValueLabel.setText(String.valueOf((int) humeurSlider.getValue()));
+        humeurSlider.valueProperty().addListener((obs, oldVal, newVal) ->
+                humeurValueLabel.setText(String.valueOf(newVal.intValue())));
     }
 
     @FXML
     void ajouterJournal(ActionEvent event) throws IOException {
-
         boolean valide = true;
 
-        // Validation description
         String description = noteTextArea.getText();
         if (description == null || description.trim().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Champ manquant");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez entrer une description de votre journee.");
-            alert.showAndWait();
             descErrorLabel.setVisible(true);
-            noteTextArea.setStyle("-fx-border-color: red; -fx-border-width: 1.5px;");
+            noteTextArea.setStyle("-fx-border-color: #e53e3e; -fx-border-width: 2px;");
             valide = false;
         } else {
             descErrorLabel.setVisible(false);
             noteTextArea.setStyle("");
         }
 
-        // Validation date
         LocalDate dateChoisie = datePicker.getValue();
         if (dateChoisie == null) {
             dateErrorLabel.setVisible(true);
-            datePicker.setStyle("-fx-border-color: red; -fx-border-width: 1.5px;");
+            datePicker.setStyle("-fx-border-color: #e53e3e; -fx-border-width: 2px;");
             valide = false;
         } else {
             dateErrorLabel.setVisible(false);
             datePicker.setStyle("");
         }
 
-        // Si un champ est invalide, on stoppe
-        if (!valide) {
-            return;
-        }
+        if (!valide) return;
 
         JournalService journalService = new JournalService();
 
         try {
             int idUserParDefaut = 1;
-
             journalService.create(new EntreeJournal(
                     (int) humeurSlider.getValue(),
                     description,
@@ -92,9 +77,9 @@ public class AjoutJournalController implements Initializable {
                     idUserParDefaut));
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Journal ajoute");
-            alert.setContentText("Journal ajoute avec succes !");
-            alert.show();
+            alert.setTitle("Journal ajouté");
+            alert.setContentText("Entrée ajoutée avec succès !");
+            alert.showAndWait();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AffichageJournal.fxml"));
             Parent root = loader.load();
@@ -110,14 +95,14 @@ public class AjoutJournalController implements Initializable {
 
     @FXML
     void allerAuxHabitudes(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutHabitude.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AffichageHabitude.fxml"));
         Parent root = loader.load();
         noteTextArea.getScene().setRoot(root);
     }
 
     @FXML
     void allerAuJournal(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AffichageJournal.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AffichageJournal.fxml"));
         Parent root = loader.load();
         noteTextArea.getScene().setRoot(root);
     }

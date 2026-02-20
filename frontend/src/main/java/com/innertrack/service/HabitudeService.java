@@ -17,7 +17,7 @@ public class HabitudeService implements ICrudService<Habitude> {
     @Override
     public void create(Habitude habitude) throws SQLException {
         String sql = "INSERT INTO habittracker (nom_habitude, emotion_dominantes, note_textuelle, " +
-                "niveau_energie, niveau_stress, qualite_sommeil, date_creation, id_user, id_journal) " +
+                "niveau_energie, niveau_stress, qualite_sommeil, date_creation, id, id_journal) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -56,7 +56,7 @@ public class HabitudeService implements ICrudService<Habitude> {
                     h.setNiveauStress(rs.getInt("niveau_stress"));
                     h.setQualiteSommeil(rs.getInt("qualite_sommeil"));
                     h.setDateCreation(rs.getDate("date_creation").toLocalDate());
-                    h.setIdUser(rs.getInt("id_user"));
+                    h.setIdUser(rs.getInt("id"));
 
                     int idJournal = rs.getInt("id_journal");
                     if (!rs.wasNull()) {
@@ -100,7 +100,7 @@ public class HabitudeService implements ICrudService<Habitude> {
     public List<Habitude> findAll() throws SQLException {
         String sql = "select * from habittracker";
         try (Statement statement = connection.createStatement();
-                ResultSet rs = statement.executeQuery(sql)) {
+             ResultSet rs = statement.executeQuery(sql)) {
             List<Habitude> habitudes = new ArrayList<>();
             while (rs.next()) {
                 Habitude h = new Habitude();
@@ -112,7 +112,7 @@ public class HabitudeService implements ICrudService<Habitude> {
                 h.setNiveauStress(rs.getInt("niveau_stress"));
                 h.setQualiteSommeil(rs.getInt("qualite_sommeil"));
                 h.setDateCreation(rs.getDate("date_creation").toLocalDate());
-                h.setIdUser(rs.getInt("id_user"));
+                h.setIdUser(rs.getInt("id"));
 
                 int idJournal = rs.getInt("id_journal");
                 if (!rs.wasNull()) {

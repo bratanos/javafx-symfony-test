@@ -1,27 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.innertrack.controller.AffichageHabitudeController"
-      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
-    <Label text="Mes Habitudes" style="-fx-font-size: 20px;"/>
-    <TableView fx:id="habitudeTable" VBox.vgrow="ALWAYS">
-        <columns>
-            <TableColumn fx:id="nomColumn" text="Nom"/>
-            <TableColumn fx:id="emotionColumn" text="Émotion"/>
-            <TableColumn fx:id="noteColumn" text="Note"/>
-            <TableColumn fx:id="energieColumn" text="Énergie"/>
-            <TableColumn fx:id="stressColumn" text="Stress"/>
-            <TableColumn fx:id="sommeilColumn" text="Sommeil"/>
-            <TableColumn fx:id="dateColumn" text="Date"/>
-        </columns>
-    </TableView>
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="Ajouter" onAction="#ajouterNouvelleHabitude"/>
-        <Button text="Modifier" onAction="#modifierHabitude"/>
-        <Button text="Supprimer" onAction="#supprimerHabitude"/>
-        <Button text="Journal" onAction="#allerAuJournal"/>
-    </HBox>
-</VBox>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.innertrack.controller.AffichageHabitudeController"
+            stylesheets="@../css/components/journal.css">
+
+    <!-- ============ EN-TÊTE ============ -->
+    <top>
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="20">
+            <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="🌿 Mes Habitudes" styleClass="title" style="-fx-font-size: 24px;"/>
+                <Label text="Consultez, ajoutez et gérez vos habitudes quotidiennes" styleClass="subtitle" style="-fx-font-size: 13px;"/>
+            </VBox>
+            <Button text="+ Nouvelle Habitude" styleClass="add-test-btn"
+                    onAction="#ajouterNouvelleHabitude" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <!-- ============ CONTENU PRINCIPAL ============ -->
+    <center>
+        <VBox spacing="0" style="-fx-background-color: #f5f7fa;">
+
+            <!-- Barre de statistiques -->
+            <HBox spacing="15" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 1 0;">
+                <padding><Insets top="15" right="30" bottom="15" left="30"/></padding>
+                <HBox styleClass="stat-card" spacing="10" alignment="CENTER" prefWidth="150">
+                    <VBox alignment="CENTER" spacing="2">
+                        <Label fx:id="totalHabitudesLabel" text="0" styleClass="stat-number" style="-fx-font-size: 28px;"/>
+                        <Label text="Habitudes" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+                <HBox styleClass="stat-card" spacing="10" alignment="CENTER" prefWidth="150">
+                    <VBox alignment="CENTER" spacing="2">
+                        <Label fx:id="moyenneEnergieLabel" text="—" styleClass="stat-number" style="-fx-font-size: 28px;"/>
+                        <Label text="Énergie moyenne" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+                <HBox styleClass="stat-card" spacing="10" alignment="CENTER" prefWidth="150">
+                    <VBox alignment="CENTER" spacing="2">
+                        <Label fx:id="moyenneStressLabel" text="—" styleClass="stat-number" style="-fx-font-size: 28px;"/>
+                        <Label text="Stress moyen" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+                <HBox styleClass="stat-card" spacing="10" alignment="CENTER" prefWidth="150">
+                    <VBox alignment="CENTER" spacing="2">
+                        <Label fx:id="moyenneSommeilLabel" text="—" styleClass="stat-number" style="-fx-font-size: 28px;"/>
+                        <Label text="Sommeil moyen" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+            </HBox>
+
+            <!-- Tableau des habitudes -->
+            <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS" style="-fx-padding: 20;">
+                <VBox spacing="10">
+                    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+
+                    <!-- En-tête du tableau -->
+                    <HBox styleClass="section-box" alignment="CENTER_LEFT" spacing="10">
+                        <padding><Insets top="12" right="20" bottom="12" left="20"/></padding>
+                        <Label text="🌿  Liste des Habitudes" styleClass="section-title" style="-fx-font-size: 16px;" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+
+                    <!-- TableView stylisée -->
+                    <TableView fx:id="habitudeTable" VBox.vgrow="ALWAYS" minHeight="450"
+                               style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 8, 0, 0, 2);">
+                        <columns>
+                            <TableColumn fx:id="nomColumn" text="🏷️ Nom" prefWidth="160"
+                                         style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                            <TableColumn fx:id="emotionColumn" text="💭 Émotion" prefWidth="130"
+                                         style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                            <TableColumn fx:id="noteColumn" text="📝 Note" prefWidth="220"
+                                         style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                            <TableColumn fx:id="energieColumn" text="⚡ Énergie" prefWidth="100"
+                                         style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                            <TableColumn fx:id="stressColumn" text="😰 Stress" prefWidth="100"
+                                         style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                            <TableColumn fx:id="sommeilColumn" text="😴 Sommeil" prefWidth="100"
+                                         style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                            <TableColumn fx:id="dateColumn" text="📅 Date" prefWidth="120"
+                                         style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        </columns>
+                        <placeholder>
+                            <VBox alignment="CENTER" spacing="10">
+                                <Label text="🌿" style="-fx-font-size: 48px; -fx-text-fill: #cbd5e0;"/>
+                                <Label text="Aucune habitude enregistrée" styleClass="empty-title" style="-fx-font-size: 16px;"/>
+                                <Label text="Cliquez sur &quot;+ Nouvelle Habitude&quot; pour commencer" styleClass="empty-subtitle"/>
+                            </VBox>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+
+    <!-- ============ PIED DE PAGE ============ -->
+    <bottom>
+        <HBox styleClass="footer" alignment="CENTER_RIGHT" spacing="10">
+            <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
+            <Label fx:id="statusLabel" text="" styleClass="status-label" HBox.hgrow="ALWAYS"/>
+            <Button text="✏️ Modifier" styleClass="edit-btn-header"
+                    onAction="#modifierHabitude"/>
+            <Button text="🗑️ Supprimer" styleClass="delete-btn-header"
+                    onAction="#supprimerHabitude"/>
+            <Button text="📓 Journal" styleClass="refresh-btn"
+                    onAction="#allerAuJournal"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
