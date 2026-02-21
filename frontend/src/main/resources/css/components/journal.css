@@ -673,6 +673,58 @@
     -fx-padding: 0 1 0 0;
 }
 
+/* HEADER MAUVE */
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #667eea, #764ba2);
+}
+
+/* TITRE HEADER */
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+/* BOUTON PRINCIPAL */
+.primary-button {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 8 20 8 20;
+}
+
+.primary-button:hover {
+    -fx-background-color: #27ae60;
+}
+
+/* BOUTON EXPORT PDF */
+.export-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 8 20 8 20;
+}
+
+.export-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.primary-button-square {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-background-radius: 6; /* carré léger */
+    -fx-padding: 8 18 8 18;
+    -fx-font-weight: bold;
+}
+
+.primary-button-square:hover {
+    -fx-background-color: #27ae60;
+}
+
+.primary-button {
+    -fx-background-radius: 6;
+}
+
 /* ============================================
    ANIMATIONS & TRANSITIONS
    ============================================ */

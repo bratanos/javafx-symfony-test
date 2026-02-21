@@ -24,7 +24,7 @@ import com.innertrack.service.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
-
+import javafx.scene.control.Button;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -82,10 +82,15 @@ public class AffichageHabitudeController {
     private HabitudeService habitudeService;
 
     @FXML
+    private Button clearButton;
+
+
+    @FXML
     public void initialize() {
         habitudeService = new HabitudeService();
-
-        // ✅ LIAISON colonnes <-> propriétés du modèle
+        clearButton.setVisible(false);
+        clearButton.setOnAction(e -> viderRecherche());
+        // LIAISON colonnes <-> propriétés du modèle
         nomColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("nomHabitude"));
         emotionColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("emotionDominantes"));
         noteColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("noteTextuelle"));
@@ -95,6 +100,7 @@ public class AffichageHabitudeController {
         dateColumn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("dateCreation"));
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            clearButton.setVisible(!newValue.isEmpty());
             rechercherHabitude();
         });
 
@@ -149,18 +155,13 @@ public class AffichageHabitudeController {
     }
 
     @FXML
-    void ajouterNouvelleHabitude(ActionEvent event) {
+    void ajouterHabitude(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutHabitude.fxml"));
-            if (loader.getLocation() == null) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Fichier FXML introuvable : /fxml/AjoutHabitude.fxml");
-                return;
-            }
             Parent root = loader.load();
             habitudeTable.getScene().setRoot(root);
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur de navigation", "Impossible d'ouvrir le formulaire : " + e.getMessage());
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir le formulaire : " + e.getMessage());
         }
     }
 
@@ -256,7 +257,7 @@ public class AffichageHabitudeController {
 
     @FXML
     void allerAuJournal(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AjoutJournal.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AffichageJournal.fxml"));
         Parent root = loader.load();
         habitudeTable.getScene().setRoot(root);
     }
@@ -289,6 +290,12 @@ public class AffichageHabitudeController {
     }
 
     @FXML
+    void viderRecherche() {
+        searchField.clear();
+        chargerHabitudes();
+    }
+
+    @FXML
     void exporterPDF() {
         try {
 
@@ -317,11 +324,6 @@ public class AffichageHabitudeController {
             statusLabel.setText("❌ Erreur export PDF");
             e.printStackTrace();
         }
-    }
-    @FXML
-    void viderRecherche() {
-        searchField.clear();
-        chargerHabitudes();   // recharge toutes les données
     }
 }
 

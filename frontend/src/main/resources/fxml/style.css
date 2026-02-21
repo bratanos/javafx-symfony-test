@@ -143,3 +143,42 @@
     -fx-border-width: 1 0 0 0;
     -fx-background-color: transparent;
 }
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.icon-button:hover {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 20;
+}
+
+.primary-button {
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #357ABD;
+}
+
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #667eea, #764ba2);
+    -fx-padding: 20;
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.primary-button {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 8 20 8 20;
+}

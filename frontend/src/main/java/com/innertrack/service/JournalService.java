@@ -84,4 +84,24 @@ public class JournalService implements ICrudService<EntreeJournal> {
         }
         return entrees;
     }
+    public List<EntreeJournal> search(String keyword) throws SQLException {
+        String sql = "SELECT * FROM journal_emotionnel WHERE note_textuelle LIKE ? OR CAST(humeur AS CHAR) LIKE ?";
+        List<EntreeJournal> entrees = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            String pattern = "%" + keyword + "%";
+            ps.setString(1, pattern);
+            ps.setString(2, pattern);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                EntreeJournal e = new EntreeJournal(
+                        rs.getInt("id_journal"),
+                        rs.getInt("humeur"),
+                        rs.getString("note_textuelle"),
+                        rs.getDate("date_saisie").toLocalDate(),
+                        rs.getInt("id"));
+                entrees.add(e);
+            }
+        }
+        return entrees;
+    }
 }

@@ -13,6 +13,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import com.innertrack.model.EntreeJournal;
 import com.innertrack.service.JournalService;
 
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import java.io.File;
+import com.innertrack.util.PdfExporter;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -49,11 +56,25 @@ public class AffichageJournalController {
     @FXML
     private Label moyenneHumeurLabel;
 
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private Button clearButton;
+
     private JournalService journalService;
 
     @FXML
     public void initialize() {
         journalService = new JournalService();
+
+        clearButton.setVisible(false);
+        clearButton.setOnAction(e -> viderRecherche());
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            clearButton.setVisible(!newValue.isEmpty());
+            rechercherJournal();
+        });
 
         // ✅ LIAISON colonnes <-> propriétés du modèle
         humeurColumn.setCellValueFactory(new PropertyValueFactory<>("humeur"));
@@ -186,6 +207,55 @@ public class AffichageJournalController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AffichageHabitude.fxml"));
         Parent root = loader.load();
         journalTable.getScene().setRoot(root);
+    }
+
+    @FXML
+    void rechercherJournal() {
+        try {
+            String keyword = searchField.getText();
+            if (keyword == null || keyword.isEmpty()) {
+                journalTable.setItems(FXCollections.observableArrayList(
+                        journalService.findAll()
+                ));
+            } else {
+                journalTable.setItems(FXCollections.observableArrayList(
+                        journalService.search(keyword)
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void viderRecherche() {
+        searchField.clear();
+    }
+
+    @FXML
+    void exporterPDF() {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Enregistrer le fichier PDF");
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Fichiers PDF", "*.pdf")
+            );
+            fileChooser.setInitialFileName("Journal.pdf");
+
+            Stage stage = (Stage) journalTable.getScene().getWindow();
+            File file = fileChooser.showSaveDialog(stage);
+
+            if (file != null) {
+                PdfExporter.exportJournal(
+                        journalService.findAll(),
+                        file.getAbsolutePath()
+                );
+                statusLabel.setText("✅ PDF enregistré avec succès !");
+            }
+        } catch (Exception e) {
+            statusLabel.setText("❌ Erreur export PDF");
+            e.printStackTrace();
+        }
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {

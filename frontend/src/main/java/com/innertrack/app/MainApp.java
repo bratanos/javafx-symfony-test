@@ -22,6 +22,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         primaryStage.setTitle("InnerTrack - Gestion de Santé Mentale");
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
 
         // Load the initial view (login or main)
